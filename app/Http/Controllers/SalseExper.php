@@ -193,7 +193,6 @@ class SalseExper extends Controller
         'all_monthly_bonuses'=>$all_monthly_bonuses]);
     }
 
-
     
     public function saleExpertActionInfo(Request $request){
         $adminId=$request->get("subId");

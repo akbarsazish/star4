@@ -109,20 +109,20 @@
 
                     <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                       <div class="row contentHeader pt-1">
-                            <div class="form-group col-sm-1 customerStaff">
+                            <div class="form-group col-sm-1 customerStaff mt-1">
                                 <input type="text" name="" placeholder="جستجو" class="form-control form-control-sm" id="searchCustomerName">
                             </div>
-                            <div class="form-group col-sm-1 customerStaff">
+                            <div class="form-group col-sm-1 customerStaff mt-1">
                                 <input type="number" name="" placeholder=" کد " class="form-control form-control-sm" id="searchCustomerCode">
                             </div>
-                            <div class="form-group col-sm-1 customerStaff">
+                            <div class="form-group col-sm-1 customerStaff mt-1">
                                 <select class="form-select form-select-sm" id="orderByCodeOrName">
                                     <option value="1" hidden>مرتب سازی</option>
                                     <option value="1">اسم</option>
                                     <option value="0">کد</option>
                                 </select>
                             </div>
-                            <div class="form-group col-sm-1 customerStaff">
+                            <div class="form-group col-sm-1 customerStaff mt-1">
                                 <select class="form-select form-select-sm" id="findMantaghehByCity">
                                 <option value="شهر" hidden>شهر</option>
                                     @foreach($cities as $city)
@@ -130,7 +130,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group col-sm-2 customerStaff">
+                            <div class="form-group col-sm-2 customerStaff mt-1">
                                 <select class="form-select form-select-sm" id="searchCustomerByMantagheh">
                                     <option value="مناطق" hidden>مناطق</option>
                                 </select>
@@ -510,17 +510,29 @@
             </div>
         </div>
    </div>
+
    <!-- ختم مشتری جدید -->
 <div class="modal fade" id="customreForCallModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="customreForCallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
         <div class="modal-header py-2 text-white">
             <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
-            <h6 class="modal-title fs-5" id="customreForCallModalLabel"> مشتریان  </h6>
+            <h6 class="modal-title fs-5" id="customreForCallModalLabel">مشتریان</h6>
         </div>
         <div class="modal-body p-1">
+            <div class="col-lg-12 py-0 text-end">
+                    <span class="fw-bold fs-4"  id="dashboardTitle" style="display:none;"></span>
+                    <button class="btn btn-sm btn-primary d-inline" id="openAddCommentModal" type="button" value="" name="" style="float:left; display:inline;" > کامنت <i class="fas fa-comment fa-lg"> </i> </button>
+                    <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get" style="display:inine !important;">
+                        <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
+                        <button class="btn btn-sm btn-primary d-inline" type="submit" style="float:left;"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </button>
+                        <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
+                    </form>
+                    <button class='enableBtn btn-sm btn btn-primary text-warning customerStaff'  type="button" disabled id="customerSndashboard" onclick="openDashboard(this.value)"> داشبورد <i class="fal fa-dashboard"></i></button>
+            </div>
             <div class="col-sm-12 text-start" id="customerListSection">
-                    <input type="hidden" id="customerSn" style="" name="customerSn" value="" />
+                <input type="hidden" id="customerSn" style="" name="customerSn" value="" />
+                <input type="hidden" id="commentSn" style="" name="commentSn" value="" />
                 <table class='table table-bordered table-striped table-sm'>
                     <thead class="tableHeader">
                         <tr>
@@ -535,6 +547,7 @@
                         </tr>
                     </thead>
                     <tbody class="select-highlight tableBody" id="customerListBody" style="height:300px !important;">
+                    
                     </tbody>
                 </table>
             </div>
@@ -625,9 +638,7 @@
                                             <th></th>
                                         </tr>
                                         </thead>
-                                        <tbody class="tableBdoy" id="goodDetail">
-
-                                        </tbody>
+                                        <tbody class="tableBody" id="goodDetail"> </tbody>
                                     </table>
                                 </div>
                             </div>
