@@ -113,7 +113,7 @@
                             @if(hasPermission(Session::get("asn"),"alarmoppN") > 0)
                                <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" id='openDashboardForAlarm'> داشبورد <i class="fal fa-dashboard "></i></button>
                             @endif
-                            @if(hasPermission(Session::get("asn"),"alarmoppN") > 1)
+                            @if(hasPermission(Session::get("asn"),"alarmoppN") > 0)
                                 <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" onclick="takhsisCustomerAlarm()"> تخصیص <i class="fa-solid fa-list-check"></i> </button>
                                 <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" onclick="changeAdminAlarm()"> تغییر کاربر  <i class="fa-solid fa-edit"></i> </button>
                                 <button class='enableBtn btn btn-sm btn-primary text-warning alarmBtn' disabled type="button"  onclick="changeAlarm()"> تغیر آلارم  <i class="fal fa-warning "></i></button>
