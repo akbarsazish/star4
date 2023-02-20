@@ -554,17 +554,17 @@
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4">
                                 <span class="fw-bold fs-4"  id="dashboardTitle" style="display:none;"></span>
-                                @if(hasPermission(Session::get("asn"),"amalkardCustReportN") > 1)
-                                  <button class="btn btn-sm btn-primary d-inline" id="openAddCommentModal" type="button" value="" name="" style="float:left; display:inline;" > کامنت <i class="fas fa-comment fa-lg"> </i> </button>
+                                @if(hasPermission(Session::get("asn"),"amalkardCustReportN") > -1)
+                                    <button class="btn btn-sm btn-primary d-inline" id="openAddCommentModal" type="button" value="" name="" style="float:left; display:inline;" > کامنت <i class="fas fa-comment fa-lg"> </i> </button>
                                     <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get" style="display:inine !important;">
                                         <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
                                         <button class="btn btn-sm btn-primary d-inline" type="submit" style="float:left;"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </button>
                                         <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
                                     </form>
-                                <div class="mb-2"> <br> <br>
-                                    <label for="exampleFormControlTextarea1" class="form-label mb-0">یاداشت</label>
-                                    <textarea class="form-control" id="customerProperty" onblur="saveCustomerCommentProperty(this)" rows="2"></textarea>
-                                </div>
+                                    <div class="mb-2"> <br> <br>
+                                        <label for="exampleFormControlTextarea1" class="form-label mb-0">یاداشت</label>
+                                        <textarea class="form-control" id="customerProperty" onblur="saveCustomerCommentProperty(this)" rows="2"></textarea>
+                                    </div>
                                 @endif
                             </div>
                     </div>

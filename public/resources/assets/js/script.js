@@ -2313,7 +2313,7 @@ $("#addCommentForm").submit(function (e) {
     });
     e.preventDefault();
 });
-$("#openAddCommentModal").on("click", () => {
+$(".openAddCommentModal").on("click", () => {
     if (!$(".modal.in").length) {
         $(".modal-dialog").css({
             top: 0,
@@ -2612,6 +2612,7 @@ $(".select-highlight tr").click(function () {
     $("#customerSn").val(
         $(this).children("td").children("input").val().split("_")[0]
     );
+    $("#customerIdForComment").val($("#customerSn").val());
 });
 
 function selectAndHighlight(element) {
@@ -2627,6 +2628,7 @@ function selectAndHighlight(element) {
     $("#customerSn").val(
         $(element).children("td").children("input").val().split("_")[0]
     );
+    $("#customerIdForComment").val($("#customerSn").val());
 }
 
 $("#openCustomerActionModal").on("click", () => {
@@ -3400,7 +3402,7 @@ $("#openDashboard").on("click", () => {
             $("#username").text(exactCustomer.userName);
             $("#password").text(exactCustomer.customerPss);
             $("#mobile1").text(exactCustomer.PhoneStr);
-            $("#customerIdForComment").text(exactCustomer.PSN);
+            $("customerIdForComment").val(exactCustomer.PSN);
             $("#countFactor").text(exactCustomer.countFactor);
             $("#factorTable").empty();
             factors.forEach((element, index) => {
@@ -4228,6 +4230,7 @@ function timeTableCustomerStuff(element) {
     let input = $(element).find("input:radio").prop("checked", true);
     $(".customerSnLogin").val(input.val().split("_")[0]);
     $("#commentSn").val(input.val().split("_")[1]);
+    $("#customerIdForComment").val(input.val().split("_")[0]);
     $(".enableBtn").prop("disabled", false);
 
 }
@@ -10395,6 +10398,9 @@ function openDashboard(customerId) {
     $(".customerSnLogin").val(customerId);
     if ($("#customerSn")) {
         $("#customerSn").val(csn);
+    }
+    if($("#customerIdForComment")){
+        $("#customerIdForComment").val(customerId);
     }
     $.ajax({
         method: "get",

@@ -39,7 +39,7 @@
                             @endif
                             @if(hasPermission(Session::get("asn"),"oppCustCalendarN") > -1)
                             <div class="form-check">
-                                <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerListRadioBtn">
+                                <input class="form-check-input p-2 float-end" type="radio" name="settings" checked id="customerListRadioBtn">
                                 <label class="form-check-label me-4" for="assesPast"> لیست مشتریان </label>
                             </div>
                             @endif
@@ -203,7 +203,6 @@
                                             <th>اسم</th>
                                             <th class="forMobileDisplay" style="width:222px">آدرس </th>
                                             <th>تلفن</th>
-                                            <th>همراه</th>
                                             <th>منطقه </th>
                                             <th style="width:88px">انتخاب</th>
                                         </tr>
@@ -215,7 +214,6 @@
                                                 <td class="forMobileDisplay" style="width:66px">{{trim($customer->PCode)}}</td>
                                                 <td >{{trim($customer->Name)}}</td>
                                                 <td class="forMobileDisplay" style="width:222px">{{trim($customer->peopeladdress)}}</td>
-                                                <td>{{trim($customer->PhoneStr)}}</td>
                                                 <td>{{trim($customer->PhoneStr)}}</td>
                                                 <td>{{trim($customer->NameRec)}}</td>
                                                 <td style="width:77px"> <input class="customerList form-check-input" name="customerId" type="radio" value="{{$customer->PSN.'_'.$customer->GroupCode}}"></td>
@@ -521,7 +519,7 @@
         <div class="modal-body p-1">
             <div class="col-lg-12 py-0 text-end">
                     <span class="fw-bold fs-4"  id="dashboardTitle" style="display:none;"></span>
-                    <button class="btn btn-sm btn-primary d-inline" id="openAddCommentModal" type="button" value="" name="" style="float:left; display:inline;" > کامنت <i class="fas fa-comment fa-lg"> </i> </button>
+                    <button class="btn openAddCommentModal btn-sm btn-primary d-inline" type="button" value="" name="" style="float:left; display:inline;" > کامنت <i class="fas fa-comment fa-lg"> </i> </button>
                     <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get" style="display:inine !important;">
                         <input type="text" class="customerSnLogin" style="display:none" name="psn" value="" />
                         <button class="btn btn-sm btn-primary d-inline" type="submit" style="float:left;"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </button>
@@ -540,7 +538,6 @@
                             <th>اسم</th>
                             <th>آدرس </th>
                             <th>تلفن</th>
-                            <th>همراه</th>
                             <th>منطقه </th>
                             <th style="width:111px;">انتخاب</th>
                         </tr>
@@ -580,7 +577,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <span class="fw-bold fs-4"  id="dashboardTitle" style="display:none;"></span>
-                               <button class="btn btn-sm btn-primary d-inline" id="openAddCommentModal" type="button" value="" name="" style="float:left; display:inline;" > کامنت <i class="fas fa-comment fa-lg"> </i> </button>
+                               <button class="btn openAddCommentModal btn-sm btn-primary d-inline"  type="button" value="" name="" style="float:left; display:inline;" > کامنت <i class="fas fa-comment fa-lg"> </i> </button>
                                 <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get" style="display:inine !important;">
                                     <input type="text" class="customerSnLogin" style="display:none" name="psn" />
                                     <button class="btn btn-sm btn-primary d-inline" type="submit" style="float:left;"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </button>
@@ -867,7 +864,7 @@
                             <option value="3"> واتساپ</option>
                             <option value="4">حضوری </option>
                         </select>
-                        <input type="text" name="customerIdForComment" id="customerIdForComment" style="display:none;">
+                        <input type="text" name="customerIdForComment" id="customerIdForComment" style="">
                     </div>
                 </div>
                 <input type="hidden" value="" id="dayDate" >
@@ -887,7 +884,6 @@
                     <div class="col-sm-12 fw-bold">
                         <label for="tahvilBar">کامنت بعدی</label>
                         <textarea class="form-control" name="secondComment" required rows="2" ></textarea>
-                        <input type="text" id="lastCommentId" style="display: none" name="lastCommentId">
                         <input type="text"  style="display: none" name="place" value="calendar">
                     </div>
                 </div>
