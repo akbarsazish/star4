@@ -232,8 +232,10 @@
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="flush-headingOne">
                                                             <button class="accordion-button collapsed"
-                                                               @if(Session::get('adminType')==1 or Session::get('adminType')==5) onclick="showThisDayCustomerForAdmin({{"'".$eachday->addedDate."'"}},{{$loop->iteration}})" @else onclick="showThisDayMyCustomer({{"'".$eachday->addedDate."'"}},{{$loop->iteration}})" @endif type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{$loop->iteration}}" aria-expanded="false" aria-controls="flush-collapse{{$loop->iteration}}">
-                                                                {{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($eachday->addedDate))->format('Y/m/d')}} <span class="mx-5" style="border-radius:50%;background-color:black;padding:10px;">{{$eachday->countPeopels}}</span>
+                                                               @if(Session::get('adminType')==1 or Session::get('adminType')==5) onclick="showThisDayCustomerForAdmin({{"'".$eachday->addedDate."'"}},
+                                                                  {{$loop->iteration}})" @else onclick="showThisDayMyCustomer({{"'".$eachday->addedDate."'"}},{{$loop->iteration}})" @endif type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{$loop->iteration}}" aria-expanded="false" aria-controls="flush-collapse{{$loop->iteration}}">
+                                                                  {{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($eachday->addedDate))->format('Y/m/d')}}
+                                                                <span class="mx-5" style="border-radius:50%;background-color:black;padding:10px;">{{$eachday->countPeopels}}</span>
                                                             </button>
                                                         </h2>
                                                         <div id="flush-collapse{{$loop->iteration}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
