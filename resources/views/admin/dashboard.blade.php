@@ -7,7 +7,7 @@
      <div class="card-body">
         <div class="row">
             <div class="col-md-3">
-                <div class="card h-100 dashboardCard">
+                <div class="card h-100 دCard">
                     <a class=" stretched-link" href="{{url('/allCustomers')}}">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card  h-100 dashboardCard">
+                <div class="card  h-100 دCard">
                     <a class=" stretched-link" href="{{url('/karbarAction')}}">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card h-100 dashboardCard">
+                <div class="card h-100 دCard">
                 <a class=" stretched-link" href="{{url('/crmSetting')}}">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card h-100 dashboardCard">
+                <div class="card h-100 دCard">
                 <a class=" stretched-link" href="{{url('/reports')}}">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
@@ -81,7 +81,7 @@
         <br>
         <div class="row">
             <div class="col-md-6">
-                <div class="card h-100 dashboardCard">
+                <div class="card h-100 دCard">
                   <a class=" stretched-link" href="{{url('/referedCustomer')}}" target="_blank">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
@@ -99,7 +99,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card h-100 dashboardCard">
+                <div class="card h-100 دCard">
                   <a class="stretched-link" href="{{url('/customerLocation')}}" target="_blank">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
@@ -146,21 +146,12 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-2 col-sm-6">
-                                                <div class="counter orange">
-                                                    <div class="counter-icon">
-                                                        <i class="fa fa-user"></i>
-                                                    </div>
-                                                    <h3> مشتری های وارد شده در CRM</h3>
-                                                    <span class="counter-value">{{($allEmptyCustomers+$allInActiveCustomers+$allActiveCustomers+$allReturnedCustomer)}}</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6">
                                                 <div class="counter blue">
                                                     <div class="counter-icon">
                                                         <i class="fa fa-toggle-on"></i>
                                                     </div>
-                                                    <h3>مشتری های فعال  </h3>
-                                                    <span class="counter-value">{{$allActiveCustomers}}</span>
+                                                    <h3>مشتری های دارای پشتیبان  </h3>
+                                                    <span class="counter-value">{{$allAddedCustomersCount}}</span>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 col-sm-6">
@@ -173,15 +164,6 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-2 col-sm-6">
-                                                <div class="counter green">
-                                                    <div class="counter-icon">
-                                                        <i class="fa fa-sign-out"></i>
-                                                    </div>
-                                                    <h3>مشتری های وارد نشده در CRM</h3>
-                                                    <span class="counter-value">{{($allCustomers)-($allEmptyCustomers+$allReturnedCustomer+$allInActiveCustomers+$allActiveCustomers)}}</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 col-sm-6">
                                               <div class="counter green">
                                                   <div class="counter-icon">
                                                       <i class="fas fa-history"></i>
@@ -189,15 +171,6 @@
                                                   <h3>مشتریان  ارجاع شده</h3>
                                                   <span class="counter-value">{{$allReturnedCustomer}}</span>
                                               </div>
-                                          </div>
-                                            <div class="col-md-2 col-sm-6">
-                                                <div class="counter">
-                                                    <div class="counter-icon">
-                                                        <i class="fa fa-trash"></i>
-                                                    </div>
-                                                    <h3> مشتری های تخلیه شده</h3>
-                                                    <span class="counter-value">{{$allEmptyCustomers}}</span>
-                                                </div>
                                             </div>
                                         </div>
                                       </span>

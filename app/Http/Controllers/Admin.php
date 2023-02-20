@@ -231,27 +231,22 @@ SELECT * FROM (
         
         $allCustomers=$allCustomerCount[0]->countAllCustomers;
         
-        $allActiveCustomerCount=DB::select("SELECT COUNT(PSN) as countActiveCustomers FROM Shop.dbo.Peopels WHERE  PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added WHERE  returnState=0) and Peopels.CompanyNo=5 and Peopels.GroupCode IN ( ".implode(",",Session::get("groups")).")");
+        $allActiveCustomerCount=DB::select("SELECT COUNT(PSN) AS countActiveCustomers FROM Shop.dbo.Peopels  WHERE  IsActive=1 AND NOT EXISTS (SELECT customerId FROM CRM.dbo.crm_inactiveCustomer WHERE customerId=PSN AND state=0)
+        AND NOT EXISTS(SELECT customerId FROM CRM.dbo.crm_returnCustomer WHERE returnState=1 AND customerId=PSN) AND CompanyNo=5 AND GroupCode IN ( ".implode(",",Session::get("groups")).")");
         
         $allActiveCustomers=$allActiveCustomerCount[0]->countActiveCustomers;
         
-        $allInActiveCustomerCount=DB::select("SELECT COUNT(PSN) as countInActiveCustomers FROM Shop.dbo.Peopels WHERE  PSN in(SELECT customerId FROM CRM.dbo.crm_inactiveCustomer WHERE  state=1) AND  Peopels.CompanyNo=5 and Peopels.GroupCode IN ( ".implode(",",Session::get("groups")).")");
+        $allInActiveCustomerCount=DB::select("SELECT COUNT(PSN) AS countInActiveCustomers FROM Shop.dbo.Peopels WHERE  exists (SELECT customerId FROM CRM.dbo.crm_inactiveCustomer WHERE  state=1 and customerId=PSN) AND  Peopels.CompanyNo=5 AND Peopels.GroupCode IN ( ".implode(",",Session::get("groups")).")");
         
         $allInActiveCustomers=$allInActiveCustomerCount[0]->countInActiveCustomers;
+
+        $allInReturnedCustomerCount=DB::select("SELECT COUNT(PSN) AS allInReturnedCustomerCount FROM Shop.dbo.Peopels WHERE  exists (SELECT customerId FROM CRM.dbo.crm_returnCustomer WHERE  returnState=1 and customerId=PSN) AND  Peopels.CompanyNo=5 AND Peopels.GroupCode IN ( ".implode(",",Session::get("groups")).")");
         
-        $allEmptyCustomerCount=DB::select("SELECT COUNT(customer_id) as countCustomer FROM(
-                                        SELECT DISTINCT * FROM(
-                                        SELECT CRM.dbo.crm_customer_added.customer_id FROM CRM.dbo.crm_customer_added WHERE  gotEmpty=1 and customer_id not IN  (SELECT CRM.dbo.crm_returnCustomer.customerId FROM CRM.dbo.crm_returnCustomer WHERE customerId is not null and  returnState=1)
-                                        )d
-                                        JOIN   (SELECT * FROM Shop.dbo.Peopels)c
-                                        ON c.PSN=d.customer_id
-                                        JOIN   (SELECT PhoneStr,SnPeopel FROM Shop.dbo.PhoneDetail)b ON d.customer_id=b.SnPeopel
-                                        WHERE  PSN not IN  (SELECT customerId FROM CRM.dbo.crm_inactiveCustomer WHERE customerId is not null and   state=1))e
-                                        JOIN   (SELECT customerId,removedDate FROM(
-                                        SELECT DISTINCT customer_id as customerId FROM CRM.dbo.crm_customer_added WHERE   gotEmpty=1 and customer_id not in(SELECT customer_id FROM CRM.dbo.crm_customer_added WHERE  returnState=0))a
-                                        JOIN   (SELECT MAX(removedTime)as removedDate,customer_id FROM CRM.dbo.crm_customer_added GROUP BY    customer_id)b ON a.customerId=b.customer_id)f ON f.customerId=e.PSN");
+        $allInReturnedCustomerCount=$allInReturnedCustomerCount[0]->allInReturnedCustomerCount;
+        
+        $allAddedCustomersCount=DB::select("SELECT COUNT(PSN) as countHasAdminCustomers FROM Shop.dbo.Peopels  WHERE  exists (select customer_id FROM CRM.dbo.crm_customer_added where PSN=customer_id and returnState=0) ");
        
-        $allEmptyCustomers=$allEmptyCustomerCount[0]->countCustomer;
+        $allAddedCustomersCount=$allAddedCustomersCount[0]->countHasAdminCustomers;
         
         $allGoodsCount=DB::select("SELECT COUNT(GoodSn) countAllGoods FROM Shop.dbo.PubGoods WHERE  PubGoods.GoodGroupSn>49 and PubGoods.CompanyNo=5");
         
@@ -294,7 +289,7 @@ SELECT * FROM (
                         ORDER BY     a.adminType asc");
         
         return view('admin.dashboard',['allCustomers'=>$allCustomers,'allActiveCustomers'=>$allActiveCustomers,'allInActiveCustomers'=>$allInActiveCustomers,
-                'allEmptyCustomers'=>$allEmptyCustomers,'allGoods'=>$allGoods,'prebuyableGoods'=>$allPrebuyableGoods,'allboughtGoods'=>$boughtGoods,'allBrandGoods'=>$allBrandGoods
+                'allAddedCustomersCount'=>$allAddedCustomersCount,'allGoods'=>$allGoods,'prebuyableGoods'=>$allPrebuyableGoods,'allboughtGoods'=>$boughtGoods,'allBrandGoods'=>$allBrandGoods
                 ,'allBrands'=>$allBrands,'allmainGroup'=>$allmainGroup,'allSubGroups'=>$allSubGroups,'allReturnedCustomer'=>$allReturnedCustomer,'admins'=>$admins]);
     }
 
@@ -3320,225 +3315,42 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
             where specifiedDate<='".$todayDate."'
             group by customer_id)a");
         if($personType->adminType==3){
-// // در صورتیکه بازاریاب تخلیه شود
-//         $EMPTYDATE='2022-11-11';
-//         $emptyDateInfo=DB::select("SELECT CONVERT(DATE,timeStamp) AS emptyDate FROM CRM.dbo.crm_adminHistory WHERE id=(SELECT MAX(id) FROM CRM.dbo.crm_adminHistory WHERE adminId=$adminId)");
-//         if($emptyDateInfo){
-//             $EMPTYDATE=$emptyDateInfo[0]->emptyDate;
-//         }
-//         $specialBonuses=DB::table("CRM.dbo.crm_specialBonus")->get();
-//         foreach($specialBonuses as $special){
-//             if($special->id==11){
-//                 //نصب
-//                 $count_New_Install=DB::select("SELECT count(id) as countNewInstall from(
-//                     SELECT *, convert(date,addedDate) as justDate from CRM.dbo.crm_inserted_customers)a where a.justDate=CAST( GETDATE() AS Date ) and adminId=$adminId");
-        
-//                 $count_All_Install=DB::select("SELECT count(id) as countAllInstall from(
-//                     SELECT * from CRM.dbo.crm_inserted_customers where CONVERT(DATE,crm_inserted_customers.addedDate)>='$EMPTYDATE')a where  adminId=$adminId");
-// 				if(count($count_All_Install)>0){
-                    
-//                     $count_All_Install=$count_All_Install[0]->countAllInstall;
-// 				}else{
-// 					$count_All_Install=0;
-// 				}
-                    
-//                 $installBonus=((int)($count_All_Install/$special->limitAmount)) * $special->Bonus;
-//                 $all_bonus_since_Empty+=$installBonus;
-//                 $bonus_All_Install=$installBonus;
-//             }
+            $saleExperInfo=new SalseExper;
+            $poshtibanBonusInfo=$saleExperInfo->getBazaryabActionInformation($adminId);
+            $count_All_Install=$poshtibanBonusInfo['count_All_Install'];
+            $count_All_aghlam=$poshtibanBonusInfo['count_All_aghlam'];
+            $count_All_New_buys=$poshtibanBonusInfo['count_All_New_buys'];
+            $targetInfo=$poshtibanBonusInfo['targetsCompletion'];
+            // اکمال تارگت ها
+            $istallComTg=$targetInfo['istallComTg'];
+            $aghlamComTg=$targetInfo['aghlamComTg'];
+            $monyComTg=$targetInfo['monyComTg'];
+            $countBuyComTg=$targetInfo['countBuyComTg'];
+            //امتیاز تارگت ها
+            $istallComTgBonus=$targetInfo['istallComTgBonus'];
+            $aghlamComTgBonus=$targetInfo['aghlamComTgBonus'];
+            $monyComTgBonus=$targetInfo['monyComTgBonus'];
+            $countBuyComTgBonus=$targetInfo['countBuyComTgBonus'];
+            //امتیاز های اختصاصی
+            $istallBonus=$poshtibanBonusInfo['bonus_All_Install'];
+            $aghlamBonus=$poshtibanBonusInfo['bonus_All_aghlam'];
+            $monyBonus=$poshtibanBonusInfo['bonus_all_money'];
+            $countBuyBonus=$poshtibanBonusInfo['bonus_All_New_buys'];
+            //امتیاز اضافی فرد
+            if($poshtibanBonusInfo['all_monthly_bonuses']){
+                $extarBonus=$poshtibanBonusInfo['all_monthly_bonuses'];
+            }else{
+                $extarBonus=0;
+            }
             
-//             if($special->id==12){
-//                 //اقلام
-//                 $count_All_aghlamR=DB::select("SELECT count(countGoods) as countAghlam,admin_id from (			
-//                                             SELECT count(SnGood) as countGoods,admin_id,SnGood from (
-//                                             SELECT * FROM (SELECT MAX(TimeStamp)as maxTime,SnGood,CustomerSn from(
-//                                             SELECT * FROM(
-//                                                 SELECT FactorBYS.TimeStamp,FactorBYS.Fi,FactorBYS.Amount,FactorBYS.SnGood,CustomerSn FROM Shop.dbo.FactorHDS
-//                                                 JOIN Shop.dbo.FactorBYS on FactorHDS.SerialNoHDS=FactorBYS.SnFact)a
-//                                                 )g WHERE CONVERT(DATE,TimeStamp)>='$EMPTYDATE' group by SnGood,CustomerSn)c
-//                                                 join (select * from CRM.dbo.crm_customer_added)d on c.CustomerSn=d.customer_id)f group by admin_id,SnGood
-//                                                 )e where e.admin_id=$adminId group by admin_id");
-//                 if(count($count_All_aghlamR)>0){
-//                     $count_All_aghlam=$count_All_aghlamR[0]->countAghlam;
-//                 }
-
-//                 $count_aghlam_todayR=DB::select("SELECT count(countGoods) as countAghlam,admin_id from (			
-//                     SELECT count(SnGood) as countGoods,admin_id,SnGood from (
-//                     SELECT * FROM (SELECT MAX(TimeStamp)as maxTime,SnGood,CustomerSn from(
-//                     SELECT * FROM(
-//                         SELECT FactorBYS.TimeStamp,FactorBYS.Fi,FactorBYS.Amount,FactorBYS.SnGood,CustomerSn FROM Shop.dbo.FactorHDS
-//                         JOIN Shop.dbo.FactorBYS on FactorHDS.SerialNoHDS=FactorBYS.SnFact)a
-//                         )g group by SnGood,CustomerSn)c
-//                         join (select * from CRM.dbo.crm_customer_added)d on c.CustomerSn=d.customer_id)f WHERE CONVERT(date,maxTime)=CONVERT(date,CURRENT_TIMESTAMP) group by admin_id,SnGood
-//                         )e where e.admin_id=$adminId group by admin_id");
-
-//                 if(count($count_aghlam_todayR)>0){
-//                     $count_aghlam_today=$count_aghlam_todayR[0]->countAghlam;
-//                 }
-
-//                 $instAghlamBonus=((int)($count_All_aghlam/$special->limitAmount)) * $special->Bonus;
-//                 $all_bonus_since_Empty+=$instAghlamBonus;
-//                 $bonus_All_aghlam=$instAghlamBonus;
-//             }
-
-//             if($special->id==13){
-//                 //مبلغ
-//                 $allMoney_till_now=DB::select("SELECT SUM(NetPriceHDS) AS SumOfMoney,admin_id FROM Shop.dbo.factorHds
-//                 JOIN (SELECT * FROM CRM.dbo.crm_customer_added)d ON factorHds.CustomerSn=d.customer_id
-//                 WHERE FactType=3 AND admin_id=$adminId and CONVERT(DATE,timestamp)>='$EMPTYDATE' GROUP BY admin_id");
-//                 if(count($allMoney_till_now)>0){
-//                     $sum_all_money=$allMoney_till_now[0]->SumOfMoney;
-//                 }
-
-//                 $today_money=DB::select("SELECT SUM(NetPriceHDS) AS SumOfMoney,admin_Id FROM Shop.dbo.factorHds
-//                                         JOIN (SELECT * FROM CRM.dbo.crm_customer_added)d ON factorHds.CustomerSn=d.customer_id
-//                                         WHERE FactType=3 AND admin_id=$adminId AND CONVERT(date,timestamp)=CONVERT(date,CURRENT_TIMESTAMP) GROUP BY admin_Id");
-//                 if(count($today_money)>0){
-//                     $sum_today_money=$today_money[0]->SumOfMoney;
-//                 }
-//                 $allMoneyBonus=((int)($sum_all_money/10/$special->limitAmount)) * $special->Bonus;
-//                 $all_bonus_since_Empty+=$allMoneyBonus;
-//                 $bonus_all_money=$allMoneyBonus;
-//             }
-
-//             if($special->id==14){
-//                 //خرید اولیه
-//                 //همه           
-//                 $count_All_New_buys=DB::select("SELECT count(CustomerSn) as countNewFactor,admin_id from (
-//                     SELECT distinct CustomerSn from (SELECT * from Shop.dbo.FactorHds
-// 					JOIN CRM.dbo.crm_inserted_customers on FactorHDS.CustomerSn=crm_inserted_customers.customerId 
-// 					where FactType=3 AND DATEDIFF(hour,CONVERT(DATE,addedDate), CONVERT(DATE,timestamp))<=72 and crm_inserted_customers.adminId=$adminId and CONVERT(DATE,timestamp)>='$EMPTYDATE')b
-//                     )c  join CRM.dbo.crm_customer_added on c.CustomerSn=customer_id where admin_id=$adminId  group by admin_id");
-//                 if(count($count_All_New_buys)>0){
-//                 $count_All_New_buys=$count_All_New_buys[0]->countNewFactor;
-//                 }else{
-//                 $count_All_New_buys=0;
-//                 }
-               
-//                 $allBuyBonus=((int)($count_All_New_buys/$special->limitAmount)) * $special->Bonus;
-//                 $all_bonus_since_Empty+=$allBuyBonus;
-//                 $bonus_All_New_buys=$allBuyBonus;
-//             }
-            
-//             //installs
-//             $special->count_New_Install=$count_New_Install;
-//             $special->count_All_Install=$count_All_Install;
-//             //buys
-//             $special->count_All_New_buys=$count_All_New_buys;
-//             $special->count_All_aghlam=$count_All_aghlam;
-//             $special->sum_all_money=$sum_all_money;
-//         }
-
-//         //محاسبه امتیازات اضافی بازاریابها
-//         $all_monthly_bonuses=0;
-//         $historyExist=DB::select("select sum(positiveBonus)-sum(negativeBonus) as sumAllBonus from CRM.dbo.crm_adminUpDownBonus  where adminId=$adminId and isUsed=0");
-//         if($historyExist){
-//             $all_monthly_bonuses=$historyExist[0]->sumAllBonus;
-//         }
-
-//         $all_bonus_since_Empty+=$all_monthly_bonuses;
-
-//         $selfHistory=DB::table("CRM.dbo.crm_adminHistory")->where('adminId',$adminId)->get();
-
-//         //اکمال تارگت های فروش
-//         $targets=DB::select("SELECT * FROM CRM.dbo.crm_targets");
-//         //ارزیابی تارگت‌ها
-//         foreach($targets as $target){
-//             //تارگت‌های نصب
-//             if($target->id==4){
-//                 if($count_All_Install >= $target->thirdTarget){
-//                     $istallComTg="تارگیت سوم";
-//                     $istallComTgBonus=$target->thirdTargetBonus;
-//                 }else{
-//                     if($count_All_Install >= $target->secondTarget){
-//                         $istallComTg="تارگیت دوم";
-//                         $istallComTgBonus=$target->scondTargetBonus;
-//                     }else{
-//                         if($count_All_Install >= $target->firstTarget){
-//                             $istallComTg="تارگیت اول";
-//                             $istallComTgBonus=$target->firstTargetBonus;
-//                         }
-//                     }
-//                 }
-//             }
-//                 //تارگت‌های تعداد خرید اولیه
-//             if($target->id==6){
-//                 if($count_All_New_buys >= $target->thirdTarget){
-//                     $countBuyComTg="تارگیت سوم";
-//                     $countBuyComTgBonus=$target->thirdTargetBonus;
-//                 }else{
-//                     if($count_All_New_buys >= $target->secondTarget){
-//                         $countBuyComTg="تارگیت دوم";
-//                         $countBuyComTgBonus=$target->thirdTargetBonus;
-//                     }else{
-//                         if($count_All_New_buys >= $target->firstTarget){
-//                             $countBuyComTg="تارگیت اول";
-//                             $countBuyComTgBonus=$target->thirdTargetBonus;
-//                         }
-//                     }
-//                 }
-//             }
-//             if(count($allMoney_till_now)>0){
-//                 //تارگت‌های مبلغ خرید
-//             if($target->id==7){
-//                 if(($allMoney_till_now[0]->SumOfMoney/10) >= $target->thirdTarget){
-//                     $monyComTg="تارگیت سوم";
-//                     $monyComTgBonus=$target->thirdTargetBonus;
-//                 }else{
-//                     if(($allMoney_till_now[0]->SumOfMoney/10) >= $target->secondTarget){
-//                         $monyComTg="تارگیت دوم";
-//                         $monyComTgBonus=$target->thirdTargetBonus;
-//                     }else{
-//                         if(($allMoney_till_now[0]->SumOfMoney/10) >= $target->firstTarget){
-//                             $monyComTg="تارگیت اول";
-//                             $monyComTgBonus=$target->thirdTargetBonus;
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//                 //تارگت‌های اقلام خرید
-//             if($target->id==5){
-//                 if($count_All_aghlam >= $target->thirdTarget){
-//                     $aghlamComTg="تارگیت سوم";
-//                     $aghlamComTgBonus=$target->thirdTargetBonus;
-//                 }else{
-//                     if($count_All_aghlam >= $target->secondTarget){
-//                         $aghlamComTg="تارگیت دوم";
-//                         $aghlamComTgBonus=$target->thirdTargetBonus;
-//                     }else{
-//                         if($count_All_aghlam >= $target->firstTarget){
-//                             $aghlamComTg="تارگیت اول";
-//                             $aghlamComTgBonus=$target->firtTargetBonus;
-//                         }
-//                     }
-//                 }
-//             }
-
-//             //امتیازات اضافی جریان ماه
-//             $all_monthly_bonuses=0;
-//             $historyExist=DB::select("select sum(positiveBonus)-sum(negativeBonus) as sumAllBonus from CRM.dbo.crm_adminUpDownBonus  where adminId=$adminId and isUsed=0");
-//             if($historyExist){
-//                 $all_monthly_bonuses=$historyExist[0]->sumAllBonus;
-//             }
-
-//             $all_bonus_since_Empty+=$all_monthly_bonuses;
-
-//             DB::update("update CRM.dbo.crm_adminUpDownBonus set isUsed=1 where adminId=$adminId");
-
-//         }
-    }
+            //مجموع کل امتیازات
+            $all_bonus_since_Empty=$poshtibanBonusInfo['all_bonus_since_Empty'];
+        }
 
     if($personType->adminType==2){
     // در صورتیکه پشتیبان باشد
     $poshtiban=new Poshtiban;
-    // $poshtiban->getPoshtibanActionInformation($adminId);
-    // return $poshtiban->getPoshtibanActionInformation($adminId);
-
     $poshtibanBonusInfo=$poshtiban->getPoshtibanActionInformation($adminId);
-    
-   
-
 
     $count_All_aghlam=$poshtibanBonusInfo['count_All_aghlam'];
     $count_All_New_buys=$poshtibanBonusInfo['count_All_New_buys'];
@@ -3563,14 +3375,12 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
     }else{
         $extarBonus=0;
     }
-    
     //مجموع کل امتیازات
     $all_bonus_since_Empty=$poshtibanBonusInfo['all_bonus_since_Empty'];
-
-
     }
     if($personType->adminType==4){
 // در صورتیکه راننده باشد
+
     }
     if($personType->adminType==1){
 //در صورتیکه ادمین باشد

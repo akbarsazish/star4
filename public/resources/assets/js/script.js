@@ -16,7 +16,7 @@ document.querySelector(".fa-bars")
         // backdrop.classList.add('show');
     });
 
-var baseUrl = "https://star4.ir";
+var baseUrl = "http://192.168.10.27:8080";
 var myVar;
 function setAdminStuffForAdmin(element,adminTypeId,driverId) {
     $(element).find("input:radio").prop("checked", true);
@@ -4996,6 +4996,7 @@ function removeStaff(adminId) {
                 },
                 async: true,
                 success: function (msg) {
+                    console.log(msg)
                     if (msg == 1) {
                         $("#transferLoader").css("display", "none");
                         swal("مشتریان تخلیه گردید", {

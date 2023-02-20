@@ -432,56 +432,56 @@ class Poshtiban extends Controller
                     }
                 }
                 //تارگت‌های سرویس قوی
-                // if($target->SnBase==10){
-                //     if($all_Strong_Service >= $target->thirdTarget){
-                //         $strongServiceComTg="تارگیت سوم";
-                //         $strongServiceComTgBonus=$target->thirdTargetBonus;
-                //     }else{
-                //         if($all_Strong_Service >= $target->secondTarget){
-                //             $strongServiceComTg="تارگیت دوم";
-                //             $strongServiceComTgBonus=$target->secondTargetBonus;
-                //         }else{
-                //             if($all_Strong_Service >= $target->firstTarget){
-                //                 $strongServiceComTg="تارگیت اول";
-                //                 $strongServiceComTgBonus=$target->firstTargetBonus;
-                //             }
-                //         }
-                //     }
-                // }
+                if($target->SnBase==10){
+                    if($all_Strong_Service >= $target->thirdTarget){
+                        $strongServiceComTg="تارگیت سوم";
+                        $strongServiceComTgBonus=$target->thirdTargetBonus;
+                    }else{
+                        if($all_Strong_Service >= $target->secondTarget){
+                            $strongServiceComTg="تارگیت دوم";
+                            $strongServiceComTgBonus=$target->secondTargetBonus;
+                        }else{
+                            if($all_Strong_Service >= $target->firstTarget){
+                                $strongServiceComTg="تارگیت اول";
+                                $strongServiceComTgBonus=$target->firstTargetBonus;
+                            }
+                        }
+                    }
+                }
                     //تارگت‌های سرویس متوسط
-                // if($target->SnBase==12){
-                //     if($all_Medium_Service >= $target->thirdTarget){
-                //         $mediumServiceComTg="تارگیت سوم";
-                //         $mediumServiceComTgBonus=$target->thirdTargetBonus;
-                //     }else{
-                //         if($all_Medium_Service >= $target->secondTarget){
-                //             $mediumServiceComTg="تارگیت دوم";
-                //             $mediumServiceComTgBonus=$target->secondTargetBonus;
-                //         }else{
-                //             if($all_Medium_Service >= $target->firstTarget){
-                //                 $mediumServiceComTg="تارگیت اول";
-                //                 $mediumServiceComTgBonus=$target->firstTargetBonus;
-                //             }
-                //         }
-                //     }
-                // }
+                if($target->SnBase==12){
+                    if($all_Medium_Service >= $target->thirdTarget){
+                        $mediumServiceComTg="تارگیت سوم";
+                        $mediumServiceComTgBonus=$target->thirdTargetBonus;
+                    }else{
+                        if($all_Medium_Service >= $target->secondTarget){
+                            $mediumServiceComTg="تارگیت دوم";
+                            $mediumServiceComTgBonus=$target->secondTargetBonus;
+                        }else{
+                            if($all_Medium_Service >= $target->firstTarget){
+                                $mediumServiceComTg="تارگیت اول";
+                                $mediumServiceComTgBonus=$target->firstTargetBonus;
+                            }
+                        }
+                    }
+                }
                 //تارگت‌های سرویس ضعیف
-                // if($target->SnBase==11){
-                //     if($all_Weak_Service >= $target->thirdTarget){
-                //         $weakServiceComTg="تارگیت سوم";
-                //         $weakServiceComTgBonus=$target->thirdTargetBonus;
-                //     }else{
-                //         if($all_Weak_Service >= $target->secondTarget){
-                //             $weakServiceComTg="تارگیت دوم";
-                //             $weakServiceComTgBonus=$target->secondTargetBonus;
-                //         }else{
-                //             if($all_Weak_Service >= $target->firstTarget){
-                //                 $weakServiceComTg="تارگیت اول";
-                //                 $weakServiceComTgBonus=$target->firstTargetBonus;
-                //             }
-                //         }
-                //     }
-                // }
+                if($target->SnBase==11){
+                    if($all_Weak_Service >= $target->thirdTarget){
+                        $weakServiceComTg="تارگیت سوم";
+                        $weakServiceComTgBonus=$target->thirdTargetBonus;
+                    }else{
+                        if($all_Weak_Service >= $target->secondTarget){
+                            $weakServiceComTg="تارگیت دوم";
+                            $weakServiceComTgBonus=$target->secondTargetBonus;
+                        }else{
+                            if($all_Weak_Service >= $target->firstTarget){
+                                $weakServiceComTg="تارگیت اول";
+                                $weakServiceComTgBonus=$target->firstTargetBonus;
+                            }
+                        }
+                    }
+                }
 
                 //تارگت‌های تعداد فاکتور
                 if($target->SnBase==14){
@@ -1142,6 +1142,233 @@ class Poshtiban extends Controller
         'monyComTgBonus'=>$monyComTgBonus,
         'aghlamComTgBonus'=>$aghlamComTgBonus
     ];
+    }
+
+    public function getDriverActionInfo($adminId){
+
+        $generalBonuses=DB::table("CRM.dbo.crm_generalBonus")->where("userType",4)->get();
+                //تارگت های راننده ها
+        $targets=DB::select("SELECT * FROM CRM.dbo.crm_generalTargets where userType=4");
+        foreach($generalBonuses as $general){
+            if($general->id==21){
+                //اقلام
+                $count_All_aghlamR=DB::select("SELECT COUNT(SnGood) as CountGood,SnDriver FROM(
+                                                SELECT distinct SnGood,SnDriver FROM Shop.dbo.BargiryHDS JOIN Shop.dbo.BargiryBYS ON BargiryHDS.SnMasterBar=BargiryBYS.SnMaster
+                                                JOIN Shop.dbo.FactorBYS ON BargiryBYS.SnFact=FactorBYS.SnFact
+                                                WHERE BargiryHDS.CompanyNo=5 AND FiscalYear=1399 AND DatePeaper>'$EMPTYDATEHEJRI')A WHERE SnDriver=$adminId  group by SnDriver");
+                if(count($count_All_aghlamR)>0){
+                    $count_All_aghlam=$count_All_aghlamR[0]->CountGood;
+                }
+
+                $count_aghlam_todayR=DB::select("SELECT COUNT(SnGood) as CountGood,SnDriver FROM(
+                                                    SELECT distinct SnGood,SnDriver FROM Shop.dbo.BargiryHDS JOIN Shop.dbo.BargiryBYS ON BargiryHDS.SnMasterBar=BargiryBYS.SnMaster
+                                                    JOIN Shop.dbo.FactorBYS ON BargiryBYS.SnFact=FactorBYS.SnFact
+                                                    WHERE BargiryHDS.CompanyNo=5 AND FiscalYear=1399 AND DatePeaper='$todayDate')A WHERE SnDriver=$adminId  group by SnDriver");
+                
+                if(count($count_aghlam_todayR)>0){
+                    $count_aghlam_today=$count_aghlam_todayR[0]->CountGood;
+                }
+                $instAghlamBonus=((int)($count_All_aghlam/$general->limitAmount)) * $general->Bonus;
+                $all_bonus_since_Empty+=$instAghlamBonus;
+                $bonus_All_aghlam=$instAghlamBonus;
+            }
+
+            if($general->id==23){
+                //سرویس قوی
+
+                $strongServices=DB::select("SELECT COUNT(ServiceSn) AS CountStrongService
+                    FROM CRM.dbo.crm_driverservice where crm_driverservice.serviceType=1 and CONVERT(DATE,TimeStamp)>'$EMPTYDATE' and adminId=$adminId");
+                if(count($strongServices)>0){
+                    $all_Strong_Service= $strongServices[0]->CountStrongService;
+                }
+
+                $all_Strong_Service_Bonus=((int)($all_Strong_Service/$general->limitAmount)) * $general->Bonus;
+                $all_bonus_since_Empty+=$all_Strong_Service_Bonus;
+
+                $countToday_StrongServices=DB::select("SELECT COUNT(ServiceSn) AS CountStrongService
+                    FROM CRM.dbo.crm_driverservice where crm_driverservice.serviceType=1 and adminId=$adminId
+                    AND CONVERT(date,TimeStamp)=Convert(date,CURRENT_TIMESTAMP)");
+                if(count($countToday_StrongServices)>0){
+                    $countToday_StrongService=$countToday_StrongServices[0]->CountStrongService;
+                }
+                
+            }
+
+            if($general->id==26){
+                // //سرویس متوسط
+                $mediumServices=DB::select("SELECT COUNT(ServiceSn) AS CountMediumService
+                    FROM CRM.dbo.crm_driverservice where crm_driverservice.serviceType=2 and CONVERT(DATE,TimeStamp)>'$EMPTYDATE' and adminId=$adminId");
+
+                $all_Medium_Service=0;
+
+                if(count($mediumServices)>0){
+                    $all_Medium_Service=$mediumServices[0]->CountMediumService;
+                }
+                
+                $all_Medium_Service_Bonus=((int)($all_Medium_Service/$general->limitAmount)) * $general->Bonus;
+                $all_bonus_since_Empty+=$all_Medium_Service_Bonus;
+
+                $countToday_MediumServices=DB::select("SELECT COUNT(ServiceSn) AS CountMediumService
+                    FROM CRM.dbo.crm_driverservice where crm_driverservice.serviceType=2 and adminId=$adminId
+                    AND CONVERT(date,TimeStamp)=Convert(date,CURRENT_TIMESTAMP)");
+                if(count($countToday_MediumServices)>0){
+                    $today_MediumService=$countToday_MediumServices[0]->CountMediumService;
+                }
+            }
+
+            if($general->id==27){
+                // //سرویس ضعیف
+                $weakServices=DB::select("SELECT COUNT(ServiceSn) AS CountWeakService
+                    FROM CRM.dbo.crm_driverservice where crm_driverservice.serviceType=3 and CONVERT(DATE,TimeStamp)>'$EMPTYDATE' and adminId=$adminId");
+                $count_all_WeakService=0;
+                if(count($weakServices)>0){
+                    $count_all_WeakService=$weakServices[0]->CountWeakService;
+                    
+                }
+                $all_Weak_Service_Bonus=((int)($count_all_WeakService/$general->limitAmount)) * $general->Bonus;
+                $all_bonus_since_Empty+=$all_Weak_Service_Bonus;
+                //امروز
+                $countToday_WeakServices=DB::select("SELECT COUNT(ServiceSn) AS CountWeakService
+                    FROM CRM.dbo.crm_driverservice where crm_driverservice.serviceType=3 and adminId=$adminId
+                    AND CONVERT(date,TimeStamp)=Convert(date,CURRENT_TIMESTAMP)");
+                $today_WeakService=0;
+                if(count($countToday_WeakServices)>0){
+                    $today_WeakService=$countToday_WeakServices[0]->CountWeakService;
+                }
+
+            }
+
+            if($general->id==29){
+                // تعداد فاکتور
+                $count_all_Factors=DB::select(" SELECT COUNT(SnFact) AS countFactor,SnDriver FROM Shop.dbo.BargiryHDS JOIN Shop.dbo.BargiryBYS ON BargiryHDS.SnMasterBar=BargiryBYS.SnMaster WHERE BargiryHDS.CompanyNo=5 AND FiscalYear=1399 AND DatePeaper>'$EMPTYDATEHEJRI'
+                AND SnDriver=$adminId	GROUP BY SnDriver");
+                if(count($count_all_Factors)>0){
+                    $count_all_Factor=$count_all_Factors[0]->countFactor;
+                }
+
+                $today_factors=DB::select(" SELECT COUNT(SnFact) AS countFactor,SnDriver FROM Shop.dbo.BargiryHDS JOIN Shop.dbo.BargiryBYS ON BargiryHDS.SnMasterBar=BargiryBYS.SnMaster WHERE BargiryHDS.CompanyNo=5 AND FiscalYear=1399 AND DatePeaper='$todayDate'
+                AND SnDriver=$adminId GROUP BY SnDriver");
+                
+                if(count($today_factors)>0){
+                    $today_factor=$today_factors[0]->countFactor;
+                }
+                
+                $count_all_Factor_Bonus=((int)($count_all_Factor/$general->limitAmount)) * $general->Bonus;
+                $all_bonus_since_Empty+=$count_all_Factor_Bonus;
+            }
+            //راننده ها
+            $general->count_aghlam_Today=$count_New_buy_Today;
+            $general->count_All_Factor=$count_all_Factor;
+            $general->count_All_Factor_Today=$today_factor;
+            $general->count_All_Install=0;
+            $general->count_All_aghlam=$count_All_aghlam;
+            $general->count_aghlam_today=$count_aghlam_today;
+            $general->count_All_StrongService=$all_Strong_Service;
+            $general->count_All_MediumService=$all_Medium_Service;
+            $general->count_All_WeakService=$count_all_WeakService;
+            $general->countToday_StrongService=$countToday_StrongService;
+            $general->today_MediumService=$today_MediumService;
+            $general->today_WeakService=$today_WeakService;
+
+            //مال پشتیبان ها
+            $general->count_New_buy_Today=0;
+            $general->count_All_New_buys=0;
+            $general->sum_all_money=0;
+            $general->sum_today_money=0;
+            
+        }
+
+        //ارزیابی تارگت‌ها
+        foreach($targets as $target){
+            //تارگت‌های اقلام خرید
+            if($target->SnBase==13){
+                if($count_All_aghlam >= $target->thirdTarget){
+                    $aghlamComTg="تارگیت سوم";
+                    $aghlamComTgBonus=$target->thirdTargetBonus;
+                }else{
+                    if($count_All_aghlam >= $target->secondTarget){
+                        $aghlamComTg="تارگیت دوم";
+                        $aghlamComTgBonus=$target->secondTargetBonus;
+                    }else{
+                        if($count_All_aghlam >= $target->firstTarget){
+                            $aghlamComTg="تارگیت اول";
+                            $aghlamComTgBonus=$target->firstTargetBonus;
+                        }
+                    }
+                }
+            }
+            //تارگت‌های سرویس قوی
+            if($target->SnBase==10){
+                if($all_Strong_Service >= $target->thirdTarget){
+                    $strongServiceComTg="تارگیت سوم";
+                    $strongServiceComTgBonus=$target->thirdTargetBonus;
+                }else{
+                    if($all_Strong_Service >= $target->secondTarget){
+                        $strongServiceComTg="تارگیت دوم";
+                        $strongServiceComTgBonus=$target->secondTargetBonus;
+                    }else{
+                        if($all_Strong_Service >= $target->firstTarget){
+                            $strongServiceComTg="تارگیت اول";
+                            $strongServiceComTgBonus=$target->firstTargetBonus;
+                        }
+                    }
+                }
+            }
+                //تارگت‌های سرویس متوسط
+            if($target->SnBase==12){
+                if($all_Medium_Service >= $target->thirdTarget){
+                    $mediumServiceComTg="تارگیت سوم";
+                    $mediumServiceComTgBonus=$target->thirdTargetBonus;
+                }else{
+                    if($all_Medium_Service >= $target->secondTarget){
+                        $mediumServiceComTg="تارگیت دوم";
+                        $mediumServiceComTgBonus=$target->secondTargetBonus;
+                    }else{
+                        if($all_Medium_Service >= $target->firstTarget){
+                            $mediumServiceComTg="تارگیت اول";
+                            $mediumServiceComTgBonus=$target->firstTargetBonus;
+                        }
+                    }
+                }
+            }
+            //تارگت‌های سرویس ضعیف
+            if($target->SnBase==11){
+                if($all_Weak_Service >= $target->thirdTarget){
+                    $weakServiceComTg="تارگیت سوم";
+                    $weakServiceComTgBonus=$target->thirdTargetBonus;
+                }else{
+                    if($all_Weak_Service >= $target->secondTarget){
+                        $weakServiceComTg="تارگیت دوم";
+                        $weakServiceComTgBonus=$target->secondTargetBonus;
+                    }else{
+                        if($all_Weak_Service >= $target->firstTarget){
+                            $weakServiceComTg="تارگیت اول";
+                            $weakServiceComTgBonus=$target->firstTargetBonus;
+                        }
+                    }
+                }
+            }
+
+            //تارگت‌های تعداد فاکتور
+            if($target->SnBase==14){
+                if($count_all_Factor >= $target->thirdTarget){
+                    $countFactorComTg="تارگیت سوم";
+                    $countFactorComTgBonus=$target->thirdTargetBonus;
+                }else{
+                    if($count_all_Factor >= $target->secondTarget){
+                        $countFactorComTg="تارگیت دوم";
+                        $countFactorComTgBonus=$target->secondTargetBonus;
+                    }else{
+                        if($count_all_Factor >= $target->firstTarget){
+                            $countFactorComTg="تارگیت اول";
+                            $countFactorComTgBonus=$target->firstTargetBonus;
+                        }
+                    }
+                }
+            }
+        }
+
+return [];
     }
     public function getDriverTodayAghlam(Request $request)
     {
