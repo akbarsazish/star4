@@ -37,10 +37,10 @@
                         </div>
                 </div>
                 <div class="row mainContent">
-                      <div class=" text-center" id="salesExpertTask">
-                <div class="accordion accordion-flush AmalKardAccordion" id="accordionFlushExample" >
+                <div class=" text-center" id="salesExpertTask" style="height:500px; display:block; overflow-y:scroll; ">
+                  <div class="accordion accordion-flush AmalKardAccordion" id="accordionFlushExample" >
                     <!-- item1 -->
-                    @foreach($specialBonuses as $base)
+                     @foreach($specialBonuses as $base)
                         <div class="accordion-item">
                             <h2 class="accordion-header" 
                             @if($base->id==11) id="flush-headingOne"    @endif
@@ -153,80 +153,33 @@
                     <button type="button" class="btn-close btn-danger" style="background-color:red;" data-bs-dismiss="modal" aria-label="Close"></button>
                     <h5 class="modal-title" id="exampleModalLabel"> داشبورد </h5>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body py-0">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <span class="fw-bold fs-4"  id="dashboardTitle" style="display:none;"></span>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <Button class="btn btn-sm buttonHover crmButtonColor float-end  mx-2" id="openAddCommentModal" type="button" value="" name="" > کامنت <i class="fas fa-comment fa-lg"> </i> </Button>
-                            <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get">
-                                <input type="text" id="customerSn" style="display: none" name="psn" value="" />
-                                <input type="text" style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
-                                <Button class="btn btn-sm buttonHover crmButtonColor float-end" type="submit"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </Button>
-                            </form>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-lg-8 col-md-8 col-sm-8">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 mb-2">
-                                    <div class="form-outline" style="padding-bottom:1%">
-                                        <label class="dashboardLabel form-label">کد</label>
-                                        <input type="text" class="form-control form-control-sm noChange" id="customerCode" value="">
-                                    </div>
+                          <div class="col-lg-8 col-md-8 col-sm-8">
+                                <div class="flex-container">
+                                    <div style="flex-grow: 1"> کد:  <span id="customerCode"></span> </div>
+                                    <div style="flex-grow: 1">  نام و نام خانوادگی : <span id="customerName"> </span>  </div>
+                                    <div style="flex-grow: 1"> تعداد فاکتور : <span id="countFactor"> </span>  </div>
+                                    <div style="flex-grow: 1"> شماره های تماس :  <span id="mobile1"> </span>  </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <div class="form-outline " style="padding-bottom:1%">
-                                        <label class="dashboardLabel form-label">نام و نام خانوادگی</label>
-                                        <input type="text" class="form-control form-control-sm noChange" id="customerName"  value="علی حسینی" >
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <div class="form-group">
-                                        <label class="dashboardLabel form-label"> تعداد فاکتور </label>
-                                        <input type="text" class="form-control form-control-sm noChange" id="countFactor">
-                                    </div>
+                                <div class="flex-container">
+                                    <div style="flex-grow: 1">  نام کاربری: <span id="username"> </span>  </div>
+                                    <div style="flex-grow: 1"> رمز کاربری:   <span  id="password"> </span>  </div>
+                                    <div style="flex-grow: 2"> ادرس :   <span id="customerAddress"> </span>  </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <div class="form-group">
-                                        <label class="dashboardLabel form-label"> شماره های تماس </label>
-                                        <input class="form-control noChange" type="text" id="mobile1" >
-                                    </div>
+                          <div class="col-lg-4 col-md-4 col-sm-4 text-start">
+                                <button  class="btn btn-sm btn-primary" id="openAddCommentModal" type="button" value="" name="" > کامنت <i class="fas fa-comment fa-lg"> </i> </Button>
+                                <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get" style="display:inline;">
+                                    <input type="text" id="customerSn" style="display: none" name="psn" value="" />
+                                    <input type="text" style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
+                                    <button class="btn btn-sm btn-primary" type="submit"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </button>
+                                </form>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlTextarea1" class="form-label float-end mb-0 pb-0">یاداشت</label>
+                                    <textarea class="form-control" id="customerProperty" onblur="saveCustomerCommentProperty(this)" rows="2"></textarea>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <div class="form-group">
-                                        <label class="dashboardLabel form-label">نام کاربری</label>
-                                        <input class="form-control noChange" type="text" id="username" >
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <div class="form-group">
-                                        <label class="dashboardLabel form-label">رمز کاربری</label>
-                                        <input class="form-control noChange" type="text" id="password" >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="form-group">
-                                        <label class="dashboardLabel form-label"> آدرس </label>
-                                        <input type="text" class="form-control form-control-sm noChange" id="customerAddress" value="آدرس">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                <div class="mb-3" style="width:350px;">
-                                    <label for="exampleFormControlTextarea1" class="form-label fw-bold">یاداشت</label>
-                                    <textarea class="form-control" id="customerProperty" onblur="saveCustomerCommentProperty(this)" rows="6"></textarea>
-                                </div>
-                            </div>
-                        </div>
+                          </div>
                     </div>
 
                     <div class="c-checkout container" style="background-color:#c5c5c5; padding:0.5% !important; border-radius:10px 10px 2px 2px;">
@@ -251,7 +204,7 @@
                                                 <th>تاریخ</th>
                                                 <th> نام راننده</th>
                                                 <th>مبلغ </th>
-                                                <th>مشاهد جزئیات </th>
+                                                <th> جزئیات </th>
                                             </tr>
                                         </thead>
                                         <tbody class="tableBody" id="factorTable">
@@ -359,7 +312,7 @@
                                                     <th> تاریخ بعدی </th>
                                                 </tr>
                                             </thead>
-                                            <tbody class="tableHeader" id="customerComments"></tbody>
+                                            <tbody class="tableBody" id="customerComments"></tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -396,110 +349,109 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">تاریخچه عملکرد</h5>
-        <button type="button" class="close bg-danger" data-bs-dismiss="modal" aria-label="Close">
+        <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      @foreach($selfHistory as $history)  
-                        <fieldset class="rounded">
-                            <legend  class="float-none w-auto"> عملکرد ({{$loop->iteration}})  {{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($history->timeStamp))->format('Y/m/d')}}  </legend>		  
-                                <div class="actionHistory">
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> تعداد مشتری : </span> {{$history->countPeople}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> تعداد فاکتور : </span> {{$history->countFactor}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> تعداد مشتریان خرید کرده : </span> {{$history->countBuyPeople}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> مبلغ خالص خرید: </span> @if($history->lastMonthAllMoney!=1){{number_format($history->lastMonthAllMoney)}} @else 0 @endif  تومان
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> مبلغ خرید ماه قبل   : </span> @if($history->lastMonthReturnedAllMoney!=1){{number_format($history->lastMonthReturnedAllMoney)}} @else 0 @endif  تومان
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> مبلغ برگشت ماه قبل  : </span> 
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  تاریخ  : </span> {{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($history->timeStamp))->format('Y/m/d')}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  نرخ رشد : </span> {{number_format($history->meanIncrease)}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  توضیح خاص : </span> {{$history->comment}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  کامنت داده نشده : </span> {{$history->noCommentCust}}
-                                    </div>
+         <div class="row">       
+           @foreach($selfHistory as $history)  
+              <fieldset class="rounded">
+                    <legend  class="float-none w-auto"> عملکرد ({{$loop->iteration}})  {{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($history->timeStamp))->format('Y/m/d')}}  </legend>		  
+                        <div class="actionHistory">
+                            <div class="actionHistoryItem">
+                                <span class="content"> تعداد مشتری : </span> {{$history->countPeople}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content"> تعداد فاکتور : </span> {{$history->countFactor}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content"> تعداد مشتریان خرید کرده : </span> {{$history->countBuyPeople}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content"> مبلغ خالص خرید: </span> @if($history->lastMonthAllMoney!=1){{number_format($history->lastMonthAllMoney)}} @else 0 @endif  تومان
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content"> مبلغ خرید ماه قبل   : </span> @if($history->lastMonthReturnedAllMoney!=1){{number_format($history->lastMonthReturnedAllMoney)}} @else 0 @endif  تومان
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content"> مبلغ برگشت ماه قبل  : </span> 
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  تاریخ  : </span> {{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($history->timeStamp))->format('Y/m/d')}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  نرخ رشد : </span> {{number_format($history->meanIncrease)}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  توضیح خاص : </span> {{$history->comment}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  کامنت داده نشده : </span> {{$history->noCommentCust}}
+                            </div>
 
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> کارهای انجام نشده : </span> {{$history->noDoneWork}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  تعداد خرید برگشتی : </span> {{number_format($history->countReturnedFactor)}} تومان
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  تعدا خرید ماه قبل : </span> {{number_format($history->countLastMonthFactor)}} تومان
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  تعداد نصب  : </span> {{$history->allInstall}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  تعداد خرید اولیه  : </span> {{$history->allPrimaryBuy}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> تعداد اقلام :   </span> {{$history->allAghlam}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  آخرین تارگیت نصب تکمیل شده : </span> {{$history->lastComInstallTg}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  آخرین تارگت خرید اولیه تکمیل شده:  </span> {{$history->lastComPrimBuyTg}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">   آخرین تارگت تکمیل شده مبلغ خرید : </span> {{$history->lastComAghlamTg}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  امتیاز نصب :  </span> {{$history->lastComMoneyTg}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  امتیاز خرید اولیه:  </span> {{$history->installBonus}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  امتیاز مبلغ خرید:  </span> {{$history->primeBuyBonus}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  امتیاز اقلام کالا : </span> {{$history->totalMoneyBonus}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  امتیاز تارگت نصب : </span>  {{$history->totalAghlamBonus}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  امتیاز تارگت خرید اولیه : </span> {{$history->lastComInstallTgB}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  امتیاز تارگت اقلام خرید :  </span> {{$history->lastComPrimBuyTgB}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  امتیاز مبلغ خرید : </span> {{$history->lastComAghlamTgB}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> امتیاز اضافی :   </span> {{$history->lastComMoneyTgB}}
-                                    </div>
-                                    
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> مجموع امتیازات :   </span> {{$history->allBonus}}
-                                    </div>
-                                </div>
-                            </fieldset>  <br> <br>
-                        @endforeach
-             
-		  
-     
+                            <div class="actionHistoryItem">
+                                <span class="content"> کارهای انجام نشده : </span> {{$history->noDoneWork}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  تعداد خرید برگشتی : </span> {{number_format($history->countReturnedFactor)}} تومان
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  تعدا خرید ماه قبل : </span> {{number_format($history->countLastMonthFactor)}} تومان
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  تعداد نصب  : </span> {{$history->allInstall}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  تعداد خرید اولیه  : </span> {{$history->allPrimaryBuy}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content"> تعداد اقلام :   </span> {{$history->allAghlam}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  آخرین تارگیت نصب تکمیل شده : </span> {{$history->lastComInstallTg}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  آخرین تارگت خرید اولیه تکمیل شده:  </span> {{$history->lastComPrimBuyTg}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">   آخرین تارگت تکمیل شده مبلغ خرید : </span> {{$history->lastComAghlamTg}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  امتیاز نصب :  </span> {{$history->lastComMoneyTg}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  امتیاز خرید اولیه:  </span> {{$history->installBonus}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  امتیاز مبلغ خرید:  </span> {{$history->primeBuyBonus}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  امتیاز اقلام کالا : </span> {{$history->totalMoneyBonus}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  امتیاز تارگت نصب : </span>  {{$history->totalAghlamBonus}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  امتیاز تارگت خرید اولیه : </span> {{$history->lastComInstallTgB}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  امتیاز تارگت اقلام خرید :  </span> {{$history->lastComPrimBuyTgB}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  امتیاز مبلغ خرید : </span> {{$history->lastComAghlamTgB}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content"> امتیاز اضافی :   </span> {{$history->lastComMoneyTgB}}
+                            </div>
+                            
+                            <div class="actionHistoryItem">
+                                <span class="content"> مجموع امتیازات :   </span> {{$history->allBonus}}
+                            </div>
+                        </div>
+                    </fieldset>     
+             @endforeach
+           </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن</button>
@@ -517,66 +469,36 @@
                     <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
                     <h5 class="modal-title" id="exampleModalLabel">جزئیات فاکتور</h5>
                 </div>
-                <div class="modal-body" id="readCustomerComment">
-                    <div class="container">
-                        <div class="row" style=" border:1px solid #dee2e6; padding:10px">
-                                <h4 style="padding:10px; border-bottom: 1px solid #dee2e6; text-align:center;">فاکتور فروش </h4>
-                                <div class="col-sm-6">
-                                    <table class="crmDataTable table table-borderless" style="background-color:#dee2e6">
-                                        <tbody>
-                                        <tr>
-                                            <td>تاریخ فاکتور:</td>
-                                            <td id="factorDate"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>مشتری:</td>
-                                            <td id="customerNameFactor"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>آدرس:</td>
-                                            <td id="customerAddressFactor"> </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                 <div class="modal-body" id="readCustomerComment">
+                           <div class="row">
+                                 <div class="flex-container">
+                                    <div style="flex-grow: 1"> تاریخ فاکتور:  <span id="factorDate"></span> </div>
+                                    <div style="flex-grow: 1">  مشتری: <span id="customerNameFactor"> </span>  </div>
+                                    <div style="flex-grow: 1"> آدرس: <span id="customerAddressFactor"> </span>  </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <table class="table table-borderless" style="background-color:#dee2e6">
-                                        <tbody>
-                                            <tr>
-                                                <td>تلفن :</td>
-                                                <td id="customerPhoneFactor"></td>
-                                            </tr>
-                                        <tr>
-                                            <td>کاربر :</td>
-                                            <td id="Admin"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>شماره فاکتور :</td>
-                                            <td id="factorSnFactor"></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                 <div class="flex-container">
+                                    <div style="flex-grow: 1"> تلفن : <span > </span id="customerPhoneFactor">  </div>
+                                    <div style="flex-grow: 1"> کاربر: <span > </span id="Admin">   </div>
+                                    <div style="flex-grow: 1"> شماره فاکتور <span id="factorSnFactor"> </span>  </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <table id="strCusDataTable"  class='table table-bordered table-striped table-sm' style="background-color:#dee2e6">
+                                <table id="strCusDataTable"  class='table table-bordered table-striped table-sm'>
                                     <thead class="tableHeader">
                                     <tr>
-                                        <th scope="col">ردیف</th>
-                                        <th scope="col">نام کالا </th>
-                                        <th scope="col">تعداد/مقدار</th>
-                                        <th scope="col">واحد کالا</th>
-                                        <th scope="col">فی (تومان)</th>
-                                        <th scope="col">مبلغ (تومان)</th>
+                                        <th>ردیف</th>
+                                        <th>نام کالا </th>
+                                        <th>تعداد/مقدار</th>
+                                        <th>واحد کالا</th>
+                                        <th>فی (تومان)</th>
+                                        <th style="width:111px">مبلغ (تومان)</th>
                                     </tr>
                                     </thead>
                                     <tbody class="tableBody" id="productList"></tbody>
                                 </table>
                             </div>
-
-                        </div>
-                    </div>
-                </div>
+                      </div>
+                 </div>
                 <div class="modal-footer">
                 </div>
             </div>

@@ -121,9 +121,8 @@
                      
 
                     <!-- end tree view -->
-                        <div class="col-lg-12">
-                        </div>
-                        <div class="row">
+                    
+                        <div class="row px-0 mx-0">
                             <table class="select-highlight table table-bordered table-striped">
                                 <thead class="tableHeader">
                                     <tr>
