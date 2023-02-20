@@ -224,25 +224,28 @@
                                     </tbody>
                                 </table> 
                                 <div class="row">
-                                <div class="monthlyAction mt-0" id="newCustomerTable" style="display:none;">
-                                    @foreach($eachdays as $eachday)
-                                        <div class="eachMonth">
-                                            <div class="accordion accordion-flush" id="firstMonth">
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="flush-headingOne">
-                                                        <button class="accordion-button collapsed" @if(Session::get('adminType')==1 or Session::get('adminType')==5) onclick="showThisDayCustomerForAdmin({{"'".$eachday->addedDate."'"}},{{$loop->iteration}})" @else onclick="showThisDayMyCustomer({{"'".$eachday->addedDate."'"}},{{$loop->iteration}})" @endif type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{$loop->iteration}}" aria-expanded="false" aria-controls="flush-collapse{{$loop->iteration}}">
-                                                            {{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($eachday->addedDate))->format('Y/m/d')}} <span class="mx-5" style="border-radius:50%;background-color:black;padding:10px;">{{$eachday->countPeopels}}</span>
-                                                        </button>
-                                                    </h2>
-                                                    <div id="flush-collapse{{$loop->iteration}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                                       <button class="btn btn-primary" id="loadMoreData" style="display:none"> بیشتر ...</button>
+                                    <div class="col-lg-12" style="height:550px; display:block; overflow-y:scroll;">
+                                    <div class="monthlyAction mt-0" id="newCustomerTable" style="display:none; margin-bottom:30px;">
+                                        @foreach($eachdays as $eachday)
+                                            <div class="eachMonth">
+                                                <div class="accordion accordion-flush" id="firstMonth">
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header" id="flush-headingOne">
+                                                            <button class="accordion-button collapsed"
+                                                               @if(Session::get('adminType')==1 or Session::get('adminType')==5) onclick="showThisDayCustomerForAdmin({{"'".$eachday->addedDate."'"}},{{$loop->iteration}})" @else onclick="showThisDayMyCustomer({{"'".$eachday->addedDate."'"}},{{$loop->iteration}})" @endif type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{$loop->iteration}}" aria-expanded="false" aria-controls="flush-collapse{{$loop->iteration}}">
+                                                                {{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($eachday->addedDate))->format('Y/m/d')}} <span class="mx-5" style="border-radius:50%;background-color:black;padding:10px;">{{$eachday->countPeopels}}</span>
+                                                            </button>
+                                                        </h2>
+                                                        <div id="flush-collapse{{$loop->iteration}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                        <button class="btn btn-primary" id="loadMoreData" style="display:none"> بیشتر ...</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
-                                </div> 
-                                </div> 
+                                        @endforeach
+                                    </div> 
+                                    </div> 
+                                 </div> 
                             </div>
 
                     <div class="row contentFooter"> </div>
