@@ -151,7 +151,7 @@
                             </table>
                     </div>
                     <div class="row contentFooter"> 
-                        <div class="col-lg-12 text-start mt-1" id="bottomServiceBttons">
+                        <div class="col-lg-12 text-start" id="bottomServiceBttons">
                             <button type="button" class="btn btn-sm btn-primary footerButton" onclick="getServices('TODAY')"> امروز  : </button>
                             <button type="button" class="btn btn-sm btn-primary footerButton" onclick="getServices('YESTERDAY')"> دیروز : </button>
                             <button type="button" class="btn btn-sm btn-primary footerButton" onclick="getServices('LASTHUNDRED')"> صد تای آخر : 100</button>

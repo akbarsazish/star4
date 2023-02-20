@@ -166,7 +166,7 @@
                             </div>
                             </div>
                                 <div class="row contentFooter">
-                                    <div class="col-lg-12 mt-3 text-start">
+                                    <div class="col-lg-12 text-start">
                                         <button type="button" class="btn btn-sm btn-primary footerButton donComment" style="display:none" onclick="getDonComment('TODAY')"> نظرات امروز  <i class="fa fa-comments"></i> </button>
                                         <button type="button" class="btn btn-sm btn-primary footerButton donComment" style="display:none" onclick="getDonComment('YESTERDAY')"> دیروز  <i class="fa fa-comments"></i> </button>
                                         <button type="button" class="btn btn-sm btn-primary footerButton donComment" style="display:none"  onclick="getDonComment('LASTHUNDRED')"> صدتای آخر  <i class="fa fa-comments"></i></button>

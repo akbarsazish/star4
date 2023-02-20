@@ -4005,7 +4005,7 @@ span.full-address {
 }
 
 .tableBody {
-    height: 410px !important;
+    height: 400px !important;
     overflow-y: scroll !important;
     display: block !important;
 }
@@ -7134,6 +7134,7 @@ span.content {
 .footerButton {
     width: 111px;
     border: 1px solid white;
+    margin-top: 7px;
 }
 
 .grid-today {

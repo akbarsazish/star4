@@ -144,7 +144,7 @@
 
                     </div>
                     <div class="row contentFooter">
-                        <div class="col-lg-12 mt-2 text-start">
+                        <div class="col-lg-12 text-start">
                             <button type="button" class="btn btn-sm btn-primary footerButton">  امروز  </button>
                             <button type="button" class="btn btn-sm btn-primary footerButton"> دیروز  </button>
                             <button type="button" class="btn btn-sm btn-primary footerButton"> صدتای آخر  </button>

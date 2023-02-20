@@ -202,13 +202,13 @@
 
                     </div>
                     <div class="row contentFooter"> 
-                        <div class="col-lg-12 text-start mt-2" id="alamButtonsHistoryDiv">
+                        <div class="col-lg-12 text-start" id="alamButtonsHistoryDiv">
                             <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getAlarmHistory('TODAY')"> امروز  : </button>
                             <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getAlarmHistory('YESTERDAY')"> دیروز : </button>
                             <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getAlarmHistory('LASTHUNDRED')"> صد تای آخر : 100</button>
                             <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getAlarmHistory('ALLALARMS')"> همه : </button>
                         </div>
-                        <div class="col-lg-12 text-start mt-2" id="noAlarmButtonsHistoryDiv" style="display:none">
+                        <div class="col-lg-12 text-start" id="noAlarmButtonsHistoryDiv" style="display:none">
                             <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getUnAlarmHistory('TODAY')"> خرید امروز  : </button>
                             <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getUnAlarmHistory('YESTERDAY')"> خرید دیروز : </button>
                             <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getUnAlarmHistory('LASTHUNDRED')"> صد خرید آخر : 100</button>

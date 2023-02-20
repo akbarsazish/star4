@@ -98,7 +98,7 @@
                    </div>
                 </div>
                 <div class="row contentFooter">
-                    <div class="col-lg-12 text-start mt-2">
+                    <div class="col-lg-12 text-start">
                         <button type="button" class="btn btn-sm btn-primary footerButton" onclick="getUpDownHistory('TODAY')"> امروز  : </button>
                         <button type="button" class="btn btn-sm btn-primary footerButton" onclick="getUpDownHistory('YESTERDAY')"> دیروز : </button>
                         <button type="button" class="btn btn-sm btn-primary footerButton" onclick="getUpDownHistory('LASTHUNDRED')"> صد تای آخر : 100</button>

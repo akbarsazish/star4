@@ -274,7 +274,7 @@ input[type=checkbox] {
                         </table>
                     </div>
                     <div class="row contentFooter"> 
-                        <div class="col-lg-12 mt-3 text-start" id="footerBtn">
+                        <div class="col-lg-12 text-start" id="footerBtn">
                             <button type="button" class="btn btn-sm btn-primary footerButton"> نظرات امروز  <i class="fa fa-comments"></i> </button>
                             <button type="button" class="btn btn-sm btn-primary footerButton"> دیروز  <i class="fa fa-comments"></i> </button>
                             <button type="button" class="btn btn-sm btn-primary footerButton"> صدتای آخر  <i class="fa fa-comments"></i></button>
