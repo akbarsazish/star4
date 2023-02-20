@@ -1,6 +1,12 @@
 @extends('layout')
 @section('content')
-
+<style>
+    @media only screen and (max-width: 920px){
+    .contentHeader {
+         height: 25% !important;
+     }
+}
+</style>
 <div class="container-fluid containerDiv">
     <div class="row">
             <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
@@ -15,25 +21,23 @@
                 </div>
             <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                 <div class="row contentHeader">
-                        <div class="form-group col-sm-2 mt-2">
+                        <div class="form-group col-lg-2 col-sm-12 mt-2">
                             <input type="text" name="" class="form-control form-control-sm" value="از تاریخ" id="firstDateSefSaleExpert">
                             <input type="hidden" id="adminId" value="{{$adminId}}">
                         </div> 
-                        <div class="form-group col-sm-2 mt-2">
+                        <div class="form-group col-lg-2 col-sm-12 mt-2">
                             <input type="text" name="" class="form-control form-control-sm" value="تا تاریخ" id="secondDateSefSaleExpert">
                         </div> 
-                        <div class="col-sm-8 text-start">
-                                @if(hasPermission(Session::get("asn"),"trazEmployeeReportN") > 0)
+                        <div class="col-lg-8 col-sm-12 text-start">
                                     <button class="btn btn-primary btn-sm" type="button" onclick="openHistoryModal()"> تاریخچه عملکرد </button>
-                                @endif
                                 @if(hasPermission(Session::get("asn"),"trazEmployeeReportN") > 1)
                                     <button class="btn btn-primary btn-sm " id="addingEmtyazBtn"> افزودن امتیاز  <i class="fa fa-plus" aria-hidden="true"></i> </button>
                                 @endif
-                                @if(hasPermission(Session::get("asn"),"trazEmployeeReportN") > 0)
-                                    <input type="hidden" id="adminSn" value="{{$adminId}}">
-                                    <button class="btn btn-primary btn-sm" id="showEmtiyazHistoryBtn"> تاریخچه امتیاز <i class="fa fa-history" aria-hidden="true"></i> </button>
-                                    <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#totalEmtyaz"> جمع کل امتیازات  (آذر) </button>
-                                @endif
+                               
+                                <input type="hidden" id="adminSn" value="{{$adminId}}">
+                                <button class="btn btn-primary btn-sm" id="showEmtiyazHistoryBtn"> تاریخچه امتیاز <i class="fa fa-history" aria-hidden="true"></i> </button>
+                                <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#totalEmtyaz"> جمع کل امتیازات  (آذر) </button>
+                               
                         </div>
                 </div>
                 <div class="row mainContent">
