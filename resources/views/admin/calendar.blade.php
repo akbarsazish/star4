@@ -336,7 +336,7 @@
                                 <div class="form-group">
                                     <label class="dashboardLabel dashboardLabel form-label"> منطقه </label>
                                     <select class="form-select" id="searchMantagheh" name="snMantagheh">
-                                        @foreach ($mantagheh as $mantaghe) {
+                                        @foreach ($mantagheh as $mantaghe)
                                         <option value="{{$mantaghe->SnMNM}}">{{$mantaghe->NameRec}}</option>
                                         @endforeach
                                     </select>
@@ -472,7 +472,7 @@
                                 <div class="form-group">
                                     <label class="dashboardLabel dashboardLabel form-label"> منطقه </label>
                                     <select class="form-select" name="snMantagheh" id="snMantaghehE">
-                                        @foreach ($mantagheh as $mantaghe) {
+                                        @foreach ($mantagheh as $mantaghe) 
                                         <option value="{{$mantaghe->SnMNM}}">{{$mantaghe->NameRec}}</option>
                                         @endforeach
                                     </select>
@@ -526,11 +526,11 @@
                     <span class="fw-bold fs-4"  id="dashboardTitle" style="display:none;"></span>
                     <button class="btn btn-sm btn-primary d-inline" id="openAddCommentModal" type="button" value="" name="" style="float:left; display:inline;" > کامنت <i class="fas fa-comment fa-lg"> </i> </button>
                     <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get" style="display:inine !important;">
-                        <input type="text" class="customerSnLogin" style="" name="psn" value="" />
+                        <input type="text" class="customerSnLogin" style="display:none" name="psn" value="" />
                         <button class="btn btn-sm btn-primary d-inline" type="submit" style="float:left;"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </button>
                         <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
                     </form>
-                    <button class='enableBtn btn-sm btn btn-primary text-warning customerStaff'  type="button" disabled id="customerSndashboard" onclick="openDashboard(this.value)"> داشبورد <i class="fal fa-dashboard"></i></button>
+                    <button class='enableBtn customerSnLogin btn-sm btn btn-primary text-warning customerStaff'  type="button" disabled id="customerSndashboard" onclick="openDashboard(this.value)"> داشبورد <i class="fal fa-dashboard"></i></button>
             </div>
             <div class="col-sm-12 text-start" id="customerListSection">
                 <input type="hidden" id="customerSn" style="" name="customerSn" value="" />
@@ -585,7 +585,7 @@
                             <span class="fw-bold fs-4"  id="dashboardTitle" style="display:none;"></span>
                                <button class="btn btn-sm btn-primary d-inline" id="openAddCommentModal" type="button" value="" name="" style="float:left; display:inline;" > کامنت <i class="fas fa-comment fa-lg"> </i> </button>
                                 <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get" style="display:inine !important;">
-                                    <input type="text" class="customerSnLogin" style="" name="psn" />
+                                    <input type="text" class="customerSnLogin" style="display:none" name="psn" />
                                     <button class="btn btn-sm btn-primary d-inline" type="submit" style="float:left;"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </button>
                                     <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
                                 </form>
