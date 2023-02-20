@@ -510,7 +510,7 @@
                        </div>
                       </div>
                        <div class="row contentFooter"> 
-                            <div class="col-lg-12 text-start mt-2">
+                            <div class="col-lg-12 text-start">
                                 <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getLoginReport('TODAY')"> امروز  : </button>
                                 <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getLoginReport('YESTERDAY')"> دیروز : </button>
                                 <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getLoginReport('LASTHUNDRED')"> صد تای آخر : 100</button>

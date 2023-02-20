@@ -23,6 +23,12 @@
                  <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                      <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0"> تقویم روزانه  </legend>
+                             @if(hasPermission(Session::get("asn"),"oppCustCalendarN") > -1)
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerListRadioBtn" checked>
+                                <label class="form-check-label me-4" for="assesPast"> لیست مشتریان </label>
+                            </div>
+                            @endif
 
                              @if(hasPermission(Session::get("asn"),"oppCalendarN") > -1)
                              @if(hasPermission(Session::get("asn"),"oppjustCalendarN") > -1)
@@ -37,12 +43,7 @@
                                 <label class="form-check-label me-4" for="assesPast"> مشتریان جدید </label>
                             </div>
                             @endif
-                            @if(hasPermission(Session::get("asn"),"oppCustCalendarN") > -1)
-                            <div class="form-check">
-                                <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerListRadioBtn">
-                                <label class="form-check-label me-4" for="assesPast"> لیست مشتریان </label>
-                            </div>
-                            @endif
+                           
                             <form action="{{url('/changeDate')}}" method="POST">
                                 @csrf
                             <select class="form-select form-select-sm col-sm6" id="month" name="month" style="font-size:16px; width:48%;display:none">
@@ -222,9 +223,10 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                </table> 
-                                <div class="row">
-                                    <div class="col-lg-12" style="height:550px; display:block; overflow-y:scroll;">
+                             </table>
+
+                            <div class="row">
+                                <div class="col-lg-12" style="height:550px; display:block; overflow-y:scroll;">
                                     <div class="monthlyAction mt-0" id="newCustomerTable" style="display:none; margin-bottom:30px;">
                                         @foreach($eachdays as $eachday)
                                             <div class="eachMonth">
@@ -246,9 +248,9 @@
                                             </div>
                                         @endforeach
                                     </div> 
-                                    </div> 
-                                 </div> 
-                            </div>
+                                </div> 
+                            </div> 
+                        </div>
 
                     <div class="row contentFooter"> </div>
                 </div>
