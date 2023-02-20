@@ -198,33 +198,33 @@ SELECT * FROM (
         $provinceCodes=DB::table("NewStarfood.dbo.star_provincePhoneCode")->get();
         return Response::json($provinceCodes);
     }
-    public function searchAllCustomerByCode(Request $request)
-    {
-        $searchTerm=$request->get("searchTerm");
-        $customers=DB::select("SELECT * FROM(
-                        SELECT * FROM(
-                        SELECT * FROM(
-                        SELECT * FROM(
-                        SELECT PCode,PSN,Name,peopeladdress,SnMantagheh FROM Shop.dbo.Peopels
-                        WHERE  PSN IN  (SELECT DISTINCT customer_id FROM CRM.dbo.crm_customer_added))b 
-                        JOIN   (SELECT * FROM CRM.dbo.crm_customer_added)c ON b.PSN=c.customer_id)d )e
-                        join(SELECT SnMNM,NameRec FROM Shop.dbo.MNM )f ON e.SnMantagheh=f.SnMNM)g WHERE  PCode LIKE '%".$searchTerm."%'");
-        foreach ($customers as $customer) {
-        $phones=DB::table("Shop.dbo.PhoneDetail")->where("SnPeopel",$customer->PSN)->get();
-        $hamrah="";
-        $sabit="";
-        foreach ($phones as $phone) {
-        if($phone->PhoneType==1){
-            $sabit.="\n".$phone->PhoneStr;
-        }else{
-            $hamrah.="\n".$phone->PhoneStr;
-        }
-        }
-        $customer->sabit=$sabit;
-        $customer->hamrah=$hamrah;
-        }
-        return Response::json($customers);
-    }
+    // public function searchAllCustomerByCode(Request $request)
+    // {
+    //     $searchTerm=$request->get("searchTerm");
+    //     $customers=DB::select("SELECT * FROM(
+    //                     SELECT * FROM(
+    //                     SELECT * FROM(
+    //                     SELECT * FROM(
+    //                     SELECT PCode,PSN,Name,peopeladdress,SnMantagheh FROM Shop.dbo.Peopels
+    //                     WHERE  PSN IN  (SELECT DISTINCT customer_id FROM CRM.dbo.crm_customer_added))b 
+    //                     JOIN   (SELECT * FROM CRM.dbo.crm_customer_added)c ON b.PSN=c.customer_id)d )e
+    //                     join(SELECT SnMNM,NameRec FROM Shop.dbo.MNM )f ON e.SnMantagheh=f.SnMNM)g WHERE  PCode LIKE '%".$searchTerm."%'");
+    //     foreach ($customers as $customer) {
+    //     $phones=DB::table("Shop.dbo.PhoneDetail")->where("SnPeopel",$customer->PSN)->get();
+    //     $hamrah="";
+    //     $sabit="";
+    //     foreach ($phones as $phone) {
+    //     if($phone->PhoneType==1){
+    //         $sabit.="\n".$phone->PhoneStr;
+    //     }else{
+    //         $hamrah.="\n".$phone->PhoneStr;
+    //     }
+    //     }
+    //     $customer->sabit=$sabit;
+    //     $customer->hamrah=$hamrah;
+    //     }
+    //     return Response::json($customers);
+    // }
 
     public function dashboard() {
         $allCustomerCount=DB::select("SELECT COUNT(PSN) as countAllCustomers FROM Shop.dbo.Peopels WHERE  Peopels.CompanyNo=5 and Peopels.GroupCode IN ( ".implode(",",Session::get("groups")).")");

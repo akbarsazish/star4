@@ -43,7 +43,6 @@
                                 <label class="form-check-label me-4" for="assesPast"> لیست مشتریان </label>
                             </div>
                             @endif
-
                             <form action="{{url('/changeDate')}}" method="POST">
                                 @csrf
                             <select class="form-select form-select-sm col-sm6" id="month" name="month" style="font-size:16px; width:48%;display:none">
@@ -524,7 +523,7 @@
                     <span class="fw-bold fs-4"  id="dashboardTitle" style="display:none;"></span>
                     <button class="btn btn-sm btn-primary d-inline" id="openAddCommentModal" type="button" value="" name="" style="float:left; display:inline;" > کامنت <i class="fas fa-comment fa-lg"> </i> </button>
                     <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get" style="display:inine !important;">
-                        <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
+                        <input type="text" class="customerSnLogin" style="" name="psn" value="" />
                         <button class="btn btn-sm btn-primary d-inline" type="submit" style="float:left;"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </button>
                         <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
                     </form>
@@ -583,7 +582,7 @@
                             <span class="fw-bold fs-4"  id="dashboardTitle" style="display:none;"></span>
                                <button class="btn btn-sm btn-primary d-inline" id="openAddCommentModal" type="button" value="" name="" style="float:left; display:inline;" > کامنت <i class="fas fa-comment fa-lg"> </i> </button>
                                 <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get" style="display:inine !important;">
-                                    <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
+                                    <input type="text" class="customerSnLogin" style="" name="psn" />
                                     <button class="btn btn-sm btn-primary d-inline" type="submit" style="float:left;"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </button>
                                     <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
                                 </form>

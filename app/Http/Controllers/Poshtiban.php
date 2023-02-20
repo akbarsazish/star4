@@ -1145,7 +1145,43 @@ class Poshtiban extends Controller
     }
 
     public function getDriverActionInfo($adminId){
-
+        $count_All_aghlam=0;
+        $istallComTg="هیچکدام";
+        $aghlamComTg="هیچکدام";
+        $monyComTg="هیچکدام";
+        $countBuyComTg="هیچکدام";
+        $strongServiceComTg="هیچکدام";
+        $mediumServiceComTg="هیچکدام";
+        $weakServiceComTg="هیچکدام";
+        $countFactorComTg="هیچکدام";
+        //تارگت ها تکمیل شده
+        $istallComTgBonus=0;
+        $aghlamComTgBonus=0;
+        $monyComTgBonus=0;
+        $countBuyComTgBonus=0;
+        $strongServiceComTgBonus=0;
+        $mediumServiceComTgBonus=0;
+        $countFactorComTgBonus=0;
+		//در طول زمان بعد از تخلیه کاربر
+        $all_bonus_since_Empty=0;
+        $count_All_aghlam=0;
+        $count_All_Install=0;
+        $count_All_New_buys=0;
+        $count_all_StrongService=0;
+        $count_all_MediumService=0;
+        $count_all_WeakService=0;
+        $count_all_Factor=0;
+        $sum_all_money=0;
+        $all_Strong_Service=0;
+        $all_Medium_Service=0;
+		//امتیازات این ماه بعد از تخلیه
+        $bonus_All_aghlam=0;
+        $bonus_All_Install=0;
+        $all_Strong_Service_Bonus=0;
+        $all_Weak_Service_Bonus=0;
+        $all_Medium_Service_Bonus=0;
+        $bonus_All_New_buys=0;
+        $bonus_all_money=0;
         $generalBonuses=DB::table("CRM.dbo.crm_generalBonus")->where("userType",4)->get();
                 //تارگت های راننده ها
         $targets=DB::select("SELECT * FROM CRM.dbo.crm_generalTargets where userType=4");
@@ -1257,12 +1293,9 @@ class Poshtiban extends Controller
                 $all_bonus_since_Empty+=$count_all_Factor_Bonus;
             }
             //راننده ها
-            $general->count_aghlam_Today=$count_New_buy_Today;
             $general->count_All_Factor=$count_all_Factor;
-            $general->count_All_Factor_Today=$today_factor;
             $general->count_All_Install=0;
             $general->count_All_aghlam=$count_All_aghlam;
-            $general->count_aghlam_today=$count_aghlam_today;
             $general->count_All_StrongService=$all_Strong_Service;
             $general->count_All_MediumService=$all_Medium_Service;
             $general->count_All_WeakService=$count_all_WeakService;
