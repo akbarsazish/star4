@@ -5,7 +5,7 @@
 
 @media only screen and (max-width: 920px){
 .contentHeader {
-    height: 34%;
+    height: 37%;
 }
 
 }
@@ -135,15 +135,15 @@
                                     <option value="مناطق" hidden>مناطق</option>
                                 </select>
                             </div>
-                            <div class="col-sm-3 text-start">
+                            <div class="col-sm-6 text-start">
                                  @if(hasPermission(Session::get("asn"),"oppCalendarN") > -1)
                                   <button class='enableBtn btn-sm btn btn-primary text-warning customerStaff' type="button" disabled id='openDashboard'> داشبورد <i class="fal fa-dashboard"></i></button>
                                   <button class='enableBtn btn-sm btn btn-primary text-warning customerStaff' type="button" disabled id='returnCustomer'> ارجاع <i class="fal fa-history"></i></button>
                                 @endif
-                            </div>
-
-                            <div class="col-sm-3 text-start">
-                                <button class='enableBtn btn btn-primary btn-sm text-warning mx-1' type="button" disabled onclick="openEditCustomerModalForm()">ویرایش <i class="fa fa-plus-square fa-lg"></i></button>
+                          
+                                 @if(hasPermission(Session::get("asn"),"oppCalendarN") > 1)
+                                   <button class='enableBtn btn btn-primary btn-sm text-warning mx-1' type="button" disabled onclick="openEditCustomerModalForm()">ویرایش <i class="fa fa-plus-square fa-lg"></i></button>
+                                 @endif
                                 <button class='enableBtn btn btn-primary btn-sm text-warning mx-1' type="button" id="addingNewCustomerBtn">افزودن مشتری   <i class="fa fa-plus-square fa-lg"></i></button>   
                             </div>
                         </div>
@@ -558,7 +558,7 @@
   </div>
 </div>
 <div class="modal fade notScroll" id="customerDashboard" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog  modal-xl">
+    <div class="modal-dialog  modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header py-2">
                 <button type="button" class="btn-close btn-danger" style="background-color:red;" data-bs-dismiss="modal" aria-label="Close"></button>

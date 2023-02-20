@@ -349,110 +349,109 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">تاریخچه عملکرد</h5>
-        <button type="button" class="close bg-danger" data-bs-dismiss="modal" aria-label="Close">
+        <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      @foreach($selfHistory as $history)  
-                        <fieldset class="rounded">
-                            <legend  class="float-none w-auto"> عملکرد ({{$loop->iteration}})  {{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($history->timeStamp))->format('Y/m/d')}}  </legend>		  
-                                <div class="actionHistory">
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> تعداد مشتری : </span> {{$history->countPeople}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> تعداد فاکتور : </span> {{$history->countFactor}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> تعداد مشتریان خرید کرده : </span> {{$history->countBuyPeople}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> مبلغ خالص خرید: </span> @if($history->lastMonthAllMoney!=1){{number_format($history->lastMonthAllMoney)}} @else 0 @endif  تومان
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> مبلغ خرید ماه قبل   : </span> @if($history->lastMonthReturnedAllMoney!=1){{number_format($history->lastMonthReturnedAllMoney)}} @else 0 @endif  تومان
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> مبلغ برگشت ماه قبل  : </span> 
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  تاریخ  : </span> {{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($history->timeStamp))->format('Y/m/d')}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  نرخ رشد : </span> {{number_format($history->meanIncrease)}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  توضیح خاص : </span> {{$history->comment}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  کامنت داده نشده : </span> {{$history->noCommentCust}}
-                                    </div>
+         <div class="row">       
+           @foreach($selfHistory as $history)  
+              <fieldset class="rounded">
+                    <legend  class="float-none w-auto"> عملکرد ({{$loop->iteration}})  {{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($history->timeStamp))->format('Y/m/d')}}  </legend>		  
+                        <div class="actionHistory">
+                            <div class="actionHistoryItem">
+                                <span class="content"> تعداد مشتری : </span> {{$history->countPeople}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content"> تعداد فاکتور : </span> {{$history->countFactor}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content"> تعداد مشتریان خرید کرده : </span> {{$history->countBuyPeople}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content"> مبلغ خالص خرید: </span> @if($history->lastMonthAllMoney!=1){{number_format($history->lastMonthAllMoney)}} @else 0 @endif  تومان
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content"> مبلغ خرید ماه قبل   : </span> @if($history->lastMonthReturnedAllMoney!=1){{number_format($history->lastMonthReturnedAllMoney)}} @else 0 @endif  تومان
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content"> مبلغ برگشت ماه قبل  : </span> 
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  تاریخ  : </span> {{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($history->timeStamp))->format('Y/m/d')}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  نرخ رشد : </span> {{number_format($history->meanIncrease)}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  توضیح خاص : </span> {{$history->comment}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  کامنت داده نشده : </span> {{$history->noCommentCust}}
+                            </div>
 
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> کارهای انجام نشده : </span> {{$history->noDoneWork}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  تعداد خرید برگشتی : </span> {{number_format($history->countReturnedFactor)}} تومان
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  تعدا خرید ماه قبل : </span> {{number_format($history->countLastMonthFactor)}} تومان
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  تعداد نصب  : </span> {{$history->allInstall}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  تعداد خرید اولیه  : </span> {{$history->allPrimaryBuy}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> تعداد اقلام :   </span> {{$history->allAghlam}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  آخرین تارگیت نصب تکمیل شده : </span> {{$history->lastComInstallTg}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  آخرین تارگت خرید اولیه تکمیل شده:  </span> {{$history->lastComPrimBuyTg}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">   آخرین تارگت تکمیل شده مبلغ خرید : </span> {{$history->lastComAghlamTg}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  امتیاز نصب :  </span> {{$history->lastComMoneyTg}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  امتیاز خرید اولیه:  </span> {{$history->installBonus}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  امتیاز مبلغ خرید:  </span> {{$history->primeBuyBonus}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  امتیاز اقلام کالا : </span> {{$history->totalMoneyBonus}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  امتیاز تارگت نصب : </span>  {{$history->totalAghlamBonus}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  امتیاز تارگت خرید اولیه : </span> {{$history->lastComInstallTgB}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  امتیاز تارگت اقلام خرید :  </span> {{$history->lastComPrimBuyTgB}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content">  امتیاز مبلغ خرید : </span> {{$history->lastComAghlamTgB}}
-                                    </div>
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> امتیاز اضافی :   </span> {{$history->lastComMoneyTgB}}
-                                    </div>
-                                    
-                                    <div class="actionHistoryItem">
-                                        <span class="content"> مجموع امتیازات :   </span> {{$history->allBonus}}
-                                    </div>
-                                </div>
-                            </fieldset>  <br> <br>
-                        @endforeach
-             
-		  
-     
+                            <div class="actionHistoryItem">
+                                <span class="content"> کارهای انجام نشده : </span> {{$history->noDoneWork}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  تعداد خرید برگشتی : </span> {{number_format($history->countReturnedFactor)}} تومان
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  تعدا خرید ماه قبل : </span> {{number_format($history->countLastMonthFactor)}} تومان
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  تعداد نصب  : </span> {{$history->allInstall}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  تعداد خرید اولیه  : </span> {{$history->allPrimaryBuy}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content"> تعداد اقلام :   </span> {{$history->allAghlam}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  آخرین تارگیت نصب تکمیل شده : </span> {{$history->lastComInstallTg}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  آخرین تارگت خرید اولیه تکمیل شده:  </span> {{$history->lastComPrimBuyTg}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">   آخرین تارگت تکمیل شده مبلغ خرید : </span> {{$history->lastComAghlamTg}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  امتیاز نصب :  </span> {{$history->lastComMoneyTg}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  امتیاز خرید اولیه:  </span> {{$history->installBonus}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  امتیاز مبلغ خرید:  </span> {{$history->primeBuyBonus}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  امتیاز اقلام کالا : </span> {{$history->totalMoneyBonus}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  امتیاز تارگت نصب : </span>  {{$history->totalAghlamBonus}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  امتیاز تارگت خرید اولیه : </span> {{$history->lastComInstallTgB}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  امتیاز تارگت اقلام خرید :  </span> {{$history->lastComPrimBuyTgB}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content">  امتیاز مبلغ خرید : </span> {{$history->lastComAghlamTgB}}
+                            </div>
+                            <div class="actionHistoryItem">
+                                <span class="content"> امتیاز اضافی :   </span> {{$history->lastComMoneyTgB}}
+                            </div>
+                            
+                            <div class="actionHistoryItem">
+                                <span class="content"> مجموع امتیازات :   </span> {{$history->allBonus}}
+                            </div>
+                        </div>
+                    </fieldset>     
+             @endforeach
+           </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن</button>

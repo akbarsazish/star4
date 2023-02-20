@@ -6884,10 +6884,9 @@ div.eachMonth {
 .actionHistoryItem {
     border: 1px solid #579adf;
     border-radius: 5px;
-    gap: 2px;
     margin: 2px;
-    padding: 5px;
-    font-size: 12px;
+    padding: 2px;
+    font-size: 11px;
     background-color: #b7d1eb;
 }
 
