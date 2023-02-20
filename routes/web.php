@@ -181,7 +181,7 @@ Route::get("/searchInActiveCustomerByCode",[Customer::class,"searchInActiveCusto
 Route::get("/searchInActiveCustomerByLocation",[Customer::class,"searchInActiveCustomerByLocation"])->middleware('checkUser');
 Route::get("/viewReturnComment",[Customer::class,"viewReturnComment"])->middleware('checkUser');
 Route::get("/allCustomers",[Admin::class,"allCustomers"])->middleware('checkUser');
-Route::get("/searchAllCustomerByCode",[Admin::class,"searchAllCustomerByCode"])->middleware('checkUser');
+// Route::get("/searchAllCustomerByCode",[Admin::class,"searchAllCustomerByCode"])->middleware('checkUser');
 Route::get("/orderAllCustomerByCName",[Admin::class,"orderAllCustomerByCName"])->middleware('checkUser');
 Route::get("/searchAddedCustomerByRegion",[Customer::class,"searchAddedCustomerByRegion"])->middleware('checkUser');
 Route::get("/searchAddedCustomerByNameMNM",[Customer::class,"searchAddedCustomerByNameMNM"])->middleware('checkUser');

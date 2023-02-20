@@ -3366,7 +3366,7 @@ $("#emptyKarbarButton").on("click", () => {
 
 $("#openDashboard").on("click", () => {
     let csn = $("#customerSn").val();
-    $("#customerSnLogin").val($("#customerSn").val());
+    $(".customerSnLogin").val($("#customerSn").val());
     $("#customerProperty").val("");
     $.ajax({
         method: "get",
@@ -4226,7 +4226,7 @@ function showTimeTableTasks(element, adminId) {
 
 function timeTableCustomerStuff(element) {
     let input = $(element).find("input:radio").prop("checked", true);
-    $("#customerSndashboard").val(input.val().split("_")[0]);
+    $(".customerSnLogin").val(input.val().split("_")[0]);
     $("#commentSn").val(input.val().split("_")[1]);
     $(".enableBtn").prop("disabled", false);
 
@@ -10392,7 +10392,7 @@ function setAmalkardStuff(element, customerId) {
 }
 function openDashboard(customerId) {
     let csn = customerId;
-    $("#customerSnLogin").val(customerId);
+    $(".customerSnLogin").val(customerId);
     if ($("#customerSn")) {
         $("#customerSn").val(csn);
     }
