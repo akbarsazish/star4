@@ -1,33 +1,39 @@
 @extends('layout')
 @section('content')
+<style>
+  .settingTableBody{
+    display:block;
+    height:133px;
+    overflow-y:scroll;
+  }
+
+</style>
     <div class="container-fluid containerDiv">
       <div class="row">
           <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
               <fieldset class="border rounded mt-5 sidefieldSet">
                   <legend  class="float-none w-auto legendLabel mb-0"> تنظیمات </legend>
-                   @if(hasPermission(Session::get("asn"),"InfoSettingAccessN") > 0)
-                      <div class="form-check">
-                          <input class="form-check-input p-2 float-end" type="radio" name="settings" id="elseSettingsRadio">
-                          <label class="form-check-label me-4" for="assesPast">  تنظیمات فاصله </label>
-                      </div>
-                      @endif
+                     
                       @if(hasPermission(Session::get("asn"),"infoSettingTargetN") > 0)
                       <div class="form-check">
-                          <input class="form-check-input p-2 float-end" type="radio" name="settings" id="settingAndTargetRadio">
+                          <input class="form-check-input p-2 float-end" type="radio" name="settings" id="settingAndTargetRadio" checked>
                           <label class="form-check-label me-4" for="assesPast"> تارگت ها و امتیازات </label>
                       </div>
                         <form action="{{url('/getAsses')}}" method="get">
                               <button class='btn btn-primary btn-sm text-warning refreshBtn' type="button" id='getAssesBtn'> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
                           </form>
                     @endif
+                     @if(hasPermission(Session::get("asn"),"InfoSettingAccessN") > 0)
+                      <div class="form-check">
+                          <input class="form-check-input p-2 float-end" type="radio" name="settings" id="elseSettingsRadio">
+                          <label class="form-check-label me-4" for="assesPast">  تنظیمات فاصله </label>
+                      </div>
+                      @endif
                     </fieldset>
                   </div>
                     <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
-                        <div class="row contentHeader">
-                            
-                        </div>
                         <div class="row mainContent">
-                          <div class="c-checkout container-fluid" id="targetAndSettingContent" style="background-image: linear-gradient(to right, #ffffff,#3fa7ef,#3fa7ef); margin:0.2% 0; margin-bottom:0; padding:0.5% !important; border-radius:10px 10px 2px 2px; display:none;">
+                          <div class="c-checkout container-fluid" id="targetAndSettingContent" style="background-image: linear-gradient(to right, #ffffff,#3fa7ef,#3fa7ef); margin:0.1% 0; margin-bottom:0; padding:0.5% !important; border-radius:6px 6px 2px 2px;">
                             <div class="col-sm-12" style="margin: 0; padding:0;">
                                 <ul class="header-list nav nav-tabs" data-tabs="tabs" style="margin: 0; padding:0;">
                                     <li><a class="active" data-toggle="tab" style="color:black;"  href="#targetSetting">بازاریابها</a></li>
@@ -42,7 +48,7 @@
                   <div class="row c-checkout rounded-3 tab-pane active" id="targetSetting" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                       <div class="col-sm-12">
                         <div class="row px-5">
-                          <fieldset class="rounded" style="min-height:300px;">
+                          <fieldset class="rounded">
                               <legend  class="float-none w-auto"> تارگت ها  </legend>
                               <input type="hidden" name="" id="selectTargetId">
                                 <div class="row">
@@ -74,7 +80,7 @@
                                                 <td> انتخاب  </td>
                                             </tr>
                                       </thead>
-                                      <tbody id="targetList" >
+                                      <tbody id="targetList" class="settingTableBody">
                                           @foreach($targets as $target)
                                               <tr class="targetTableTr" onclick="setTargetStuff(this)">
                                                   <td>{{$loop->iteration}}</td>
@@ -95,7 +101,7 @@
                              </div>
                             <div class="row px-5">
                             <input type="hidden" id="specialBonusIdForEdit">
-                            <fieldset class="rounded" style="min-height:300px;">
+                            <fieldset class="rounded">
                               <legend  class="float-none w-auto"> امتیازات  </legend>
                                 <div class="row">
                                   <div class="col-lg-3 col-md-3 col-sm-3 mt-3">
@@ -118,7 +124,7 @@
                                         <th>انتخاب</th>
                                         </tr>
                                   </thead>
-                                  <tbody id="specialBonusList">
+                                  <tbody id="specialBonusList" class="settingTableBody">
                                     @foreach($specialBonuses as $Bonus)
                                         <tr onclick="setSpecialBonusStuff(this)">
                                             <td  style="width:100px;">{{$loop->iteration}}</td>
@@ -138,7 +144,7 @@
                   <div class="row c-checkout rounded-3 tab-pane" id="tellPTargetSetting" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                     <div class="col-sm-12">
                         <div class="row px-5">
-                            <fieldset class="rounded" style="min-height:300px;">
+                            <fieldset class="rounded">
                                 <legend  class="float-none w-auto">تارگت ها</legend>
                                 <input type="hidden" name="" id="selectTargetId">
                                 <div class="row">
@@ -174,7 +180,7 @@
                                                   <th> انتخاب  </th>
                                                 </tr>
                                                 </thead>
-                                                <tbody id="gtargetList3">
+                                                <tbody id="gtargetList3" class="settingTableBody">
                                                 @foreach($generalTargets as $target)
                                                 @if($target->userType==3)
                                                 <tr class="targetTableTr" onclick="setGeneralTargetStuff(this,{{$target->userType}})">
@@ -198,7 +204,7 @@
 
                             <div class="row px-5">
                               <input type="hidden" id="generalBonusIdForEdit">
-                            <fieldset class="rounded" style="min-height:300px;">
+                            <fieldset class="rounded">
                               <legend  class="float-none w-auto"> امتیازات</legend>
                                 <div class="row">
                                   <div class="col-lg-3 col-md-3 col-sm-3 mt-3">
@@ -221,7 +227,7 @@
                                           <th>انتخاب</th>
                                       </tr>
                                   </thead>
-                                  <tbody id="generalBonusList3">
+                                  <tbody id="generalBonusList3" class="settingTableBody">
                                     @foreach($generalBonuses as $Bonus)
                                     @if($Bonus->userType==3)
                                       <tr onclick="setGeneralBonusStuff(this,{{$Bonus->userType}})">
@@ -244,7 +250,7 @@
                   <div class="row c-checkout rounded-3 tab-pane" id="presentPTargetSetting" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                     <div class="col-sm-12">
                     <div class="row px-5">
-                            <fieldset class="rounded" style="min-height:300px;">
+                            <fieldset class="rounded">
                                 <legend  class="float-none w-auto">تارگت ها</legend>
                                 <input type="hidden" name="" id="selectTargetId">
                                 <div class="row">
@@ -280,7 +286,7 @@
                                                       <th> انتخاب  </th>
                                                 </tr>
                                                 </thead>
-                                                <tbody id="gtargetList1">
+                                                <tbody id="gtargetList1" class="settingTableBody">
                                                 @foreach($generalTargets as $target)
                                                 @if($target->userType==1)
                                                 <tr class="targetTableTr" onclick="setGeneralTargetStuff(this,{{$target->userType}})">
@@ -304,7 +310,7 @@
                             </div>
                             <div class="row px-5">
                               <input type="hidden" id="generalBonusIdForEdit">
-                            <fieldset class="rounded" style="min-height:300px;">
+                            <fieldset class="rounded">
                               <legend  class="float-none w-auto"> امتیازات</legend>
                                 <div class="row">
                                   
@@ -328,7 +334,7 @@
                                           <th>انتخاب</th>
                                       </tr>
                                   </thead>
-                                  <tbody id="generalBonusList1">
+                                  <tbody id="generalBonusList1" class="settingTableBody">
                                     @foreach($generalBonuses as $Bonus)
                                     @if($Bonus->userType==1)
                                         <tr onclick="setGeneralBonusStuff(this,{{$Bonus->userType}})">
@@ -351,7 +357,7 @@
                     <div class="row c-checkout rounded-3 tab-pane" id="syncPTargetSetting" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                       <div class="col-sm-12">
                         <div class="row px-5">
-                          <fieldset class="rounded" style="min-height:300px;">
+                          <fieldset class="rounded">
                             <legend  class="float-none w-auto">تارگت‌ها</legend>
                             <input type="hidden" name="" id="selectTargetId">
                               <div class="row">
@@ -387,7 +393,7 @@
                                               <th> انتخاب  </th>
                                         </tr>
                                   </thead>
-                                  <tbody id="gtargetList2">
+                                  <tbody id="gtargetList2" class="settingTableBody">
                                     @foreach($generalTargets as $target)
                                       @if($target->userType==2)
                                           <tr class="targetTableTr" onclick="setGeneralTargetStuff(this,{{$target->userType}})">
@@ -411,7 +417,7 @@
                           </div>
                           <div class="row px-5">
                               <input type="hidden" id="specialBonusIdForEdit">
-                            <fieldset class="rounded" style="min-height:300px;">
+                            <fieldset class="rounded">
                               <legend  class="float-none w-auto"> امتیازات</legend>
                                 <div class="row">
                                   <div class="col-lg-3 col-md-3 col-sm-3 mt-3">
@@ -434,7 +440,7 @@
                                           <th>انتخاب</th>
                                       </tr>
                                   </thead>
-                                  <tbody id="generalBonusList2">
+                                  <tbody id="generalBonusList2" class="settingTableBody">
                                     @foreach($generalBonuses as $Bonus)
                                     @if($Bonus->userType==2)
                                         <tr onclick="setGeneralBonusStuff(this,{{$Bonus->userType}})">
@@ -456,7 +462,7 @@
                       <div class="row c-checkout rounded-3 tab-pane" id="driverTargetSetting" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                       <div class="col-sm-12">
                         <div class="row px-5">
-                          <fieldset class="rounded" style="min-height:300px;">
+                          <fieldset class="rounded">
                             <legend  class="float-none w-auto"> تارگت‌ها</legend>
                             <input type="hidden" name="" id="selectTargetId">
                               <div class="row">
@@ -495,7 +501,7 @@
                                               <th> انتخاب  </th>
                                         </tr>
                                   </thead>
-                                  <tbody id="gtargetList4">
+                                  <tbody id="gtargetList4" class="settingTableBody">
                                     @foreach($generalTargets as $target)
                                       @if($target->userType==4)
                                            <tr class="targetTableTr" onclick="setGeneralTargetStuff(this,{{$target->userType}})">
@@ -519,7 +525,7 @@
                           </div>
                           <div class="row px-5">
                               <input type="hidden" id="specialBonusIdForEdit">
-                            <fieldset class="rounded" style="min-height:300px;">
+                            <fieldset class="rounded">
                               <legend  class="float-none w-auto"> امتیازات</legend>
                                 <div class="row">
                                   
@@ -543,7 +549,7 @@
                                             <th>انتخاب</th>
                                         </tr>
                                   </thead>
-                                  <tbody id="generalBonusList4">
+                                  <tbody id="generalBonusList4" class="settingTableBody">
                                     @foreach($generalBonuses as $Bonus)
                                     @if($Bonus->userType==4)
                                         <tr onclick="setGeneralBonusStuff(this,{{$Bonus->userType}})">

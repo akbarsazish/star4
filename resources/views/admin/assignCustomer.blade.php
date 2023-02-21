@@ -9,7 +9,13 @@
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                    <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0">  تخصیص کاربران   </legend>
-                      @if(hasPermission(Session::get("asn"),"oppManagerN") > 0)
+                           @if(hasPermission(Session::get("asn"),"oppManagerN") > 0)
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" value="all" type="radio" name="settings" id="takhsisAllRadio" checked>
+                                <label class="form-check-label me-4" for="assesPast"> همه  </label>
+                            </div>
+                            @endif
+                           @if(hasPermission(Session::get("asn"),"oppManagerN") > 0)
                             <div class="form-check">
                                 <input class="form-check-input p-2 float-end" value="1" type="radio" name="settings" id="takhsisManagerRadio">
                                 <label class="form-check-label me-4" for="assesPast">  مدیران </label>
@@ -58,7 +64,7 @@
                                             <th> انتخاب </th>
                                         </tr>
                                     </thead>
-                                    <tbody class="select-highlight tableBody" id="adminGroupList" style="height:180px !important;">
+                                    <tbody class="select-highlight tableBody takhsisAllData" id="adminGroupList" style="height:180px !important;">
                                         @foreach ($admins as $admin)    
                                             <tr onclick="setAdminStuff(this,{{$admin->id}},{{$admin->adminType}})">
                                                 <td>{{$loop->iteration}}</td>
