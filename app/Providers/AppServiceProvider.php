@@ -70,10 +70,12 @@ class AppServiceProvider extends ServiceProvider
             $inactives=$countInActives[0]->countInactiveCustomer;
             }
             $todayDate=\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::now())->format("Y/m/d");
-            $countAlarms=\DB::select("select COUNT(id) as countAlarm  from CRM.dbo.crm_alarm where factorId in (select max(FactorHDS.SerialNoHDS) from Shop.dbo.FactorHDS group by customerSn) and state=0 and alarmDate<'$todayDate'");
+            $countAlarms=\DB::select("select COUNT(id) as countAlarm  from CRM.dbo.crm_alarm where factorId in (select max(FactorHDS.SerialNoHDS) from Shop.dbo.FactorHDS group by customerSn) and state=0 and alarmDate<='$todayDate'");
 
             $countAlarm=$countAlarms[0]->countAlarm;
-            $countNewCustomers=\DB::select("select COUNT(customerId) as countNewCustomers from CRM.dbo.crm_inserted_customers where IsCustomer=1");
+            $countNewCustomers=\DB::select("select COUNT(customerId) as countNewCustomers from(
+                                           select customerId from CRM.dbo.crm_inserted_customers where customerId 
+                                           not in (select customer_id from CRM.dbo.crm_customer_added))a");
             $countNewCustomers=$countNewCustomers[0]->countNewCustomers;
             $view->with(['doneWorks'=>$countDoneWorks,'remainedWorks'=>$countNotDone,'countNewCustomers'=>$countNewCustomers,
             'inbox'=>$inbox,'alarmTime'=>$alarmTime,'reffs'=>$reffs,'countAlarms'=>$countAlarm,'countInactives'=>$inactives]);

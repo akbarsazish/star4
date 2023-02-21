@@ -20,7 +20,7 @@
         <div class="modal-dialog modal-dialog-scrollable  modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                         <button class="btn btn-sm buttonHover crmButtonColor mx-3" id="customerEdit" style=" float:left;">ذخیره <i class="fa fa-save"> </i> </button>
@@ -243,11 +243,11 @@
 
 
             {{-- modal for adding comments --}}
-            <div class="modal fade" id="addComment" data-bs-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="addComment" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable ">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close"></button>
                         </div>
                     <div class="modal-body">
                         <div class="row">
@@ -289,7 +289,7 @@
 
                     </div>
                     <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="deleteConfirm()">بستن</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteConfirm()">بستن</button>
                             <button type="button" class="btn btn-primary">ذخیره </button>
                     </div>
                 </div>

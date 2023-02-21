@@ -4,62 +4,51 @@
                 <h3 class="page-title">موقعیت مشتری</h3>
                 <div class="row">
                     <div class="col-sm-12">
-                       <div  id="map"></div>
+                        <div  id="map"></div>
                     </div>
                 </div>
-               <div class="row">
-                   <div class="col-lg-2 col-md-2 col-sm-3">
-                        <div class="form-group">
-                            <label class="dashboardLabel form-label">  وضعیت  </label>
-                            <select class="form-select form-select-sm" id="customerWithorWithoutLocation">
-                                <option value="" hidden>همه </option>
-                                <option value="0">مشتری فاقد لوکیشن</option>
-                                <option value="1">مشتری با لوکیشن</option>
-                            </select>
-                        </div>
+               <div class="row mb-2">
+                    <div class="form-group col-lg-2">
+                        <label class="dashboardLabel form-label"> وضعیت  </label>
+                        <select class="form-select" id="searchGroup">
+                            <option value="0">مشتری فاقد لوکیشن</option>
+                            <option value="0">مشتری با لوکیشن</option>
+                        </select>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-4">
-                            <div class="form-group">
-                              <label class="dashboardLabel form-label">   </label>
-                             <input type="text" class="form-control form-control-sm" id="searchingCustomerName" placeholder="جستجو " style="margin-top:18px;">
-                         </div>
-                    </div>
-                <div class="col-lg-7 col-md-7 col-sm-5" style="margin-top:28px; display:flex; justify-content:flex-end;">
-               <button class="btn btn-primary btn-sm enableBtn buttonHover text-warning"  id="changePosition">تغییر لوکیشن <i class="fa fa-edit fa-lg"></i></button>
-					
+                    <div class="col-lg-8" style="margin-top:30px; display:flex; justify-content:flex-end;">
+                        <button class="btn btn-primary enableBtn buttonHover text-warning" disabled id="showMap">تغییر لوکیشن <i class="fa fa-edit fa-lg"></i></button>
                     </div>
                 </div>
-                <div class="row">
-                    <table class='table table-bordered table-striped' id="tableGroupList">
-                    <thead class="tableHeader">
+                    <table class='homeTables select-highlight crmDataTable table table-bordered table-striped' id="tableGroupList">
+                    <thead style="position: sticky;top:0;">
                             <tr>
-                                <th>ردیف</th>
-                                <th style="width:250px;">نام مشتری</th>
-                                <th style="width:500px;">ادرس</th>
+                                <th style="width:33px">ردیف</th>
+                                <th style="width:100px;">نام مشتری</th>
+                                <th style="width:300px;">ادرس</th>
                                 <th style="width: 90px;">تلفن </th>
                                 <th style="width: 90px;">همراه  </th>
-                                <!-- <th style="width:100px">موقعیت  </th> -->
-                                <th> انتخاب</th>
+                                <th style="width:30px">موقعیت  </th>
+                                <th style="width:25px"> انتخاب</th>
                             </tr>
                         </thead>
-                        <tbody class="tableBody" id="customerLocation">
+                        <tbody class="c-checkout" id="mainGroupList">
                             @foreach ($allCustomers as $customer)
-                            <tr id="forTh" onclick="selectCustomerLocation(this);">
-                                <td >{{$loop->iteration}}</td>
-                                <td style="width:250px;">{{$customer->Name}} </td>
-                                <td style="width:500px;">{{$customer->peopeladdress}}</td>
+                            <tr id="forTh">
+                                <td style="width:33px">{{$loop->iteration}}</td>
+                                <td style="width:100px;">{{$customer->Name}} </td>
+                                <td style="width:300px;">{{$customer->peopeladdress}}</td>
                                 <td style="width: 90px;">{{$customer->sabit}}</td>
                                 <td style="width: 90px;">{{$customer->hamrah}}</td>
-                                <!-- <td style="width:100px">دارد/ندارد</td> -->
-                                <td style="width:70px;"><span><input type="radio" name="changeLocation" id="selectCustomer" value="{{$customer->PSN}}"/></span></td>
+                                <td style="width:30px">دارد/ندارد</td>
+                                <td style="width: 70px;"><span><input type="radio" value="{{$customer->PSN}}"/></span>
+                            </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-            </div>
 
-        <div class="modal fade" id="customerDashboard" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="customerDashboard" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable  modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -82,7 +71,7 @@
                         <div class="row">
                         <div class="col-lg-8 col-md-8 col-sm-8">
                             <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-4 mb-2">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 mb-2">
                                         <div class="form-outline" style="padding-bottom:1%">
                                             <label class="dashboardLabel form-label">کد</label>
                                             <input type="text" class="form-control form-control-sm noChange" id="customerCode" value="">
@@ -105,20 +94,20 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-4">
                                         <div class="form-group">
-                                            <label class="dashboardLabel form-label"> شماره های تماس </label>
+                                            <label class="dashboardLabel form-label">  تلفن ثابت </label>
+                                            <input class="form-control noChange" type="text" name="" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label class="dashboardLabel form-label">  تلفن همراه 1 </label>
                                             <input class="form-control noChange" type="text" id="mobile1" >
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4">
                                         <div class="form-group">
-                                            <label class="dashboardLabel form-label">نام کاربری</label>
-                                            <input class="form-control noChange" type="text" id="username" >
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <label class="dashboardLabel form-label">رمز کاربری</label>
-                                            <input class="form-control noChange" type="text" id="password" >
+                                            <label class="dashboardLabel form-label">  تلفن همراه 2 </label>
+                                            <input class="form-control noChange" type="text" name="" >
                                         </div>
                                     </div>
                                 </div>
@@ -294,8 +283,6 @@
                 </div>
             </div>
         </div>
-
-
         <!-- Modal -->
         <div class="modal fade" id="changeCustomerLocation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable  modal-xl">
@@ -304,30 +291,24 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color:red"></button>
                         <h5 class="modal-title" id="exampleModalLabel"> موقعیت راننده </h5>
                     </div>
-                    <div class="modal-body">
-                            <div class="row" style="width:100%; height:480px;">
-                                <div class="container">
-                                        <div class="row" style="width:100%;height:480px;" id="map2"></div>
-                                </div>
+                        <div class="modal-body">
+                            <div class="row" style="  width:100%;
+                            height:480px;" id="map2"></div>
                         </div>
-                        <form action="{{url('/updatePosition')}}" id="changePositionForm">
-                        <div>
-                            <input type="text" class="form-control" value="" name='pers' id="newPosition">
-                            <input type="hidden" class="form-control" name='psn' value="" id="customerLocInputHidden">
-                        </div>
-                    </div>
                     <div class="modal-footer">
-                        <button type="button" form="changePositionForm" class="btn btn-danger" data-bs-dismiss="modal">بستن </button>
-                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"> ثبت موقعیت <i class="fa fa-save"></i> </button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن </button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">ذخیره <i class="fa fa-save"></i> </button>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 
+  
 
-<script>
+ <script>
 // let baseUrl="https://star4.ir"
         $.ajax({
             method:"GET",
@@ -351,7 +332,9 @@
                         marker.bindPopup(btn, {
                           Width: '300px'
                         });
+                        
                     }
+
                 });
         });
 
@@ -395,7 +378,7 @@ function openDashboard(psn) {
                     <td>` + parseInt(element.TotalPriceHDS/10).toLocaleString("en-us") + `</td>
                 </tr>`);
             });
-         $("#returnedFactorsBody").empty();
+            $("#returnedFactorsBody").empty();
             returnedFactors.forEach((element, index) => {
                 $("#returnedFactorsBody").append(`<tr class="tbodyTr">
                 <td style="width:44px;">` + (index + 1) + `</td>
@@ -404,7 +387,7 @@ function openDashboard(psn) {
                 <td style="width:70px;">` + parseInt(element.TotalPriceHDS/10).toLocaleString("en-us") + `</td>
                 </tr>`);
             });
-          $('#goodDetail').empty();
+            $('#goodDetail').empty();
             goodDetails.forEach((element, index) => {
                 $('#goodDetail').append(`
                 <tr class="tbodyTr">
@@ -417,7 +400,7 @@ function openDashboard(psn) {
                 </tr>`);
             });
 
-          $("#basketOrders").empty();
+            $("#basketOrders").empty();
             basketOrders.forEach((element, index) => {
                 $("#basketOrders").append(`<tr>
                     <td>` + (index + 1) + `</td>
@@ -471,112 +454,46 @@ function openDashboard(psn) {
                 <td></td>
                 <td></td>
                 <td><input type="radio" class="form-input"/></td>
-            </tr>`);
+            </tr>
+                `);
             });
-			
             $("#customerDashboard").modal("show");
         },
         error: function(data) {}
     });
 }
 
-
-// the fowllowing functin is used to edit customer location based on address
-
-$("#changePosition").on("click", (e) => {
-    let custIdLoc = $("#customerLocInputHidden").val();
-   
+ // for changing map
+$("#showMap").on("click",()=>{
+    $("#changeCustomerLocation").modal("show");
     $.ajax({
-        method: 'get',
-        url: "https://star4.ir/changePosition",
-        data: {
-            _token: "{{ csrf_token() }}",
-            customerId: custIdLoc
-        },
-        async: true,
-        success: function(data) {
-            var map;
-            if (L.DomUtil.get('map2') !== undefined) { 
-                    L.DomUtil.get('map2')._leaflet_id = null; 
-                }
-                //  var map = L.map('map2').setView([43.64701, -79.39425], 10);
-                 map = L.map('map2', {center:[35.70163, 51.39211], zoom:10});
+                method:"GET",
+                url:"https://star4.ir/searchMap",
+
+            }).then(function(data){
+                 var map = L.map('map2').setView([35.70163, 51.39211], 12);
                           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                             attribution: '<a href="https://osm.org/copyright">CRM</a>'
                           }).addTo(map);
-
-
-             var marker ={};
+            var marker ={};
                 data.forEach(function(item){
                 if(item.LatPers>0 && item.LonPers>0){
                     var popup =new  L.popup().setContent();
-                    marker = L.marker([item.LonPers,item.LatPers],{
-                        title: " تغییر موقعیت", 
-                        draggable: true,
-                    }
-                    ).addTo(map).bindPopup(popup);
-
-                    marker.on('dragend', () => {
-                         let newposition = marker.getLatLng();
-                         $("#newPosition").val(newposition.lng+','+newposition.lat);
-                    });
+                    marker = L.marker([item.LonPers,item.LatPers]).addTo(map).bindPopup(popup);
 
                     let btn = document.createElement('a');
                     btn.innerText = 'مشتری ';
-                    // btn.setAttribute('href', "/Cardboard/cCode");
-                    marker.bindPopup(btn, {
-                        maxWidth: '200px'
-                    });
-                }else {
-                        let defaultposition = [35.70163, 51.39211];
-                        
-                        $("#newPosition").val(defaultposition);
-                        marker = L.marker(defaultposition,{
-                          title: "تعیین موقعیت", draggable: true,
-                        
-                     }
-                    ).addTo(map).bindPopup(popup);
-
-                    marker.on('dragend', () => {
-                         let newposition = marker.getLatLng();
-                         $("#newPosition").val(newposition.lng+','+newposition.lat);
-                    });
-
-                    let btn = document.createElement('a');
-                    btn.innerText = 'مشتری ';
-                    // btn.setAttribute('href', "/Cardboard/cCode");
+                    btn.setAttribute('href', "/Cardboard/cCode");
                     marker.bindPopup(btn, {
                         maxWidth: '200px'
                     });
                 }
-        
                 });
-			
-			  if (!($('.modal.in').length)) {
-                $('.modal-dialog').css({
-                  top: 0,
-                  left: 0
-                });
-              }
-              $('#changeCustomerLocation').modal({
-                backdrop: false,
-                show: true
-              });
-              
-              $('.modal-dialog').draggable({
-                  handle: ".modal-header"
-                });
-               
-                $("#changeCustomerLocation").modal("show");
-                setTimeout(function () {
-                    window.dispatchEvent(new Event("resize"));
-                    }, 500);
-            }
+            });
         });
-    });
-
-
 
     </script>
 
+
+    
 @endsection

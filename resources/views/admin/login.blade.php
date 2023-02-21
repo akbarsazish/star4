@@ -9,18 +9,6 @@
     <meta name="theme-color" content="#FFE1C4">
     <script src="{{url('/resources/assets/js/sweetalert.min.js')}}"></script>
     <link rel="icon" type="image/png" href="{{ url('/resources/assets/images/part.png')}}">
-    <style>
-        .downloadAppimg {
-                list-style-type: none;
-                height:28px;
-            }
-        .app{
-            padding:10px 15px;
-            background-color:black;
-            margin:5px;
-            border-radius:10px;
-        }
-    </style>
 </head>
 <body style="background-color:#bbcbda;">
     <section class="account-box">
@@ -52,12 +40,6 @@
                             @endif
                         @endif
                     </form>
-                    <form action="{{url('/downloadApk')}}" method="get" id='myform'>
-                        <div class="app d-flex justify-content-center" role="group" aria-label="Basic mixed styles example">
-                            <a href="javascript:;" onclick="document.getElementById('myform').submit()" class="ms-1 btn btn-success">
-                            <img class="downloadAppimg" src="{{ url('/resources/assets/images/Gplay.png')}}"> دانلود اندرويد</a>
-                         </div>
-                   </form>
                 </div>
            </div>
     </section>

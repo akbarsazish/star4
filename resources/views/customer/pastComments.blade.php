@@ -8,7 +8,7 @@
                  <div class="row">
                     <div class="col-sm-7">
                        <div class="row">
-                            <div class="form-group col-sm-3 px-0">
+                        <div class="form-group col-sm-3 px-0">
                                 <input type="text" name="" size="20" class="form-control publicTop" id="firstDate" placeholder="از تاریخ ">
                             </div>
                             <div class="form-group col-sm-1" style="text-align:center">
@@ -33,26 +33,32 @@
                     <div class="well" style="margin-top:2%;">
                         <span class="row" style="margin: 0;">
                             <div class="col-sm-12 " style="padding:0;  margin-top: 0;">
-                                <table class='table-bordered table-striped text-center' style="width:100%">
-                                <thead class="tableHeader">
+                                <table class='homeTables crmDataTable table table-bordered table-striped text-center' style="width:100%">
+                                <thead style="position: sticky;top: 0;">
                                     <tr>
                                         <th >ردیف</th>
                                         <th>اسم</th>
+                                        <th>تلفن</th>
+                                        <th>همراه</th>
                                         <th>مبلغ</th>
-                                        <th >تاریخ</th>
+                                        <th >شماره فاکتور</th>
                                         <th >انتخاب</th>
                                     </tr>
                                     </thead>
-                                    <tbody class="select-highlight tableBody" id="customerListBody1">
+                                    <tbody class="select-highlight" id="customerListBody1">
                                         @foreach ($customers as $customer)
+
                                             <tr onclick="assesmentStuff(this)">
                                                 <td >{{$loop->iteration}}</td>
                                                 <td>{{trim($customer->Name)}}</td>
+                                                <td>{{trim($customer->sabit)}}</td>
+                                                <td>{{trim($customer->hamrah)}}</td>
                                                 <td>{{number_format($customer->TotalPriceHDS/10)}} تومان</td>
-                                                <td >{{$customer->FactDate}}</td>
+                                                <td >{{$customer->FactNo}}</td>
                                                 <td > <input class="customerList form-check-input" name="factorId" type="radio" value="{{$customer->PSN.'_'.$customer->SerialNoHDS}}"></td>
                                             </tr>
                                         @endforeach
+
                                     </tbody>
                                 </table>
                             </div>
@@ -66,89 +72,83 @@
 
 {{-- dashbor modal --}}
 
-<div class="modal fade dragableModal" id="customerDashboard" data-bs-backdrop="static" aria-hidden="true">
+<div class="modal fade" id="customerDashboard" data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable  modal-xl">
         <div class="modal-content"  style="background-color:#d2e9ff;">
             <div class="modal-header" style="border-bottom:1px solid rgb(7, 42, 214);">
-                <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body"  style="background-color:#d2e9ff;">
+
                     <div class="row">
                         <div class="col-lg-6">
-                          <span class="fw-bold fs-4" id="dashboardTitle"></span>
+                        <span class="fw-bold fs-4" id="dashboardTitle"></span>
                         </div>
                         <div class="col-lg-6">
-                            <button class="btn btn-sm btn-primary float-start" onclick="openAssesmentStuff()"  type="button" > افزودن نظر <i class="fa fa-address-card fa-lg"> </i> </button>
-                           <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get">
-                                    <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
-                                    <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
-                                    <button type="button" class="btn btn-sm btn-primary float-start" type="submit"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </button>
-                                </form>
+                            <button class="btn btn-sm btn-primary buttonHover float-end" onclick="openAssesmentStuff()"  type="button" > افزودن نظر <i class="fa fa-address-card fa-lg"> </i> </Button>
                         </div>
                     </div>
-                    <div class=" tab-pane active" id="custInfo" style="border-radius:10px 10px 2px 2px; padding:0;">
-						 <div class="row">
-                                <div class="col-lg-8 col-md-8 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-lg-2 col-md-2 col-sm-2">
-											<div class="input-group input-group-sm mb-2">
-											  <span class="input-group-text" id="inputGroup-sizing-sm">کد</span>
-											  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="customerCode" value="" disabled>
-											</div>
-                                        </div>
-                                        <div class="col-lg-7 col-md-7 col-sm-7">
-											<div class="input-group input-group-sm mb-2">
-											  <span class="input-group-text" id="inputGroup-sizing-sm">نام و نام خانوادگی </span>
-											  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="customerName" disabled>
-											</div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-3 col-sm-3">
-											<div class="input-group input-group-sm mb-2">
-											  <span class="input-group-text" id="inputGroup-sizing-sm"> تعداد فاکتور </span>
-											  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="countFactor" disabled>
-											</div>
+                    
+                    <div class=" tab-pane active" id="custInfo" style="border-radius:10px 10px 2px 2px; padding:0; background-color:#d2e9ff">
+                    <fieldset class="row c-checkout rounded-3 m-0" style='padding-right:0; padding-top:0.5%; background-color:#d2e9ff'>
+                        <div class="row" style="background-color:#d2e9ff;">
+                            <div class="col-lg-8 col-md-8 col-sm-12">
+                                <div class="row mt-2">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 mb-2">
+                                        <div class="form-outline" style="padding-bottom:1%">
+                                            <label class="dashboardLabel form-label">کد</label>
+                                            <input type="text" class="form-control form-control-sm noChange" id="customerCode" value="">
                                         </div>
                                     </div>
-                                    <div class="row">
-										 <div class="col-lg-4 col-md-4 col-sm-4">
-											<div class="input-group input-group-sm mb-2">
-												 <span class="input-group-text" id="inputGroup-sizing-sm">تلفن ثابت </span>
-											  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
-										</div>
-									 </div>
-										
-                                        <div class="col-lg-4 col-md-4 col-sm-4">
-											<div class="input-group input-group-sm mb-2">
-											  <span class="input-group-text" id="inputGroup-sizing-sm"> تلفن همراه 1 </span>
-											  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="mobile1" disabled>
-											</div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-4">
-											<div class="input-group input-group-sm mb-2">
-											  <span class="input-group-text" id="inputGroup-sizing-sm"> تلفن همراه 2 </span>
-											  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
-											</div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <div class="form-outline " style="padding-bottom:1%">
+                                            <label class="dashboardLabel form-label">نام و نام خانوادگی</label>
+                                            <input type="text" class="form-control form-control-sm noChange" id="customerName"  value="علی حسینی" >
                                         </div>
                                     </div>
-                                    <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-										<div class="input-group input-group-sm mb-2">
-										  <span class="input-group-text" id="inputGroup-sizing-sm"> آدرس  </span>
-										  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="customerAddress" disabled>
-										</div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label class="dashboardLabel form-label"> تعداد فاکتور </label>
+                                            <input type="text" class="form-control form-control-sm noChange" id="countFactor">
+                                        </div>
                                     </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
+                                        <div class="form-group">
+                                            <label class="dashboardLabel form-label"> آدرس </label>
+                                            <input type="text" class="form-control form-control-sm noChange" id="customerAddress" value="آدرس">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label class="dashboardLabel form-label">  تلفن ثابت </label>
+                                            <input class="form-control noChange" type="text" name="" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label class="dashboardLabel form-label">  تلفن همراه 1 </label>
+                                            <input class="form-control noChange" type="text" id="mobile1" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+                                        <div class="form-group">
+                                            <label class="dashboardLabel form-label">  تلفن همراه 2 </label>
+                                            <input class="form-control noChange" type="text" name="" >
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                    <div style="width:300px;">
-                                        <label for="exampleFormControlTextarea1" class="form-label fw-bold">یاداشت  </label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" ></textarea>
-                                    </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12 mt-2">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlTextarea1" class="form-label fw-bold">یاداشت  </label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" style="background-color:#d2e9ff" ></textarea>
                                 </div>
-                            </div> <hr>
+                            </div>
+                        </div>
 
                 </div>
-                <div class="c-checkout container" style="padding:0.5% !important; border-radius:10px 10px 2px 2px;">
+                <div class="c-checkout container" style="background-color:#c5c5c5; padding:0.5% !important; border-radius:10px 10px 2px 2px;">
                     <div class="col-sm-8" style="margin: 0; padding:0;">
                         <ul class="header-list nav nav-tabs" data-tabs="tabs" style="margin: 0; padding:0;">
                             <li><a class="active" data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#custAddress"> فاکتور های ارسال شده </a></li>
@@ -162,8 +162,8 @@
                     <div class="c-checkout tab-content talbeDashboardTop">
                             <div class="row c-checkout rounded-3 tab-pane active tableDashboardMiddle" id="custAddress" >
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered table-striped table-sm">
-                                        <thead class="tableHeader">
+                                    <table class="homeTables dashbordTables factor table table-bordered table-striped table-sm">
+                                        <thead  style="position: sticky;top: 0;">
                                             <tr>
                                                 <th> ردیف</th>
                                                 <th>تاریخ </th>
@@ -172,7 +172,7 @@
                                                 <th></th>
                                             </tr>
                                         </thead>
-                                        <tbody id="factorTable" class="tableBody">
+                                        <tbody id="factorTable">
                                         </tbody>
                                     </table>
                                 </div>
@@ -181,8 +181,8 @@
                         <div class="row c-checkout rounded-3 tab-pane talbeDashboardTop" id="moRagiInfo">
                             <div class="row c-checkout rounded-3 tab-pane tableDashboardMiddle" id="custAddress">
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered table-striped table-sm">
-                                        <thead class="tableHeader">
+                                    <table class="homeTables dashbordTables buyiedKala table table-bordered table-striped table-sm">
+                                        <thead  style="position: sticky;top: 0;">
                                         <tr>
                                             <th> ردیف</th>
                                             <th>تاریخ</th>
@@ -191,7 +191,7 @@
                                             <th>فی</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="goodDetail" class="tableBody">
+                                        <tbody id="goodDetail">
                                         </tbody>
                                     </table>
                                 </div>
@@ -201,8 +201,8 @@
                         <div class="row c-checkout rounded-3 tab-pane talbeDashboardTop" id="shoppingList">
                             <div class="row c-checkout rounded-3 tab-pane tableDashboardMiddle" id="custAddress">
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered table-striped table-sm">
-                                        <thead class="tableHeader">
+                                    <table class="homeTables dashbordTables basketKala table table-bordered table-striped table-sm">
+                                        <thead  style="position: sticky;top: 0;">
                                         <tr>
                                             <th> ردیف</th>
                                             <th>تاریخ</th>
@@ -211,7 +211,7 @@
                                             <th>فی</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="basketOrders" class="tableBody">
+                                        <tbody id="basketOrders">
                                         <tr>
                                           
                                         </tr>
@@ -224,8 +224,8 @@
                         <div class="c-checkout tab-pane talbeDashboardTop" id="returnedFactors">
                             <div class="row c-checkout rounded-3 tab-pane tableDashboardMiddle" id="custAddress">
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered table-striped table-sm">
-                                        <thead class=="tableHeader">
+                                    <table class="homeTables dashbordTables returnedFactor table table-bordered table-striped table-sm">
+                                        <thead  style="position: sticky;top: 0;">
                                         <tr>
                                             <th> ردیف</th>
                                             <th>تاریخ </th>
@@ -234,7 +234,7 @@
                                             <th></th>
                                         </tr>
                                         </thead>
-                                        <tbody id="returnedFactorsBody" class="tableBody">
+                                        <tbody id="returnedFactorsBody">
                                         </tbody>
                                     </table>
                                 </div>
@@ -244,8 +244,8 @@
                         <div class="c-checkout tab-pane talbeDashboardTop" id="comments">
                             <div class="row c-checkout rounded-3 tab-pane tableDashboardMiddle" id="custAddress">
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered table-striped table-sm">
-                                        <thead class="tablHeader">
+                                    <table class="homeTables dashbordTables comments table table-bordered table-striped table-sm">
+                                        <thead  style="position: sticky;top: 0;">
                                         <tr class="theadTr">
                                             <th> ردیف</th>
                                             <th>تاریخ</th>
@@ -254,7 +254,7 @@
                                             <th> تاریخ بعدی </th>
                                         </tr>
                                         </thead>
-                                        <tbody id="customerComments" class="tableBody">
+                                        <tbody id="customerComments">
 
                                         </tbody>
                                     </table>
@@ -264,8 +264,8 @@
                         <div class="c-checkout tab-pane" id="assesments" style="margin:0; border-radius:10px 10px 2px 2px;">
                             <div class="row c-checkout rounded-3 tab-pane active" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                                 <div class="col-sm-12">
-                                    <table class="table-bordered table-striped table-sm">
-                                        <thead class="tableHeader">
+                                    <table class="homeTables crmDataTable myCustomer tableSection4 table table-bordered table-striped table-sm" style="text-align:center;">
+                                        <thead  style="position: sticky;top: 0;">
                                         <tr>
                                             <th> ردیف</th>
                                             <th>تاریخ</th>
@@ -275,7 +275,7 @@
                                             <th> کالاهای برگشتی</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="customerAssesments" class="tableBody">
+                                        <tbody id="customerAssesments"  >
                                         </tbody>
                                     </table>
                                 </div>
@@ -287,62 +287,73 @@
         </div>
     </div>
 </div>
-        <!-- Modal for reading comments-->
-        <div class="modal fade" id="viewComment" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable  modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
-                        <h5 class="modal-title" id="exampleModalLabel">کامنت ها</h5>
-                    </div>
-                    <div class="modal-body" >
-                        <h3 id="readCustomerComment1"></h3>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
         <!-- Modal for reading factor Detail -->
-        <div class="modal fade" id="viewFactorDetail" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
-        <div class="modal-dialog  modal-xl">
+        <div class="modal fade" id="viewFactorDetail" tabindex="-1" data-backdrop="static" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog   modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close bg-danger" data-dismiss="modal" aria-label="Close"></button>
                     <h5 class="modal-title" id="exampleModalLabel">جزئیات فاکتور</h5>
                 </div>
                 <div class="modal-body" id="readCustomerComment">
                     <div class="container">
                         <div class="row" style=" border:1px solid #dee2e6; padding:10px">
-                                <h6 style="padding:10px; border-bottom: 1px solid #dee2e6; text-align:center;">فاکتور فروش </h6>
-									 <div class="grid-container">
-											<div class="item1"> <b>تاریخ فاکتور   :  </b> <span id="factorDate">  </span> </div>
-											<div class="item2"> <b> مشتری  :  </b> <span  id="customerNameFactor"> </span>    </div>
-											<div class="item3"> <b> آدرس  :  </b> <span id="customerAddressFactor"> </span>   </div>
-											<div class="item4"><span> تلفن :</span>    <span id="customerPhoneFactor"> </span></div>
-											<div class="item5"><span> کاربر :  </span>   <span id="Admin1"> </span></div>
-											<div class="item6"><span>  شماره فاکتور :</span>  <span id="factorSnFactor">  </span></div>
-										</div>
-                                    </div>
+                                <h4 style="padding:10px; border-bottom: 1px solid #dee2e6; text-align:center;">فاکتور فروش </h4>
+                                <div class="col-sm-6">
+                                    <table class="crmDataTable table table-borderless" style="background-color:#dee2e6">
+                                        <tbody>
+                                        <tr>
+                                            <td>تاریخ فاکتور:</td>
+                                            <td id="factorDate1"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>مشتری:</td>
+                                            <td id="customerNameFactor1"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>آدرس:</td>
+                                            <td id="customerAddressFactor1"> </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-sm-6">
+                                    <table class="table table-borderless" style="background-color:#dee2e6">
+                                        <tbody>
+                                            <tr>
+                                                <td>تلفن :</td>
+                                                <td id="customerPhoneFactor1"></td>
+                                            </tr>
+                                        <tr>
+                                            <td>کاربر :</td>
+                                            <td id="Admin1"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>شماره فاکتور :</td>
+                                            <td id="factorSnFactor1"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                             <div class="row">
-                                <table id="strCusDataTable"  class='table table-bordered table-striped table-sm'>
-                                    <thead class="tableHeader">
+                                <table id="strCusDataTable"  class='crmDataTable dashbordTables table table-bordered table-striped table-sm' style="background-color:#dee2e6">
+                                    <thead>
                                     <tr>
-                                        <th>ردیف</th>
-                                        <th >نام کالا </th>
-                                        <th>تعداد/مقدار</th>
-                                        <th>واحد کالا</th>
-                                        <th>فی (تومان)</th>
-                                        <th style="width:122px;">مبلغ (تومان)</th>
+                                        <th scope="col">ردیف</th>
+                                        <th scope="col">نام کالا </th>
+                                        <th scope="col">تعداد/مقدار</th>
+                                        <th scope="col">واحد کالا</th>
+                                        <th scope="col">فی (تومان)</th>
+                                        <th scope="col">مبلغ (تومان)</th>
                                     </tr>
                                     </thead>
-                                    <tbody id="productList1" class="tableBody">
+                                    <tbody id="productList1">
 
                                     </tbody>
                                 </table>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -354,15 +365,15 @@
 
 
             {{-- modal for adding comments --}}
-            <div class="modal fade" id="assesmentDashboard" data-bs-backdrop="static" data-keyboard="false">
+            <div class="modal fade" id="assesmentDashboard" data-backdrop="static" data-keyboard="false" data-backdrop="static">
                 <div class="modal-dialog modal-dialog-scrollable  modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close" id="cancelAssesment"></button>
+                            <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close" id="cancelAssesment"></button>
                             <h5 class="modal-title" id="exampleModalLabel"> افزودن نظر </h5>
                         </div>
                     <div class="modal-body">
-                        <form action="{{url('/addAssessmentPast')}}" id="addAssesmentPast" method="get" style="background-color:transparent; box-shadow:none;">
+                        <form action="{{url('/addAssessment')}}" id="addAssesment" method="get" style="background-color:transparent; box-shadow:none;">
                             @csrf
                             <div class="row mb-2">
                             <div class="col-lg-10">
@@ -370,79 +381,45 @@
                                 <span id="customerComenter" style="font-size:18px;margin-bottom:11px;"></span>
                             </div>
                             <div class="col-lg-2" style="display:flex; justify-content:flex-end;">
-                                <button type="submit" class="btn btn-primary btn-sm">ذخیره <i class="fa fa-save"></i></button>
+                                <button type="submit" class="btn btn-primary">ذخیره <i class="fa fa-save"></i></button>
                             </div>
-                        </div>	
-						 <div class="row">
+                        </div>
+
+                        <div class="row">
                             <div class="col-lg-12">
                                 <div class="row">
-								 <div class="col-lg-3">
-                                  <div class="col-lg-12 mb-1">
-                                        <select class="form-select form-select-sm" name="shipmentProblem">
-                                            <option hidden>مشکل در بار</option>
-                                            <option value="1">بلی</option>
-                                            <option value="0">خیر</option>
-                                        </select>
-                                     <input type="text" name="customerId" id="customerIdForAssesment" style="display:none;">
-                                    <input type="text" name="factorId" id="factorIdForAssesment" style="display:none;">
-                                 </div>
-                                <div class="col-lg-12 mb-2">
-                                    <select class="form-select form-select-sm" name="behavior">
-                                        <option hidden>برخورد راننده</option>
-                                        <option value="1">عالی</option>
-                                        <option value="2">خوب</option>
-                                        <option value="3">متوسط </option>
-                                        <option value="4">بد</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-12">
-                                    <input class="form-control form-control-sm" name="alarmDate" required autocomplete="off" id="commentDate2" placeholder="آلارم خرید بعدی">
-                                </div>
+                                 <div class="col-lg-4">
+                                <select class="form-select" name="shipmentProblem">
+                                    <option hidden>مشکل در بار</option>
+                                    <option value="1">بلی</option>
+                                    <option value="0">خیر</option>
+                                </select>
+                                <input type="text" name="customerId" id="customerIdForAssesment" style="display:none">
+                                <input type="text" name="factorId" id="factorIdForAssesment" style="display:none">
                             </div>
-                            <div class="col-lg-9">
-							 <div class="row">
+                            <div class="col-lg-4">
+                                <select class="form-select" name="behavior">
+                                    <option hidden>برخورد راننده</option>
+                                    <option value="1">عالی</option>
+                                    <option value="2">خوب</option>
+                                    <option value="3">متوسط</option>
+                                    <option value="4">بد</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <input class="form-control" name="alarmDate" autocomplete="off" id="commentDate1" placeholder="آلارم خرید بعدی">
+                            </div>
+                       </div>
+                       <div class="row">
                                 <div class="col-lg-6">
                                     <label for="tahvilBar" >کلاهای عودتی  </label>
-                                    <textarea class="form-control  bg-light" style="position:relative" name="firstComment" rows="3"  ></textarea>
+                                    <textarea class="form-control" style="position:relative" name="firstComment" rows="3"  ></textarea>
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="tahvilBar"> کامنت</label>
-                                    <textarea class="form-control bg-light" required name="comment" rows="3" ></textarea>
+                                    <textarea class="form-control" name="comment" rows="3" ></textarea>
                                 </div>
-                             </div>
-                         </div>
-                         <div class="row mt-3" style=" border:1px solid #dee2e6; padding:5px; margin-right:3px;">
-                              <h4 style="padding:10px; text-align:center;">فاکتور فروش </h4>
-							    <div class="grid-container">
-									<div class="item1"> <b>تاریخ فاکتور   :  </b> <span id="factorDate">  </span> </div>
-									<div class="item2"> <b> مشتری  :  </b> <span  id="customerNameFactor"> </span>    </div>
-									<div class="item3"> <b> آدرس  :  </b> <span id="customerAddressFactor"> </span>   </div>
-									<div class="item4"><span> تلفن :</span>    <span id="customerPhoneFactor"> </span></div>
-									<div class="item5"><span> کاربر :  </span>   <span id="Admin1"> </span></div>
-									<div class="item6"><span>  شماره فاکتور :</span>  <span id="factorSnFactor">  </span></div>
-								</div>
-                       	     </div>
-                        	<div class="row">
-								<table id="strCusDataTable"  class='table table-bordered table-striped table-sm'>
-									<thead class="tableHeader">
-									  <tr>
-										<th>ردیف</th>
-										<th>نام کالا </th>
-										<th>تعداد/مقدار</th>
-										<th>واحد کالا</th>
-										<th>فی (تومان)</th>
-										<th style="width:122px">مبلغ (تومان)</th>
-									  </tr>
-									</thead>
-									<tbody id="productList" class="tableBody">
-
-									</tbody>
-								  </table>
-                        	</div>
-                   		 </div>
-                   		</form>
-                 	</div>
-               	 </div>
+                          </div>
 
                           <div class="row mt-3" style=" border:1px solid #dee2e6; padding:5px; background-color:#dee2e6; margin-right:3px;">
                             <h4 style="padding:10px; text-align:center;">فاکتور فروش </h4>
@@ -458,8 +435,10 @@
                                         <tr>
                                             <td>تلفن :</td>
                                             <td id="customerPhoneFactor"></td>
+                                    
                                             <td>کاربر :</td>
-                                            <td id="Admin1"></td>
+                                            <td >{{Session::get("username")}}</td>
+                                     
                                             <td>شماره فاکتور :</td>
                                             <td id="factorSnFactor"></td>
                                             <td>تاریخ فاکتور:</td>
@@ -470,26 +449,24 @@
                             </div>
 
                         <div class="row">
-                            <table id="strCusDataTable"  class='table table-bordered table-striped table-sm'>
-                                <thead class="tableHeader">
+                            <table id="strCusDataTable"  class='crmDataTable dashbordTables table table-bordered table-striped table-sm' style="background-color:#dee2e6">
+                                <thead>
                                   <tr>
-                                    <th>ردیف</th>
-                                    <th>نام کالا </th>
-                                    <th>تعداد/مقدار</th>
-                                    <th>واحد کالا</th>
-                                    <th>فی (تومان)</th>
-                                    <th>مبلغ (تومان)</th>
+                                    <th scope="col">ردیف</th>
+                                    <th scope="col">نام کالا </th>
+                                    <th scope="col">تعداد/مقدار</th>
+                                    <th scope="col">واحد کالا</th>
+                                    <th scope="col">فی (تومان)</th>
+                                    <th scope="col">مبلغ (تومان)</th>
                                   </tr>
                                 </thead>
-                                <tbody id="productList" class="tableBody">
+                                <tbody id="productList">
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </form>
             </div>
-						
-						
         </div>
     </div>
 </main>

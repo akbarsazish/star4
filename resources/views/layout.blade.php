@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+            body {
+                    touch-action: none;
+                }
+</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.01">
     <script>
@@ -12,29 +17,16 @@
     </script>
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> -->
     <title> CRM </title>
-	<link rel="icon" type="image/png" href="{{url('/resources/assets/images/part.png')}}"/>
     <link rel="stylesheet" href="{{ url('/resources/assets/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{ url('/resources/assets/fontawesome/css/all.min.css')}}"/>
     <link rel="stylesheet" href="{{ url('/resources/assets/css/mainAdmin.css')}}"/>
-    <link rel="stylesheet" href="{{url('/resources/assets/css/jquery-ui.min.css')}}"/>
+    <link rel="stylesheet" href="{{url('/resources/assets/jquery-ui-1.12.1/jquery-ui-1.12.1/jquery-ui.min.css')}}"/>
+    <link rel="icon" type="image/png" href="{{url('/resources/assets/images/part.png')}}"/>
+    <link rel="stylesheet" href="{{url('/resources/assets/css/leaflet.css')}}"/>
     <link rel="stylesheet" href="{{url('/resources/assets/js/persianDatepicker-master/css/persianDatepicker-default.css')}}" />
     <link rel="stylesheet" href="{{url('/resources/assets/js/calculator/jqueryscripttop.css')}}"/>
     <link rel="stylesheet" href="{{url('/resources/assets/css/calculator.css')}}"/>
     <link rel="stylesheet" href="{{ url('/resources/assets/css/clockMain.css')}}"/>
-	
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
-	<link rel="stylesheet" href="{{ url('/resources/assets/css//Control.Geocoder.css')}}" />
-	<script src="{{url('/resources/assets/js/jquery.min.js')}}"></script>
-	<script src="{{url('/resources/assets/js/persianDatepicker-master/js/jquery-1.10.1.min.js')}}"></script> 
-	<script src="{{url('/resources/assets/js/jquery-ui.min.js')}}"></script> 
-    <script src="{{url('/resources/assets/js/persianDatepicker-master/js/persianDatepicker.min.js')}}"></script> 
-	<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 </head>
 <body>    
     <header>
@@ -49,127 +41,129 @@
                         <button onclick="closeNav()" class="closeMenuButton"><i class="fad fa-times"></i></button>
                         <div id='cssmenu' style="direction: rtl;">
                             <ul>
-                                @if(hasPermission(Session::get("asn"),"baseInfoN") > -1)
-                                    <li class='has-sub'>
-                                        <a class="mySidenav__item" href="#">
-                                            <span>
-                                                <i class="fa fa-bar-chart fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; اطلاعات پایه
-                                            </span>
-                                        </a>
-                                        <ul>
-                                         @if(hasPermission(Session::get("asn"),"baseInfoProfileN") > -1)
-                                            <li class=''><a class="mySidenav__item" href="{{url('/userProfile')}}"> &nbsp;&nbsp; <i class="fa-solid fa-user fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; پروفایل </span></a> </li>
-                                            @endif
-                                            @if(hasPermission(Session::get("asn"),"infoRdN") > -1)
-                                            <li class=''><a class="mySidenav__item" href="{{url('/randt')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; R&D</span></a> </li>
-                                            @endif
-                                            @if(hasPermission(Session::get("asn"),"specialSettingN") > -1)
-                                            <li class=''><a class="mySidenav__item" href="{{url('/saleLine')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; افزودن خط فروش</span></a> </li>
-                                            @endif
-                                            @if(hasPermission(Session::get("asn"),"baseInfoSettingN") > -1)
-                                            <li class=''><a class="mySidenav__item" href="{{url('/bonusSetting')}}"> &nbsp;&nbsp; <i class="fa fa-cog fa-lg" style="margin-right:15px; color:#ba7802;"></i>&nbsp; تنظیمات  </span></a></li>
-                                            @endif
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if(hasPermission(Session::get("asn"), "declareElementOppN") > -1)
-                                    <li class='has-sub'>
-                                         <a class="mySidenav__item" href="#"> <span><i class="fa fa-bar-chart fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; تعریف عناصر </span> </a>
-                                        <ul>
-                                            @if(hasPermission(Session::get("asn"), "declareElementOppN") > -1)
-                                              <li class=''><a class="mySidenav__item" href="{{url('/listKarbaran')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; لیست کاربران</span></a> </li>
-                                            @endif
-                                        </ul>
-                                    </li>
-                                @endif
 
+                            @if( Session::get('adminType')==1 or Session::get('adminType')==5)
+
+                                <li class='has-sub'><a class="mySidenav__item" href="{{url('/home')}}"><span><i class="fa-solid fa-user fa-lg" style="color:#fff;"></i> &nbsp; داشبورد</span></a></li>
+                                <li class='has-sub'><a class="mySidenav__item" href="{{url('/dashboardAdmin')}}"><span><i class="fa fa-bar-chart fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; عملیات
+                            
+                                @if($reffs>0 or $countNewCustomers>0)
+
+                                <span class="position-absolute badge rounded-pill bg-danger"> {{$reffs+$countNewCustomers}}</span>
                                 
-                                @if(hasPermission(Session::get("asn"),"oppN") > -1)
-                                    <li class='has-sub'>
-                                        <a class="mySidenav__item" href="{{url('/dashboardAdmin')}}">
-                                            <span>
-                                                <i class="fa fa-bar-chart fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; عملیات
-                                            @if($reffs>0 or $countNewCustomers>0)
-                                                <span class="position-absolute badge rounded-pill bg-danger"> {{$reffs+$countNewCustomers}}</span>
-                                            @endif
-                                            </span>
-                                        </a>
-                                        <ul>
-                                            @if(hasPermission(Session::get("asn"),"oppTakhsisN") > -1)
-                                               <li class=''><a class="mySidenav__item text-white" href="{{url('/assignCustomer')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="color:#fff;"></i>&nbsp; تخصیص به کاربر </span></a> </li>
-                                            @endif
-                                            @if(hasPermission(Session::get("asn"),"oppDriverN") > -1)
-                                                <li class=''><a class="mySidenav__item text-white" href="{{url('/driverService')}}"> &nbsp;&nbsp; <i class="fas fa-car fa-lg"style="color:#fff;"></i>&nbsp;  راننده ها </span></a></li>
-                                             @endif
-                                             @if(hasPermission(Session::get("asn"),"oppNazarSanjiN") > -1)
-                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/commentToday')}}"><span>  &nbsp; &nbsp; <i class="fa fa-check fa-lg" style="color:#fff;"></i>&nbsp; نظر سنجی  </span></a> </li>
-                                             @endif
-                                             @if(hasPermission(Session::get("asn"),"OppupDownBonusN") > -1)
-                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/bonusIncreaseDecrease')}}"><span>  &nbsp; &nbsp; <i class="fa-solid fa-plus-minus" style="color:#fff;"></i>  افزایش و کاهش امتیاز </span></a> </li>
-                                            @endif
-                                             @if(hasPermission(Session::get("asn"),"oppCalendarN") > -1)
-                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/calendar')}}"><span> &nbsp; &nbsp; <i class="fa-solid fa-calendar fa-lg" style="color:#fff;"></i> تقویم روزانه  </span></a></li>
-                                             @endif
-                                              @if(hasPermission(Session::get("asn"),"justBargiriOppN") > -1)
-                                             <li class=''><a class="mySidenav__item text-white" href="{{url('crmDriver?asn='.SESSION::get('dsn').'')}}"><span> &nbsp; &nbsp;  <i class="fas fa-car fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;   بارگیری  </span></a></li>
-                                            @endif
-                                             @php
-                                            $hasAlarm=Session::get("hasAlarm");
-                                            @endphp
-                                            @if(trim(Session::get("hasAlarm"))=="on")
-                                                @if(hasPermission(Session::get("asn"),"alarmoppN") > -1)
-                                                 <li class=''><a class="mySidenav__item text-white" href="{{url('/alarm')}}">  &nbsp; &nbsp; <i class="fa fa-exclamation-triangle" style="color:#fff;"></i> &nbsp; آلارم   @if($countAlarms>0) <span class="position-absolute badge rounded-pill bg-danger"> {{$countAlarms}} </span>  @endif </a> </li>
-                                                 @endif
-                                             @endif
-                                              @if(hasPermission(Session::get("asn"),"massageOppN") > -1)
-                                                <li class=''><a class="mySidenav__item text-white" href="{{url('/message')}}"> &nbsp; &nbsp; <span><i class="fas fa-message fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;پیام ها  @if($inbox) <span class="position-absolute badge rounded-pill bg-danger"> {{$inbox}} </span> @endif  </span></a>  </li>
-                                             @endif
-                                         </ul>
-                                    </li>
                                 @endif
-                                 @if(hasPermission(Session::get("asn"),"reportN") > -1)
-                                    <li class='has-sub'><a class="mySidenav__item" href="{{url('/dashboardAdmin')}}"><span><i class="fa fa-bar-chart fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; گزارشات   </span></a>
-                                        <ul>
+   
+                                </span></a>
+                                <ul>
+                                    <li class=''><a class="mySidenav__item" href="{{url('/assignCustomer')}}"><span><i class="fa-solid fa-tasks fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; تخصیص به کاربر </span></a> </li>
+                                    <li class=''><a class="mySidenav__item" href="{{url('/listKarbaran')}}"><span><i class="fa-solid fa-tasks fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; لیست کاربران</span></a> </li>
+                                    <li class=''><a class="mySidenav__item" href="{{url('/gotEmpty')}}"><span><i class="fas fa-history fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;مشتریان فاقد کاربر  </span></a></li>    
+                                    <li class=''><a class="mySidenav__item" href="{{url('/referedCustomer')}}"><span><i class="fas fa-history fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;  مشتریان ارجاعی 
+                                    
+                                    @if($reffs>0) 
 
-                                        @if(hasPermission(Session::get("asn"),"amalKardreportN") > -1)
-                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/subTrees')}}"><i class="fas fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp; عملکرد کاربران </a></li>
-                                        @endif 
-
-                                        @if(hasPermission(Session::get("asn"),"trazEmployeeReportN") > -1)
-                                           <li class=''><a class="mySidenav__item text-white" href="{{url('/amalKardKarbarn')}}"><i class="fas fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp; تراز کاربران  </a></li>
-                                        @endif 
-
-                                        @if(hasPermission(Session::get("asn"),"amalkardCustReportN") > -1)
-                                           <li class=''><a class="mySidenav__item text-white" href="{{url('/reports')}}"><i class="fas fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp; عملکرد مشتریان </a></li>
-                                        @endif 
-
-                                        @if(hasPermission(Session::get("asn"),"goodsReportN") > -1)
-                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/kalaAction')}}"><i class="fa-regular fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i> &nbsp; عملکرد کالا </a></li>
-                                        @endif 
-
-                                        @if(Session::get("adminType")==3)
-                                                <li class=''><a class="mySidenav__item text-white" href="{{url('/saleExpertActionInfo?subId='.Session::get('asn'))}}"><i class="fa-regular fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i> &nbsp; عملکرد</a></li>
-                                        @endif 
-                                        @if(Session::get("adminType")==4)
-                                               <li class=''><a class="mySidenav__item text-white" href="{{url('/poshtibanActionInfo?subPoshtibanId='.Session::get('dsn'))}}"><i class="fa-regular fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i> &nbsp; عملکرد </a></li>
-                                        @endif
-                                        @if(Session::get("adminType")==2)
-                                             <li class=''><a class="mySidenav__item text-white" href="{{url('/poshtibanActionInfo?subPoshtibanId='.Session::get('asn'))}}"><i class="fa-regular fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i> &nbsp; عملکرد</a></li>
-                                        @endif 
-
-                                        @if(hasPermission(Session::get("asn"),"returnedReportgoodsReportN") > -1)
-                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/sendBackReport')}}"><i class="fa-regular fa-send-back fa-lg" style="color:#fff; margin-right:20px;"></i> &nbsp;  گزارش برگشتی کالا </a></li>
-                                        @endif 
-
-                                        @if(hasPermission(Session::get("asn"),"goodsbargiriReportN") > -1)
-                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/bargeryInfo')}}"><span> &nbsp; &nbsp;  <i class="fas fa-car fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;   گزارش بارگیری  </span></a></li>
-                                        @endif
-                                        </ul>
-                                    </li>
-                                 @endif
-
+                                    <span class="position-absolute badge rounded-pill bg-danger">{{$reffs}}</span>
+                                    
+                                    @endif
+                                    
+                                </span></a></li>
+                                   <li class=''><a class="mySidenav__item" href="{{url('/newCustomer')}}"><span><i class="fas fa-user-plus fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;مشتری جدید
+                                    @if($countNewCustomers>0)
+                                        <span class="position-absolute badge rounded-pill bg-danger">{{$countNewCustomers}}</span>
+                                    @endif
+                                </span></a></li>
+                                   <li class=''><a class="mySidenav__item" href="{{url('/customerLocation')}}"><span><i class="fas fa-map-marker-alt fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; موقعیت مشتری   </span></a></li>
+                                </ul>
+                                </li>
+                                
+                                @endif
+                                @if( Session::get('adminType')==2)
+                                
+                                <li class=''><a class="mySidenav__item" href="{{url('/customers')}}"><span><i class="fa-solid fa-users fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;لیست مشتریان</span></a></li>
+                                @elseif(Session::get('adminType')==3)
+                                <li class=''><a class="mySidenav__item" href="{{url('/myCustomers')}}"><span><i class="fas fa-user-plus fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;لیست مشتریان</span></a></li>
+                                @endif
+                                
+                            </li>
+                                
+                                @if(Session::get('adminType')==4)
+                                
+                                <li class=''><a class="mySidenav__item" href="{{url('/crmDriver')}}"><span><i class="fas fa-truck fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;بارگیرها</span></a></li>
+                                
+                                @endif
+                                @if(Session::get("hasAsses")=="on")
+                                
+                                <li class='has-sub'><a class="mySidenav__item" href="{{url('/dashboardAdmin')}}"><span><i class="fa fa-check fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; نظر سنجی  </span></a>
+                                    <ul>
+                                        <li><a class="mySidenav__item" href="{{url('/commentToday')}}">&nbsp;&nbsp;<i class="fa-regular fa-user fa-lg" style="margin-right: 5%; color: #ffc107;"></i> &nbsp;&nbsp;  نظرات امروز </a></li>
+                                        <li><a class="mySidenav__item" href="{{url('/commentPast')}}">&nbsp;&nbsp;<i class="fa-regular fa-tasks fa-lg" style="margin-right: 5%; color: #ffc107;"></i>&nbsp;&nbsp;  نظرات گذشته </a></li>
+                                       <li><a class="mySidenav__item" href="{{url('/commentDone')}}">&nbsp;&nbsp;<i class="fa-regular fa-tasks fa-lg" style="margin-right: 5%; color: #ffc107;"></i>&nbsp;&nbsp;  نظرات انجام شده </a></li>
+                                   </ul>
+                                
+                                   @endif
+                                @if( Session::get('adminType')==2)
+                                
+                                <li class=''><a class="mySidenav__item" href="{{url('/calendar')}}"><span><i class="fa-solid fa-calendar fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; تقویم روزانه  </span></a></li>
+                                   
+                                @endif
+                                   @if( !(Session::get('adminType')==1 or Session::get('adminType')==5) and Session::get("hasAllCustomer")=="on")
+                                   
+                                   <li class='has-sub'><a class="mySidenav__item"><span><i class="fa fa-bar-chart fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; گزارشات   </span></a>
+                                    <ul>
+                                        <li><a class="mySidenav__item" href="{{url('/reports')}}">&nbsp;&nbsp;<i class="fa-regular fa-user fa-lg" style="margin-right: 5%; color: #ffc107;"></i> &nbsp;&nbsp;عملکرد مشتریان</a></li>
+                                    </ul>
+                                    
+                                    @endif
+                                   @if( Session::get('adminType')==1 or Session::get('adminType')==5)
+                                
+                                   <li class='has-sub'><a class="mySidenav__item" href="{{url('/dashboardAdmin')}}"><span><i class="fa fa-bar-chart fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; گزارشات   </span></a>
+                                <ul>
+                                    <li><a class="mySidenav__item" href="{{url('/reports')}}">&nbsp;&nbsp;<i class="fa-regular fa-user fa-lg" style="margin-right: 5%; color: #ffc107;"></i> &nbsp;&nbsp;عملکرد مشتریان</a></li>
+                                    <li><a class="mySidenav__item" href="{{url('/kalaAction')}}">&nbsp;&nbsp;<i class="fa-regular fa-tasks fa-lg" style="margin-right: 5%; color: #ffc107;"></i>&nbsp;&nbsp;عملکرد کالاها</a></li>
+                                    <li><a class="mySidenav__item" href="{{url('/karbarAction')}}">&nbsp;&nbsp;<i class="fa-regular fa-tasks fa-lg" style="margin-right: 5%; color: #ffc107;"></i>&nbsp;&nbsp;عملکرد کاربران</a></li>
+                                    <li><a class="mySidenav__item" href="{{url('/inactivCustomer')}}">&nbsp;&nbsp; <i class="fas fa-ban fa-lg" style="color:#ffc107; margin-right: 5%;"></i>&nbsp;&nbsp; مشتریان غیر فعال 
+                                    
+                                    @if($countInactives>0)   
+                                    
+                                    <span class="position-absolute badge rounded-pill bg-danger">{{$countInactives}}</span>
+                                    
+                                    @endif
+                                    
+                                </a></li>
+                                    <li><a class="mySidenav__item" href="{{url('/visitorReport')}}">&nbsp;&nbsp;<i class="fa fa-bar-chart fa-lg" style="color:#ffc107; margin-right: 5%;"></i>&nbsp;&nbsp; گزارش ورود به سیستم</a></li>
+                                </ul>
+                                </li>
+                                <li class=''><a class="mySidenav__item" href="{{url('/alarm')}}"><span><i class="fa fa-exclamation-triangle" style="color:#fff;"></i>&nbsp;&nbsp;  آلارم  
+                                
+                                @if($countAlarms>0)    
+                                
+                                <span class="position-absolute badge rounded-pill bg-danger"> {{$countAlarms}} </span>
+                                @endif
+                                
+                            </span></a></li>
+                                
+                            @endif
+                                
+                            <li class=''> <a class="mySidenav__item" href="{{url('/message')}}">
+                                    <span><i class="fas fa-message fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;پیام ها 
+                                    
+                                    @if($inbox)
+                                    
+                                    <span class="position-absolute badge rounded-pill bg-danger"> {{$inbox}} </span>
+                                    
+                                    @endif
+                                
+                                </span></a> 
+                                </li>
+                                
+                                @if( Session::get('adminType')==1 or Session::get('adminType')==5)
+                                
+                                <li class=''><a class="mySidenav__item" href="{{url('/crmSetting')}}"><span><i class="fas fa-cog fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; تنظیمات </span></a></li>
+                               
+                                @endif
+                                
                                 <li class='last'><a class="mySidenav__item" href="{{url('/logoutUser')}}"><span><i class="fa-solid fa-sign-out fa-lg" style="color:rgb(247, 233, 233)" ></i>&nbsp;&nbsp; خروج </span></a></li>
-                            </ul> 
+                            </ul>
                         </div>
                     </div>
                     <div id="MenuBack" style="font-size:25px;cursor:pointer;color:white;display:flex;justify-content:flex-start;text-align:right;width:34px">
@@ -181,7 +175,7 @@
                 </div>
                 </div>
                     <div class="left-head">
-                        <img onclick="calcAndClock()" id="myWatch" style="width:50px; height:50px; cursor:pointer;" class="showContent driverTable" src="{{url('resources/assets/images/clock.png')}}" alt="ساعت">
+                        <img onclick="calcAndClock()" id="myWatch" style="width:50px; height:50px; cursor:pointer;" class="showContent" src="{{url('resources/assets/images/clock.png')}}" alt="ساعت">
                         <img onclick="clockAndClac()" id="myCalculator" style="width:45px; height:50px; cursor:pointer;" class="showContent" src="{{url('resources/assets/images/calc.png')}}" alt="ماشین حساب">
                      <div class="devider">
                     </div>
@@ -196,35 +190,28 @@
             </section>
         </section>
     </header>
-     @include('/..clock') 
-     @include('/..calculator')
+    <!-- @include('/..clock') 
+    @include('/..calculator') -->
     @yield('content')
-
-
-
+<script src="{{url('/resources/assets/js/jquery-3.6.0.js')}}"></script> 
 <script src="{{url('/resources/assets/js/calculator/popper.min.js')}}"></script>
 <script src="{{url('/resources/assets/js/calculator/math.min.js')}}"></script>
 <script defer src="{{ url('/resources/assets/js/bootstrap.bundle.min.js')}}"></script>
-<script defer src="{{ url('/resources/assets/js/bootstrap.min.js')}}"></script>
 <script src="{{url('/resources/assets/js/sweetalert.min.js')}}"></script>
 <script src="{{ url('/resources/assets/js/persianumber.min.js') }}"></script>
-
-<script src="{{url('/resources/assets/js/amcharts/hierarchy.js')}}"></script>
+<script src="{{url('/resources/assets/js/leaflet.js')}}"></script>
 <script src="{{url('/resources/assets/js/amcharts/index.js')}}"></script>
 <script src="{{url('/resources/assets/js/amcharts/xy.js')}}"></script>
 <script src="{{url('/resources/assets/js/amcharts/Animated.js')}}"></script>
 <script src="{{url('/resources/assets/js/amcharts/percent.js')}}"></script>
 <script src="{{url('/resources/assets/js/amcharts/wrld.js')}}"></script>
-
-
-<script src="{{url('/resources/assets/js/jalali-moment.browser.js')}}"></script>
-<script src="{{url('/resources/assets/js/script.js')}}"></script>
-<script src="{{url('/resources/assets/js/main.js')}}"></script>
+<script src="{{url('/resources/assets/js/persianDatepicker-master/js/jquery-1.10.1.min.js')}}"></script>
+<script src="{{url('/resources/assets/js/persianDatepicker-master/js/persianDatepicker.min.js')}}"></script> 
+ <script src="{{url('/resources/assets/js/jalali-moment.browser.js')}}"></script>
 <script src="{{url('/resources/assets/js/jquery.thooClock.js')}}"></script>
-<script src="{{url('/resources/assets/js/Control.Geocoder.js')}}"></script> 
+<script src="{{url('/resources/assets/js/script.js')}}"></script>
 
 <script>
-
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-36251023-1']);
   _gaq.push(['_setDomainName', 'jqueryscript.net']);
@@ -428,7 +415,6 @@ $('#cssmenu > ul > li ul').each(function(index, e){
   var content = '<span class="cnt">' + count + '</span>';
   $(e).closest('li').children('a').append(content);
 });
-
 $('#cssmenu ul ul li:odd').addClass('odd');
 $('#cssmenu ul ul li:even').addClass('even');
 $('#cssmenu > ul > li > a').click(function() {
@@ -436,12 +422,10 @@ $('#cssmenu > ul > li > a').click(function() {
   $(this).closest('li').addClass('active');
   var checkElement = $(this).next();
   if((checkElement.is('ul')) && (checkElement.is(':visible'))) {
-    
     $(this).closest('li').removeClass('active');
     checkElement.slideUp('normal');
   }
-  if((checkElement.is('li ul')) && (!checkElement.is(':visible'))) {
-    
+  if((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
     $('#cssmenu ul ul:visible').slideUp('normal');
     checkElement.slideDown('normal');
   }
@@ -451,38 +435,7 @@ $('#cssmenu > ul > li > a').click(function() {
     return false;
   }
 });
-
-$('#cssmenu > ul> li> ul> li ul').each(function(index, e){
-  var count = `<i class="fa-solid fa-caret-down text-white"></i>`;
-  var content = '<span class="cnt">' + count + '</span>';
-  $(e).closest('li').children('a').append(content);
-});
-
-$('#cssmenu > ul> li> ul> li> a').click(function() {
-  $('#cssmenu li').removeClass('active');
-  $(this).closest('li').addClass('active');
-  var checkElement = $(this).next();
-  if((checkElement.is('ul')) && (checkElement.is(':visible'))) {
-    
-    $(this).closest('li').removeClass('active');
-    $('#cssmenu ul ul ul:visible').slideUp('normal');
-    checkElement.slideUp('normal');
-  }
-  if((checkElement.is('li ul')) && (!checkElement.is(':visible'))) {
-    
-    $('#cssmenu ul ul ul:visible').slideUp('normal');
-    checkElement.slideDown('normal');
-  }
-  if($(this).closest('li').find('ul').children().length == 0) {
-    return true;
-  } else {
-    return false;
-  }
-});
-
 $("#show-date").text(moment().locale('fa').format('YYYY/M/D'));
 </script>
-
-	 
 </body>
 </html>

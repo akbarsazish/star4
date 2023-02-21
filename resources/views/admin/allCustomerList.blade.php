@@ -34,7 +34,7 @@
                                     <input type="text" id="dataTableComplateSearch" class="form-control" placeholder="Complete Search"/>
                                 </span>
                             </div>
-                            <div class="col-sm-8" style="padding: 0; padding-right:2%; margin:0; display:flex; justify-content:flex-end;">
+                            <div class="alert col-sm-8" style="padding: 0; padding-right:2%; margin:0;">
                                     <button class='enableBtn btn-primary btn-lg text-warning' type="button" id='openDashboard'> داشبورد <i class="fal fa-dashboard"></i></button>
                              </div>
                         </div>
@@ -55,13 +55,14 @@
                                     </thead>
                                     <tbody class="select-highlight" id="customerListBody1">
                                         @foreach ($customers as $customer)
+                                            
                                             <tr >
                                                 <td>{{$loop->iteration}}</td>
                                                 <td>{{trim($customer->PCode)}}</td>
                                                 <td>{{trim($customer->Name)}}</td>
                                                 <td>{{trim($customer->peopeladdress)}}</td>
-                                                <td><a href="tel:{{trim($customer->sabit)}}" style="color:black; font-size:14px">{{trim($customer->sabit)}} </a> </td>
-                                                <td><a href="tel:{{trim($customer->sabit)}}" style="color:black; font-size:14px">{{trim($customer->hamrah)}} </a> </td>
+                                                <td>{{trim($customer->sabit)}}</td>
+                                                <td>{{trim($customer->hamrah)}}</td>
                                                 <td>{{trim($customer->NameRec)}}</td>
                                                 <td>2</td>
                                                 <td> <input class="customerList form-check-input" name="customerId" type="radio" value="{{$customer->PSN}}"></td>
@@ -76,7 +77,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="customerDashboard" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="customerDashboard" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable  modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -90,16 +91,16 @@
                         </div>
                         <div class="col-lg-6 col-md-6 coll-sm-12">
                             <Button class="btn btn-sm buttonHover crmButtonColor float-end  mx-2" id="openAddCommentModal" type="button" value="" name="" > کامنت <i class="fas fa-comment fa-lg"> </i> </Button>
-                            <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get">
+                            <form action="https://starfod.ir/crmLogin" target="_blank"  method="get">
                                 <input type="text" id="customerSn" style="display: none" name="psn" value="" />
-                                    <input type="hidden" name="otherName" value="{{trim(Session::get('username'))}}" />
-                                        <Button class="btn btn-md btn-success buttonHover float-end" type="submit"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </Button>
+                                <input type="text"  style="" name="otherName" value="{{trim(Session::get('username'))}}" />
+                                    <Button class="btn btn-sm buttonHover crmButtonColor float-end" type="submit"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </Button>
                             </form>
                         </div>
                     </div><hr>
                     <div class="row">
-                        <div class="col-lg-8 col-md-8 col-sm-8">
-                            <div class="row">
+                       <div class="col-lg-8 col-md-8 col-sm-8">
+                           <div class="row">
                                 <div class="col-lg-4 col-md-4 col-sm-4 mb-2">
                                     <div class="form-outline" style="padding-bottom:1%">
                                         <label class="dashboardLabel form-label">کد</label>
@@ -123,20 +124,20 @@
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 col-sm-4">
                                     <div class="form-group">
-                                        <label class="dashboardLabel form-label"> شماره های تماس </label>
+                                        <label class="dashboardLabel form-label">  تلفن ثابت </label>
+                                        <input class="form-control noChange" type="text" name="" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                    <div class="form-group">
+                                        <label class="dashboardLabel form-label">  تلفن همراه 1 </label>
                                         <input class="form-control noChange" type="text" id="mobile1" >
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4">
                                     <div class="form-group">
-                                        <label class="dashboardLabel form-label">نام کاربری</label>
-                                        <input class="form-control noChange" type="text" id="username" >
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <div class="form-group">
-                                        <label class="dashboardLabel form-label">رمز کاربری</label>
-                                        <input class="form-control noChange" type="text" id="password" >
+                                        <label class="dashboardLabel form-label">  تلفن همراه 2 </label>
+                                        <input class="form-control noChange" type="text" name="" >
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +157,7 @@
                                     <textarea class="form-control" id="customerProperty"  onblur="saveCustomerCommentProperty(this)" rows="6" ></textarea>
                                 </div>
                             </div>
-                        </div>
+                       </div>
                     </div>
 
                     <div class="c-checkout container" style="background-color:#c5c5c5; padding:0.5% !important; border-radius:10px 10px 2px 2px;">
@@ -173,14 +174,13 @@
                         <div class="c-checkout tab-content" style="background-color:#f5f5f5; margin:0;  padding:0.3%; border-radius:10px 10px 2px 2px;">
                                 <div class="row c-checkout rounded-3 tab-pane active" id="custAddress" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                                     <div class="col-sm-12">
-                                        <table class="crmDataTable dashbordTables table table-bordered table-striped" style="text-align:center;">
+                                        <table class="crmDataTable dashbordTables tableSection4 table table-bordered table-striped table-sm" style="text-align:center;">
                                             <thead>
                                             <tr>
-                                                <th style="width:200px"> ردیف </th>
-                                                <th style="width:200px">تاریخ </th>
-                                                <th style="width:200px"> نام راننده </th>
-                                                <th style="width:200px">مبلغ </th>
-                                                <th style="width:200px">مشاهده  </th>
+                                                <th style="width:44px;"> ردیف</th>
+                                                <th style="width:111px;">تاریخ</th>
+                                                <th style="width:170px;"> نام راننده</th>
+                                                <th style="width:300px;">مبلغ </th>
                                             </tr>
                                             </thead>
                                             <tbody  id="factorTable"  style="height:150px; overflow-y:scroll; display:block;width:100%">
@@ -196,9 +196,9 @@
                                         <table class="crmDataTable dashbordTables tableSection4 table table-bordered table-striped table-sm" style="text-align:center;">
                                             <thead>
                                             <tr>
-                                                <th style="width:200px;"> ردیف</th>
-                                                <th style="width:200px;">تاریخ</th>
-                                                <th style="width:200px;"> نام کالا</th>
+                                                <th style="width:44px;"> ردیف</th>
+                                                <th style="width:111px;">تاریخ</th>
+                                                <th style="width:170px;"> نام کالا</th>
                                             </tr>
                                             </thead>
                                             <tbody id="goodDetail" style="height:150px; overflow-y:scroll; display:block;">
@@ -269,11 +269,11 @@
                                         <table class="crmDataTable dashbordTables tableSection4 table table-bordered table-striped table-sm" style="text-align:center;">
                                             <thead>
                                             <tr>
-                                                <th style="width:200px;"> ردیف</th>
-                                                <th style="width:180px;">تاریخ</th>
-                                                <th style="width:220px;"> کامنت</th>
-                                                <th style="width:220px;"> کامنت بعدی</th>
-                                                <th style="width:180px;"> تاریخ بعدی </th>
+                                                <th style="width:44px;"> ردیف</th>
+                                                <th style="width:80px;">تاریخ</th>
+                                                <th style="width:300px;"> کامنت</th>
+                                                <th style="width:300px;"> کامنت بعدی</th>
+                                                <th style="width:80px;"> تاریخ بعدی </th>
                                                 <th style="width:40px;"> انتخاب </th>
                                             </tr>
                                             </thead>
@@ -355,11 +355,11 @@
         </div>
     </div>
             {{-- modal for adding comments --}}
-        <div class="modal" id="addComment" data-bs-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel">
+        <div class="modal" id="addComment" data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel">
             <div class="modal-dialog modal-dialog-scrollable ">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close" style="background-color:red;"></button>
+                        <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close" style="background-color:red;"></button>
                         <h5 class="modal-title" id="exampleModalLabel"> افزودن کامنت </h5>
                     </div>
                 <div class="modal-body">

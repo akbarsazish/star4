@@ -11,9 +11,7 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "morilog/jalali": "3.*",
-        "nesbot/carbon": "^2.59",
-		"pepco-api/php-rest-sdk":"0.4.0"
-		
+        "nesbot/carbon": "^2.59"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -28,10 +26,7 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        },
-        "files": [
-            "app/helpers.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {

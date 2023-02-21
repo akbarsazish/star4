@@ -33,29 +33,30 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 " style="padding:0; padding-left:25px;  margin-top: 0;">
-                                <table id="strCusDataTable" class='table table-bordered table-striped table-sm'>
-                                    <thead class="tableHeader">
+                                <table id="strCusDataTable" class='homeTables table table-bordered table-striped table-sm'  style='width:100%;'>
+                                    <thead style="position: sticky;top: 0;">
                                         <tr>
-                                            <th>ردیف</th>
+                                            <th style="width:40px">ردیف</th>
                                             <th>اسم</th>
                                             <th>همراه</th>
-                                            <th>تاریخ </th>
-                                            <th>کامنت </th>
-                                            <th> نظر دهنده</th>
-											 <th>عودتی</th>
+                                            <th style="width:90px">تاریخ </th>
+                                            <th style="width:60px;">کامنت </th>
+                                            <th style="width:40px;">عودتی</th>
+                                            <th style="width:40px;">ک نظر دهنده</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="select-highlight tableBody" id="customerListBodyDone">
+                                    <tbody class="select-highlight" id="customerListBodyDone">
                                         @foreach ($customers as $customer)
+
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
                                             <td>{{trim($customer->Name)}}</td>
                                             <td>{{trim($customer->hamrah)}}</td>
                                             <td>{{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($customer->TimeStamp))->format('Y/m/d H:i:s')}}</td>
                                             <td onclick='showAssesComment("{{$customer->assesId}}")'>{{substr($customer->comment,0,10).'...'}} <i class="fas fa-comment-dots float-end"> </i></td>
+                                            <td data-toggle="modal" data-target="#owdati"> <i class="fas fa-dolly-flatbed "> </i></td>
                                             <td>{{trim($customer->AdminName.' '.$customer->lastName)}}</td>
-											 <td data-toggle="modal" data-target="#owdati"> <i class="fas fa-dolly-flatbed "> </i></td>
-                                        </tr>
+                                        </tr>    
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -71,7 +72,7 @@
     <div class="modal-dialog modal-dialog-scrollable  modal-xl">
         <div class="modal-content"  style="background-color:#d2e9ff;">
             <div class="modal-header" style="border-bottom:1px solid rgb(7, 42, 214);">
-                <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body"  style="background-color:#d2e9ff;">
                     <button class="btn btn-sm buttonHover crmButtonColor mx-3" id="customerEdit" style=" float:left;">ذخیره <i class="fa fa-save"> </i> </button>
@@ -82,7 +83,7 @@
                         <div class="row" style="background-color:#d2e9ff;">
                             <div class="col-lg-8 col-md-8 col-sm-12">
                                 <div class="row mt-2">
-                                <div class="col-lg-4 col-md-4 col-sm-4 mb-2">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 mb-2">
                                         <div class="form-outline" style="padding-bottom:1%">
                                             <label class="dashboardLabel form-label">کد</label>
                                             <input type="text" class="form-control form-control-sm noChange" id="customerCode" value="">
@@ -94,42 +95,37 @@
                                             <input type="text" class="form-control form-control-sm noChange" id="customerName"  value="علی حسینی" >
                                         </div>
                                     </div>
-
                                     <div class="col-lg-4 col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <label class="dashboardLabel form-label"> تعداد فاکتور </label>
                                             <input type="text" class="form-control form-control-sm noChange" id="countFactor">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <label class="dashboardLabel form-label"> شماره های تماس </label>
-                                            <input class="form-control noChange" type="text" id="mobile1" >
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <label class="dashboardLabel form-label">نام کاربری</label>
-                                            <input class="form-control noChange" type="text" id="username" >
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <label class="dashboardLabel form-label">رمز کاربری</label>
-                                            <input class="form-control noChange" type="text" id="password" >
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-lg-12 col-md-12">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                                         <div class="form-group">
                                             <label class="dashboardLabel form-label"> آدرس </label>
                                             <input type="text" class="form-control form-control-sm noChange" id="customerAddress" value="آدرس">
                                         </div>
                                     </div>
-                                </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label class="dashboardLabel form-label">  تلفن ثابت </label>
+                                            <input class="form-control noChange" type="text" name="" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label class="dashboardLabel form-label">  تلفن همراه 1 </label>
+                                            <input class="form-control noChange" type="text" id="mobile1" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 mb-3">
+                                        <div class="form-group">
+                                            <label class="dashboardLabel form-label">  تلفن همراه 2 </label>
+                                            <input class="form-control noChange" type="text" name="" >
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-12 mt-2">
@@ -217,21 +213,21 @@
                         <div class="c-checkout tab-pane" id="pictures" style="margin:0; border-radius:10px 10px 2px 2px;">
                             <div class="row c-checkout rounded-3 tab-pane active" id="custAddress" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered table-striped table-sm" style="text-align:center;">
-                                        <thead class="tableHeader">
+                                    <table class="homeTables table table-bordered table-striped table-sm" style="text-align:center;">
+                                        <thead style="position: sticky;top: 0;">
                                         <tr>
-                                            <th > ردیف</th>
-                                            <th>تاریخ</th>
-                                            <th> نام کالا</th>
-                                            <th>تعداد </th>
-                                            <th>فی</th>
+                                            <th style="width:44px;"> ردیف</th>
+                                            <th style="width:111px;">تاریخ</th>
+                                            <th style="width:170px;"> نام کالا</th>
+                                            <th style="width:70px;">تعداد </th>
+                                            <th style="width:100px;">فی</th>
                                         </tr>
                                         </thead>
-                                        <tbody class="tableBody">
+                                        <tbody>
                                         <tr>
-                                            <td ></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td style="width:44px;"></td>
+                                            <td style="width:111px;"></td>
+                                            <td style="width:170px;"></td>
                                             <td style="width:70px;"></td>
                                             <td style="width:100px;"></td>
                                         </tr>
@@ -287,11 +283,11 @@
     </div>
 </div>
         {{-- modal for reading comments --}}
-        <div class="modal fade" id="readAssesComment" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal fade" id="readAssesComment" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-dialog-scrollable  modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                 <div class="modal-body" style="background-color: #d2e9ff;">
                     <h3 id="assesComment"></h3>
@@ -299,11 +295,11 @@
             </div>
         </div>
         {{-- modal for reading owdati --}}
-        <div class="modal fade" id="owdati2" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal fade" id="owdati2" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-dialog-scrollable  modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                 <div class="modal-body" style="background-color: #d2e9ff;">کامنت</div>
             </div>

@@ -63,7 +63,7 @@ form input {
     border: 1px solid #f1efef;
 }
 
-.calcForm {
+.form-light {
     background-color: #eceff1;
     box-shadow: 0 0 0 0.1rem rgba(176, 190, 197, .5);
 }
@@ -181,10 +181,10 @@ form input {
     border: 1px solid #37474f;
 }
 
-/* .form-dark {
+.form-dark {
     background-color: #263238;
     box-shadow: 0 0 0 0.1rem rgba(69, 90, 100, .5);
-} */
+}
 
 .form-input-dark {
     color: #eceff1;
