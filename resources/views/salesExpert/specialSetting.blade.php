@@ -74,8 +74,8 @@
                                                 <td> انتخاب  </td>
                                             </tr>
                                       </thead>
-                                      <tbody id="targetList">
-                                      @foreach($targets as $target)
+                                      <tbody id="targetList" >
+                                          @foreach($targets as $target)
                                               <tr class="targetTableTr" onclick="setTargetStuff(this)">
                                                   <td>{{$loop->iteration}}</td>
                                                   <td>{{$target->BaseName}}</td>
@@ -87,14 +87,14 @@
                                                   <td> {{$target->thirdTargetBonus}} </td>
                                                   <td> <input class="form-check-input" name="targetId" type="radio" value="{{$target->id}}"></td>
                                               </tr>
-                                      @endforeach
+                                             @endforeach
                                       </tbody>
                                     </table>
                                   </div>
                               </fieldset>
                              </div>
                             <div class="row px-5">
-                              <input type="hidden" id="specialBonusIdForEdit">
+                            <input type="hidden" id="specialBonusIdForEdit">
                             <fieldset class="rounded" style="min-height:300px;">
                               <legend  class="float-none w-auto"> امتیازات  </legend>
                                 <div class="row">
