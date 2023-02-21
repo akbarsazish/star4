@@ -18,7 +18,7 @@
                         <form action="{{url('/filteralarms')}}" method="get" id="filterAlarmsForm">
                             @if(hasPermission(Session::get("asn"),"allalarmoppN") > -1)
                             <div class="form-check">
-                                <input class="form-check-input p-2 float-end alarmRighRdios" type="radio" value="0" name="alarmState" id="customerWithAlarm">
+                                <input class="form-check-input p-2 float-end alarmRighRdios" type="radio" value="0" name="alarmState" id="customerWithAlarm" checked>
                                 <label class="form-check-label me-4" for="assesPast"> آلارمها </label>
                             </div>
                             @endif

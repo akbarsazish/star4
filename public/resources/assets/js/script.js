@@ -16,7 +16,7 @@ document.querySelector(".fa-bars")
         // backdrop.classList.add('show');
     });
 
-var baseUrl = "http://192.168.10.26:8080";
+var baseUrl = "http://192.168.10.27:8080";
 var myVar;
 function setAdminStuffForAdmin(element, adminTypeId, driverId) {
     $(element).find("input:radio").prop("checked", true);
@@ -6740,6 +6740,7 @@ $("#searchEmptyPCode").on("keyup", () => {
 });
 
 $("#searchAllName").on("keyup", () => {
+
     let searchTerm = $("#searchAllName").val();
     snMantagheh = $("#searchByMantagheh").val();
     if ($(".reportRadio:checked").val() == "all") {
@@ -6763,6 +6764,7 @@ $("#searchAllName").on("keyup", () => {
                         <tr  onclick="setAmalkardStuff(this,`+ element.PSN + `)">
                             <td >` + (index + 1) + `</td>
                             <td style="width:333px">` + element.Name + `</td>
+                            <td style="width:333px;">`+ element.PCode + `</td>
                             <td style="width:177px">` + element.PhoneStr + `</td>
                             <td>` + element.lastDate + `</td>
                             <td>` + element.adminName + ` ` + element.lastName + `</td>
@@ -6880,11 +6882,11 @@ $("#searchAllName").on("keyup", () => {
                     $("#listVisitorBody").append(`
                     <tr onclick="setAmalkardStuff(this,`+ element.PSN + `)">
                         <td >`+ (index + 1) + `</td>
-                        <td > </td>
+                        <td style="width:244px">`+ element.Name + `</td>
+                        <td >`+ element.adminName + `</td>
                         <td >`+ moment(element.lastVisit, "YYYY-M-D HH:mm:ss")
                             .locale("fa")
                             .format("HH:mm:ss YYYY/M/D") + `</td>
-                        <td style="width:244px">`+ element.Name + `</td>
                         <td >`+ element.platform + `</td>
                         <td >`+ element.browser + `</td>
                         <td   style="width:77px">`+ element.countLogin + `</td>
@@ -6898,6 +6900,7 @@ $("#searchAllName").on("keyup", () => {
 });
 
 $("#searchByMantagheh").on("change", () => {
+    
     let searchTerm = $("#searchAllName").val();
     snMantagheh = $("#searchByMantagheh").val();
     if ($(".reportRadio:checked").val() == "all") {
@@ -6921,6 +6924,7 @@ $("#searchByMantagheh").on("change", () => {
                         <tr  onclick="setAmalkardStuff(this,`+ element.PSN + `)">
                             <td >` + (index + 1) + `</td>
                             <td style="width:333px">` + element.Name + `</td>
+                            <td style="width:333px">` + element.PCode + `</td>
                             <td style="width:177px">` + element.PhoneStr + `</td>
                             <td>` + element.lastDate + `</td>
                             <td>` + element.adminName + ` ` + element.lastName + `</td>
@@ -7038,11 +7042,12 @@ $("#searchByMantagheh").on("change", () => {
                     $("#listVisitorBody").append(`
                     <tr onclick="setAmalkardStuff(this,`+ element.PSN + `)">
                         <td >`+ (index + 1) + `</td>
-                        <td > </td>
+                        <td style="width:244px">`+ element.Name + `</td>
+                        <td >`+element.adminName+`</td>
                         <td >`+ moment(element.lastVisit, "YYYY-M-D HH:mm:ss")
                             .locale("fa")
                             .format("HH:mm:ss YYYY/M/D") + `</td>
-                        <td style="width:244px">`+ element.Name + `</td>
+
                         <td >`+ element.platform + `</td>
                         <td >`+ element.browser + `</td>
                         <td   style="width:77px">`+ element.countLogin + `</td>
@@ -7083,6 +7088,7 @@ $(".orderReport").on("change", () => {
                         <tr  onclick="setAmalkardStuff(this,`+ element.PSN + `)">
                             <td >` + (index + 1) + `</td>
                             <td style="width:333px">` + element.Name + `</td>
+                            <td style="width:333px">` + element.PCode + `</td>
                             <td style="width:177px">` + element.PhoneStr + `</td>
                             <td>` + element.lastDate + `</td>
                             <td>` + element.adminName + ` ` + element.lastName + `</td>
@@ -7208,11 +7214,11 @@ $(".orderReport").on("change", () => {
                     $("#listVisitorBody").append(`
                     <tr onclick="setAmalkardStuff(this,`+ element.PSN + `)">
                         <td >`+ (index + 1) + `</td>
-                        <td > </td>
+                        <td style="width:244px">`+ element.Name + `</td>
+                        <td >`+ element.adminName + `</td>
                         <td >`+ moment(element.lastVisit, "YYYY-M-D HH:mm:ss")
                             .locale("fa")
                             .format("HH:mm:ss YYYY/M/D") + `</td>
-                        <td style="width:244px">`+ element.Name + `</td>
                         <td >`+ element.platform + `</td>
                         <td >`+ element.browser + `</td>
                         <td   style="width:77px">`+ element.countLogin + `</td>
@@ -8917,13 +8923,16 @@ $("#filterAllLoginsBtn").on("click", function () {
             <td >` +
                     (index + 1) +
                     `</td>
+                    <td style="width:244px">` +
+                    element.Name +
+                    `</td>
+                    <td>` +
+                    element.adminName +
+                    `</td>
             <td >  </td>
             <td >` + moment(element.lastVisit, "YYYY-M-D HH:mm:ss")
                         .locale("fa")
                         .format("D/M/YYYY HH:mm:ss") +
-                    `</td>
-            <td style="width:244px">` +
-                    element.Name +
                     `</td>
             <td >` +
                     element.platform +

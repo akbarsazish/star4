@@ -1940,7 +1940,7 @@ SELECT * FROM (
                     SELECT *from(
                     SELECT * FROM (
                         SELECT * FROM (
-                        SELECT * FROM (SELECT PSN,Name,peopeladdress,CompanyNo,GroupCode,IsActive FROM Shop.dbo.Peopels) a
+                        SELECT * FROM (SELECT PSN,PCode,Name,peopeladdress,CompanyNo,GroupCode,IsActive FROM Shop.dbo.Peopels) a
                         left JOIN   (
                         SELECT COUNT(SerialNoHDS) as countFactor,FactorHDS.CustomerSn FROM Shop.dbo.FactorHDS where FactType=3 GROUP BY    FactorHDS.CustomerSn) b ON a.PSN=b.CustomerSn)e
                         left JOIN   (SELECT customer_id,admin_id,name as adminName,lastName,returnState FROM CRM.dbo.crm_customer_added JOIN   CRM.dbo.crm_admin ON CRM.dbo.crm_customer_added.admin_id=crm_admin.id where returnState=0)f ON f.customer_id=e.PSN
@@ -1953,7 +1953,7 @@ SELECT * FROM (
         $cities=DB::table("Shop.dbo.MNM")->where("Rectype",1)->where("FatherMNM",79)->get();
 
 
-        $visitors=DB::select("SELECT * FROM (
+        $visitors=DB::select("SELECT *,CRM.dbo.getAdminName(PSN) as adminName FROM (
             SELECT CONVERT(date,lastVisit) as lastV,lastVisit,PSN,countLogin,Name,platform,browser,firstVisit,visitDate,countSameTime FROM(
             SELECT * FROM(
             SELECT * FROM(
@@ -2015,13 +2015,12 @@ SELECT * FROM (
                 $returnerAdmins=DB::select("SELECT * FROM CRM.dbo.crm_admin 
                                 JOIN(SELECT DISTINCT CRM.dbo.crm_returnCustomer.adminId
                             FROM CRM.dbo.crm_returnCustomer WHERE returnState=1)b ON CRM.dbo.crm_admin.id=b.adminId");
-$inActiverAdmins=DB::select("Select * FROM CRM.dbo.crm_admin WHERE  adminType !=4 and deleted=0");
+                $inActiverAdmins=DB::select("Select * FROM CRM.dbo.crm_admin WHERE  adminType !=4 and deleted=0");
 
         return view ("reports.listReport",['customers'=>$customers,'cities'=>$cities, 'amdins'=>$amdins, 
                      "admin.visitorReport",'visitors'=>$visitors, 'inActiveCustomers'=>$inActiveCustomers,'admins'=>$admins,
                      'evacuatedCustomers'=>$evacuatedCustomers,'evacuatedAdmins'=>$evacuatedAdmins,
-                     'referencialCustomers'=>$referencialCustomers, 'referencialAdmins'=>$referencialAdmins,'returners'=>$returnerAdmins,'inActiverAdmins'=>$inActiverAdmins
-                    ]);
+                     'referencialCustomers'=>$referencialCustomers, 'referencialAdmins'=>$referencialAdmins,'returners'=>$returnerAdmins,'inActiverAdmins'=>$inActiverAdmins]);
     }
 
 

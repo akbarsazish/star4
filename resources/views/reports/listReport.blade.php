@@ -233,7 +233,7 @@
                         <div class="col-sm-8 text-end">
                             <div class="row">
                                 <div class="form-group col-sm-2 mt-2 px-1">
-                                    <input type="text" name="" placeholder="جستجو" class="form-control form-control-sm " id="searchAllName">
+                                    <input type="text" name="" placeholder="کد یا اسم مشتری" class="form-control form-control-sm " id="searchAllName">
                                 </div>
                                 <div class="form-group col-sm-2 mt-2 px-1">
                                     <select class="form-select form-select-sm " id="searchByCity">
@@ -318,6 +318,7 @@
                                 <tr>
                                     <th>ردیف</th>
                                     <th style="width:333px">اسم</th>
+                                    <th style="width:333px">کد</th>
                                     <th style="width:177px">همراه</th>
                                     <th>تاریخ فاکتور</th>
                                     <th>کاربر</th>
@@ -331,6 +332,7 @@
                                     <tr onclick="setAmalkardStuff(this,{{$customer->PSN}})">
                                         <td >{{$loop->iteration}}</td>
                                         <td style="width:333px">{{trim($customer->Name)}}</td>
+                                        <td style="width:333px">{{trim($customer->PCode)}}</td>
                                         <td style="width:177px">{{trim($customer->PhoneStr)}}</td>
                                         <td >{{trim($customer->LastDate)}}</td>
                                         <td >{{trim($customer->adminName).' '.trim($customer->lastName)}}</td>
@@ -358,9 +360,9 @@
                                     <thead class="tableHeader">
                                         <tr>
                                             <th> ردیف</th>
+                                            <th style="width:244px"> نام مشتری</th>
                                             <th> کاربر مربوطه </th>
                                             <th>آخرین ورود</th>
-                                            <th style="width:244px"> نام مشتری</th>
                                             <th>سیستم </th>
                                             <th>مرورگر</th>
                                             <th style="width:77px">تعداد ورود </th>
@@ -371,9 +373,9 @@
                                         @foreach($visitors as $visitor)
                                         <tr onclick="setAmalkardStuff({{$customer->PSN}})">
                                             <td >{{$loop->iteration}}</td>
-                                            <td > </td>
-                                            <td >{{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($visitor->lastVisit))->format("Y/m/d H:i:s")}}</td>
                                             <td style="width:244px">{{$visitor->Name}}</td>
+                                            <td >{{$visitor->adminName}}</td>
+                                            <td >{{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($visitor->lastVisit))->format("Y/m/d H:i:s")}}</td>
                                             <td >{{$visitor->platform}}</td>
                                             <td >{{$visitor->browser}}</td>
                                             <td  style="width:77px">{{$visitor->countLogin}}</td>
@@ -414,6 +416,7 @@
                                 <tr>
                                     <th>ردیف</th>
                                     <th>اسم</th>
+                                    <th>کد</th>
                                     <th style="width:99px"> همراه</th>
                                     <th style="width:133px">ت-غیرفعال</th>
                                     <th style="width:133px">ک-غیرفعال</th>
@@ -427,6 +430,7 @@
                                 <tr onclick="setInActiveCustomerStuff(this,{{$customer->PSN}})">
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{trim($customer->CustomerName)}}</td>
+                                    <td>{{$customer->PCode}}</td>
                                     <td  style="width:99px">{{trim($customer->PhoneStr)}}</td>
                                     <td style="width:133px">{{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($customer->TimeStamp))->format('Y/m/d H:i:s')}}</td>
                                     <td style="width:133px">{{trim($customer->name).' '.trim($customer->lastName)}}</td>

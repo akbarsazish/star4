@@ -154,7 +154,7 @@ Route::get("/searchByReturner",[Customer::class,"searchByReturner"])->middleware
 Route::get("/searchEmptyByName",[Customer::class,"searchEmptyByName"])->middleware('checkUser');
 Route::get("/searchEmptyByPCode",[Customer::class,"searchEmptyByPCode"])->middleware('checkUser');
 Route::get("/searchEmptyByDate",[Customer::class,"searchEmptyByDate"])->middleware('checkUser');
-Route::get("/searchAllCustomerByName",[Customer::class,"searchAllCustomerByName"])->middleware('checkUser');
+Route::get("/searchAllCustomerByName",[Customer::class,"searchAllCustomerByName"])->middleware('CheckCommon');
 Route::get("/searchAllCustomerByPCode",[Customer::class,"searchAllCustomerByPCode"])->middleware('checkUser');
 Route::get("/searchAllCustomerByAdmin",[Customer::class,"searchAllCustomerByAdmin"])->middleware('checkUser');
 Route::get("/searchAllCustomerActiveOrNot",[Customer::class,"searchAllCustomerActiveOrNot"])->middleware('checkUser');
