@@ -7123,6 +7123,9 @@ span.content {
 
 }
 
+
+
+
 .newCustomerContent {
     height: 600px !important;
     display: grid !important;
@@ -7208,4 +7211,15 @@ span.content {
     margin: 5px;
     padding: 5px;
     border: 1px solid #fff;
+}
+
+
+/* style for larger screen */
+@media (min-width: 1710px) {
+    .tableBody {
+        height: 666px !important;
+        overflow-y: scroll !important;
+        display: block !important;
+
+    }
 }

@@ -23,6 +23,8 @@ class Admin extends Controller
         $adminList=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where('deleted',0)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType","crm_admin.discription")->orderby("admintype")->get();
         return View('admin.assignCustomer',['admins'=>$admins,'regions'=>$regions,'cities'=>$cities,'adminList'=>$adminList]);
     }
+    
+
 
     public function editAssignCustomer(Request $request) {
         $adminId=$request->get("adminId");
@@ -5848,12 +5850,25 @@ public function amalKardKarbarn(Request $request){
     public function getEmployies(Request $request)
     {
         $employeeType=$request->get("employeeType");
+        if($employeeType=="all"){
+             $admins=DB::select("SELECT * FROM CRM.dbo.crm_admin
+                    LEFT JOIN (SELECT MIN(addedTime) takhsisDate,admin_id,COUNT(customer_id) AS countCustomer  FROM CRM.dbo.crm_customer_added
+                    JOIN CRM.dbo.crm_admin ON crm_admin.id=crm_customer_added.admin_id WHERE returnState=0 group by admin_id)a on a.admin_id=crm_admin.id
+                    WHERE deleted =0");
+        
+        return Response::json($admins);
+
+        }else{
         $admins=DB::select("SELECT * FROM CRM.dbo.crm_admin
-                            LEFT JOIN (SELECT MIN(addedTime) takhsisDate,admin_id,COUNT(customer_id) AS countCustomer  FROM CRM.dbo.crm_customer_added
-                            JOIN CRM.dbo.crm_admin ON crm_admin.id=crm_customer_added.admin_id WHERE returnState=0 group by admin_id)a on a.admin_id=crm_admin.id
-                            WHERE employeeType=$employeeType AND deleted =0");
+                    LEFT JOIN (SELECT MIN(addedTime) takhsisDate,admin_id,COUNT(customer_id) AS countCustomer  FROM CRM.dbo.crm_customer_added
+                    JOIN CRM.dbo.crm_admin ON crm_admin.id=crm_customer_added.admin_id WHERE returnState=0 group by admin_id)a on a.admin_id=crm_admin.id
+                    WHERE employeeType=$employeeType AND deleted =0");
+        
         return Response::json($admins);
     }
+    }
+
+
     public function EditAdminComment(Request $request)
     {
         $adminId=$request->get("adminId");
@@ -5861,6 +5876,9 @@ public function amalKardKarbarn(Request $request){
         DB::table("CRM.dbo.crm_admin")->where("id",$adminId)->update(['discription'=>"$comment"]);
         return Response::json('good');
     }
+
+
+
     public function getCustomerAndAdminInfo(Request $request)
     {
         $csn=$request->get("csn");

@@ -730,8 +730,7 @@ class SalseExper extends Controller
 
         return Response::json($targets); 
     }
-	public function bonusSetting(Request $request)
-    {
+	public function bonusSetting(Request $request){
         $admins=DB::table("CRM.dbo.crm_admin")->where('adminType',3)->get();
         $targets=DB::table("CRM.dbo.crm_targets")->get();
         $generalTargets=DB::table("CRM.dbo.crm_generalTargets")->get();
