@@ -181,124 +181,78 @@
     
 
 {{-- dashbor modal --}}
-<div class="modal fade dragableModal" id="customerDashboard"  data-backdrop="static"  aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable  modal-dialog-scrollable modal-xl">
-        <div class="modal-content"  style="background-color:#d2e9ff;">
-            <div class="modal-header py-2 text-white">
-                <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close" style="background-color: red;"></button>
-                <h5 class="modal-title">نظر سنجی  </h5>
+<div class="modal fade notScroll" id="customerDashboard" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header py-2">
+                <button type="button" class="btn-close btn-danger" style="background-color:red;" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="exampleModalLabel"> داشبورد </h5>
             </div>
-            <div class="modal-body py-1">
-				   <div class="row">
-                                <div class="col-lg-8 col-md-8 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-lg-2 col-md-2 col-sm-2">
-											<div class="input-group input-group-sm mb-2">
-											  <span class="input-group-text" id="inputGroup-sizing-sm">کد</span>
-											  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="customerCode" value="" disabled>
-											</div>
-                                        </div>
-                                        <div class="col-lg-7 col-md-7 col-sm-7">
-											<div class="input-group input-group-sm mb-2">
-											  <span class="input-group-text" id="inputGroup-sizing-sm">نام و نام خانوادگی </span>
-											  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="customerName" disabled>
-											</div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-3 col-sm-3">
-											<div class="input-group input-group-sm mb-2">
-											  <span class="input-group-text" id="inputGroup-sizing-sm"> تعداد فاکتور </span>
-											  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="countFactor" disabled>
-											</div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-										 <div class="col-lg-4 col-md-4 col-sm-4">
-											<div class="input-group input-group-sm mb-2">
-												 <span class="input-group-text" id="inputGroup-sizing-sm">تلفن ثابت </span>
-											  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
-										</div>
-									 </div>
-										
-                                        <div class="col-lg-4 col-md-4 col-sm-4">
-											<div class="input-group input-group-sm mb-2">
-											  <span class="input-group-text" id="inputGroup-sizing-sm"> تلفن همراه 1 </span>
-											  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="mobile1" disabled>
-											</div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-4">
-											<div class="input-group input-group-sm mb-2">
-											  <span class="input-group-text" id="inputGroup-sizing-sm"> تلفن همراه 2 </span>
-											  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
-											</div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-										<div class="input-group input-group-sm mb-2">
-										  <span class="input-group-text" id="inputGroup-sizing-sm"> آدرس  </span>
-										  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="customerAddress" disabled>
-										</div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                    <div style="width:300px;">
-                                        <label for="exampleFormControlTextarea1" class="form-label fw-bold">یاداشت  </label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" ></textarea>
-                                    </div>
-                                </div>
-                            </div> <hr>
-              
+            <div class="modal-body">
+                <div class="row">
+                     <div class="col-lg-8 col-md-8 col-sm-8">
+                            <div class="flex-container">
+                                <div style="flex-grow: 1"> کد:  <span id="customerCode"></span> </div>
+                                <div style="flex-grow: 1">  نام و نام خانوادگی : <span id="customerName"> </span>  </div>
+                                <div style="flex-grow: 1"> تعداد فاکتور : <span id="countFactor"> </span>  </div>
+                                <div style="flex-grow: 1"> شماره های تماس :  <span id="mobile1"> </span>  </div>
+                            </div>
+                            <div class="flex-container">
+                                <div style="flex-grow: 1">  نام کاربری: <span id="username"> </span>  </div>
+                                <div style="flex-grow: 1"> رمز کاربری:   <span  id="password"> </span>  </div>
+                                <div style="flex-grow: 2"> ادرس :   <span id="customerAddress"> </span>  </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <span class="fw-bold fs-4"  id="dashboardTitle" style="display:none;"></span>
+                               <button class="btn openAddCommentModal btn-sm btn-primary d-inline"  type="button" value="" name="" style="float:left; display:inline;" > کامنت <i class="fas fa-comment fa-lg"> </i> </button>
+                                <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get" style="display:inine !important;">
+                                    <input type="text" class="customerSnLogin" style="display:none" name="psn" />
+                                    <button class="btn btn-sm btn-primary d-inline" type="submit" style="float:left;"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </button>
+                                    <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
+                                </form>
+                            <div class="mb-2"> <br> <br>
+                                <label for="exampleFormControlTextarea1" class="form-label mb-0">یاداشت</label>
+                                <textarea class="form-control" id="customerProperty" onblur="saveCustomerCommentProperty(this)" rows="2"></textarea>
+                            </div>
+                        </div>
+                  </div>
+
+
                 <div class="c-checkout container" style="background-color:#c5c5c5; padding:0.5% !important; border-radius:10px 10px 2px 2px;">
                     <div class="col-sm-12" style="margin: 0; padding:0;">
                         <ul class="header-list nav nav-tabs" data-tabs="tabs" style="margin: 0; padding:0;">
                             <li><a class="active" data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#custAddress"> فاکتور های ارسال شده </a></li>
-                            <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#moRagiInfo">  کالاهای خریداری کرده </a></li>
-                            <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#basketKalas"> کالاهای سبد خرید</a></li>
+                            <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#moRagiInfo">  کالاهای خریداری شده </a></li>
+                            <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#userLoginInfo1"> کالاهای سبد خرید</a></li>
                             <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#customerLoginInfo">ورود به سیستم</a></li>
-                            <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#returnedFactors"> فاکتور های برگشت داده </a></li>
-                            <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#comments">  کامنت ها </a></li>
+                            <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#returnedFactors1"> فاکتور های برگشت داده </a></li>
+                            <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#comments"> کامنت ها </a></li>
                             <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#assesments"> نظرسنجی ها</a></li>
                         </ul>
                     </div>
-                    <div class="c-checkout tab-content talbeDashboardTop">
-                            <div class="row c-checkout rounded-3 tab-pane active tableDashboardMiddle" id="custAddress">
-                                    <table class="table table-bordered table-striped table-sm">
-                                        <thead class="tableHeader">
-                                        <tr>
-                                            <th> ردیف</th>
-                                            <th>تاریخ</th>
-                                            <th> نام راننده</th>
-                                            <th>مبلغ </th>
-                                            <th>مشاهده</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody  id="factorTable" class="tableBody">
-                                        </tbody>
-                                    </table>
-                            </div>
-                        <div class="row c-checkout rounded-3 tab-pane talbeDashboardTop" id="moRagiInfo">
-                            <div class="row tableDashboardMiddle" id="custAddress">
-                                    <table class="table table-bordered table-striped table-sm">
-                                        <thead class="tableHeader">
-                                        <tr>
-                                            <th> ردیف</th>
-                                            <th>تاریخ</th>
-                                            <th> نام کالا</th>
-                                            <th> </th>
-                                            <th> </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody id="goodDetail" class="tableBody">
-
-                                        </tbody>
-                                    </table>
+                    <div class="c-checkout tab-content"   style="background-color:#f5f5f5; margin:0;padding:0.3%; border-radius:10px 10px 2px 2px;">
+                        <div class="row c-checkout rounded-3 tab-pane active" id="custAddress"  style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered table-striped table-sm">
+                                    <thead class="tableHeader">
+                                    <tr>
+                                        <th> ردیف</th>
+                                        <th>تاریخ</th>
+                                        <th> نام راننده</th>
+                                        <th>مبلغ </th>
+                                        <th style="width:88px; !important;"> جزئیات </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="tableBody" id="factorTable">
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-
-                        <div class="row c-checkout rounded-3 tab-pane talbeDashboardTop" id="basketKalas">
-                            <div class="row c-checkout rounded-3 tab-pane tableDashboardMiddle" id="custAddress">
-                                    <table class="table table-bordered table-striped table-sm">
+                        <div class="row c-checkout rounded-3 tab-pane" id="moRagiInfo" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
+                            <div class="row c-checkout rounded-3 tab-pane" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered table-striped table-sm" style="text-align:center;">
                                         <thead class="tableHeader">
                                         <tr>
                                             <th> ردیف</th>
@@ -308,78 +262,107 @@
                                             <th></th>
                                         </tr>
                                         </thead>
-                                        <tbody id="basketOrders" class="tableBody">
-                                        <tr>
-                                            <td> 1 </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        </tbody>
+                                        <tbody class="tableBody" id="goodDetail"> </tbody>
                                     </table>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="c-checkout tab-pane talbeDashboardTop" id="returnedFactors" >
-                            <div class="row c-checkout rounded-3 tab-pane tableDashboardMiddle" id="custAddress">
-                                    <table class="table table-bordered table-striped table-sm">
+                        <div class="row c-checkout rounded-3 tab-pane" id="userLoginInfo1" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
+                            <div class="row c-checkout rounded-3 tab-pane" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered table-striped table-sm" style="text-align:center;">
                                         <thead class="tableHeader">
                                         <tr>
                                             <th> ردیف</th>
                                             <th>تاریخ</th>
-                                            <th> نام راننده</th>
-                                            <th>مبلغ </th>
-                                            <th></th>
+                                            <th> نام کالا</th>
+                                            <th>تعداد </th>
+                                            <th>فی</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="returnedFactorsBody" class="tableBody">
+                                        <tbody class="tableBody" id="basketOrders">
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                         </tbody>
                                     </table>
+                                </div>
                             </div>
                         </div>
-                                
+
                         <div class="row c-checkout rounded-3 tab-pane" id="customerLoginInfo" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                             <div class="row c-checkout rounded-3 tab-pane" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
+                                <div class="col-sm-12">
                                     <table class="table table-bordered table-striped table-sm" style="text-align:center;">
                                         <thead class="tableHeader">
                                         <tr>
                                             <th> ردیف</th>
                                             <th>تاریخ</th>
                                             <th>نوع پلتفورم</th>
-                                            <th>مرورگر</th>
+                                            <th style="width:111px !important;">مرورگر</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="customerLoginInfoBody" class="tableBody">
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        <tbody class="tableBody" id="customerLoginInfoBody">
+                                    
                                         </tbody>
                                     </table>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="c-checkout tab-pane talbeDashboardTop" id="comments">
-                            <div class="row c-checkout rounded-3 tab-pane tableDashboardMiddle" id="custAddress">
-                                    <table class="table table-bordered table-striped table-sm">
+                        <div class="row c-checkout rounded-3 tab-pane" id="returnedFactors1"  style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
+                        <div class="row c-checkout rounded-3 tab-pane" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered table-striped table-sm" style="text-align:center;">
                                         <thead class="tableHeader">
                                         <tr>
-                                            <th>ردیف</th>
+                                            <th> ردیف</th>
                                             <th>تاریخ</th>
-                                            <th>کامنت</th>
-                                            <th>کامنت بعدی</th>
-                                            <th>تاریخ بعدی </th>
+                                            <th> نام راننده</th>
+                                            <th>مبلغ </th>
                                         </tr>
                                         </thead>
-                                        <tbody id="customerComments" class="tableBody">
+                                        <tbody class="tableBody" id="returnedFactorsBody">
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="c-checkout tab-pane" id="comments" style="margin:0; border-radius:10px 10px 2px 2px;">
+                            <div class="row c-checkout rounded-3 tab-pane active"  style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered table-striped table-sm" style="text-align:center;">
+                                        <thead class="tableHeader">
+                                        <tr>
+                                            <th> ردیف</th>
+                                            <th>تاریخ</th>
+                                            <th> کامنت</th>
+                                            <th> کامنت بعدی</th>
+                                            <th style="width:111px !important;"> تاریخ بعدی </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="tableBody" id="customerComments"  >
+
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="c-checkout tab-pane" id="assesments" style="margin:0; border-radius:10px 10px 2px 2px;">
                             <div class="row c-checkout rounded-3 tab-pane active" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
+                                <div class="col-sm-12">
                                     <table class="table table-bordered table-striped table-sm" style="text-align:center;">
                                         <thead class="tableHeader">
                                         <tr>
@@ -388,12 +371,13 @@
                                             <th> کامنت</th>
                                             <th> برخورد راننده</th>
                                             <th> مشکل در بارگیری</th>
-                                            <th> کالاهای برگشتی</th>
+                                            <th style="width:110px;"> کالاهای برگشتی</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="customerAssesments" class="tableBody">
+                                        <tbody class="tableBody" id="customerAssesments"  >
                                         </tbody>
                                     </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -401,23 +385,6 @@
             </div>
         </div>
     </div>
-            <!-- Modal for reading comments-->
-        <div class="modal fade dragableModal" id="viewComment" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable  modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header py-2 text-white">
-                        <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
-                        <h5 class="modal-title" id="exampleModalLabel">کامنت ها</h5>
-                    </div>
-                    <div class="modal-body" >
-                        <h3 id="readCustomerComment1"></h3>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 </div>
 
 
